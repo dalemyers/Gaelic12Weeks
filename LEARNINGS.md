@@ -3,3 +3,5 @@
 - Audio-session activation/category changes must run off MainActor; serialized transitions and request revisions prevent a delayed activation from restarting stopped audio.
 - Attach the persistent mini-player inset to NavigationStack itself, not its root content, so pushed lesson and section screens retain the controls.
 - Section completion is derived from all mapped recording IDs (main plus subsections), not only imported children; section rows must observe and display that aggregate.
+- DEBUG mapping review reuses the single audio player with listened callbacks suppressed; corrections live in MappingReview.json and only exported TrackMapping.json updates the bundled hierarchy.
+- Attach the review sheet's player inset directly to its Form so the final export/reset rows scroll above the player.

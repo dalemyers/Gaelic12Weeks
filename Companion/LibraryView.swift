@@ -7,6 +7,9 @@ struct LibraryView: View {
     @State private var showingInstructions = false
     @State private var confirmingReplacement = false
     @State private var confirmingProgressReset = false
+#if DEBUG
+    @State private var showingMappingReview = false
+#endif
 
     var body: some View {
         NavigationStack {
@@ -65,6 +68,18 @@ struct LibraryView: View {
                 ScrollView {
                     VStack(alignment: .leading, spacing: 24) {
                         instructions
+#if DEBUG
+                        Button("Review audio mapping (DEBUG)", systemImage: "checklist") {
+                            do {
+                                try library.beginMappingReview()
+                                showingMappingReview = true
+                            } catch {
+                                library.errorMessage = error.localizedDescription
+                            }
+                        }
+                        .disabled(library.mapping == nil || library.isLoading || library.isImporting)
+                        .accessibilityIdentifier("reviewMapping")
+#endif
                         Text("A lesson is marked listened after every mapped recording finishes. "
                              + "Use the lesson menu or swipe a row to mark it manually. "
                              + "Replacing the ZIP keeps your progress.")
@@ -85,6 +100,13 @@ struct LibraryView: View {
             .safeAreaInset(edge: .bottom, spacing: 0) {
                 PlaybackView(player: library.player)
             }
+#if DEBUG
+            .sheet(isPresented: $showingMappingReview, onDismiss: library.endMappingReview) {
+                if let mapping = library.mapping {
+                    MappingReviewView(mapping: mapping, library: library)
+                }
+            }
+#endif
         }
         .alert("Unable to complete action", isPresented: Binding(
             get: { library.errorMessage != nil || library.player.errorMessage != nil },
@@ -290,7 +312,7 @@ private struct TrackRow: View {
     }
 }
 
-private struct PlaybackView: View {
+struct PlaybackView: View {
     @Bindable var player: AudioPlayer
 
     var body: some View {

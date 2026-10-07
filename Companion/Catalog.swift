@@ -66,7 +66,7 @@ struct TrackMapping: Codable, Sendable {
     }
 }
 
-struct MappedTrack: Codable, Identifiable, Sendable {
+struct MappedTrack: Codable, Identifiable, Sendable, Equatable {
     enum Group: String, Codable, Sendable {
         case lesson
         case appendices

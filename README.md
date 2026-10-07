@@ -101,6 +101,59 @@ Keep `schemaVersion` at 1. Invalid mappings fail visibly instead of dropping tra
 If new recordings are supported, add their IDs to this file first. Importing an
 unmapped numeric ID is an error, not a silent omission.
 
+## Confirm and correct mappings in DEBUG
+
+Run the **Debug** configuration, import your audio, and open **About & download →
+Review audio mapping (DEBUG)**. This tool is compiled out of Release builds.
+
+The reviewer shows the track ID, imported filename, original MP3 Title, bundled
+assignment, and editable **group, lesson, section, subsection, title and note**.
+Use **Play this recording** and the bottom player's pause/seek/5-second controls
+to check the recording against the book. Review listening never marks a recording,
+section or lesson listened. Entering and leaving review stops the previous audio.
+
+- **Confirm & next** saves corrections, clears `needsReview`, and advances to the
+  next track in the current filter. At the end it stays on the confirmed track.
+- **Save correction for review** saves edits without confirming them and sets
+  `needsReview` to `true`.
+- **Mark incorrect** saves the current corrections/note, records an incorrect
+  decision, and keeps `needsReview` set.
+- **Show** filters all, unconfirmed, incorrect or confirmed tracks. **Choose track**
+  jumps to a particular recording; Previous/Next follow numeric filename IDs.
+  Unimported recordings can be edited but cannot be played.
+
+Blank section/subsection fields are supported for conversations and main tracks.
+Bonus groups clear lesson/section/subsection fields on save. Invalid values fail
+visibly without replacing your previous saved decision. Leaving an unsaved editor
+requires confirmation; export is disabled until edits are saved or confirmed.
+
+Decisions and corrections persist in a separate `MappingReview.json` in Application
+Support. They are a **review draft**, not a live replacement of the normal library's
+mapping. Existing `needsReview: false` source rows still start *unreviewed* in this
+tool; untouched rows preserve their original flags when exported.
+
+Choose **Export corrected TrackMapping.json** to save the complete, validated
+150-track mapping through Files. Replace `Companion/Resources/TrackMapping.json`
+with that exported file, inspect its diff, and rebuild. No audio reimport is needed.
+Only metadata is exported, never audio. **Export saved review backup** additionally
+preserves decisions, original rows and notes; it is not a replacement for the
+bundled mapping. The corrected mapping intentionally contains no review-only fields.
+
+If a bundled row changes after you saved a draft, the tool refuses to overwrite it
+with a stale correction. Export a backup, then explicitly **Reset review draft**
+to restart against the new source. Applying this tool's own exported correction
+is recognized and does not invalidate its matching saved decision. Reset affects
+only review edits, not imported audio or listened progress.
+
+Run `GaelicCompanionUITests/MappingReviewUITests` only on a dedicated test simulator:
+it resets that simulator's review draft, edits sample assignments, and saves a
+uniquely named JSON export in Files. It verifies persistence, unsaved-change
+protection, confirmation, and export without changing the bundled mapping.
+The opt-in `testResetWriteFailureWhenBlockedFixtureIsPresent` additionally needs
+`Library/Application Support/MappingReview.json` to be a directory in that test
+app's container. Run it separately: it checks that both load and reset errors
+remain visible. Remove that blocking fixture before running the normal review test.
+
 ## Storage and validation
 
 - Audio is held in the app's private Application Support directory and excluded

@@ -21,17 +21,24 @@ final class LibraryModel {
     @ObservationIgnored private let root: URL
     @ObservationIgnored private let repository: LibraryRepository
     @ObservationIgnored private var importTask: Task<Void, Never>?
+#if DEBUG
+    private(set) var isReviewingMapping = false
+    let mappingReviewURL: URL
+#endif
 
     var importedCount: Int { saved?.manifest.tracks.count ?? 0 }
     var expectedCount: Int { mapping?.tracks.count ?? 0 }
     var hasProvisionalMapping: Bool { groups.flatMap(\.tracks).contains { $0.mapping.needsReview } }
 
     /// Stores user-imported recordings privately; no audio is included in the application bundle.
-    init() {
-        root = URL.applicationSupportDirectory.appendingPathComponent("ImportedLibrary", isDirectory: true)
+    init(applicationSupportURL: URL = .applicationSupportDirectory) {
+        root = applicationSupportURL.appendingPathComponent("ImportedLibrary", isDirectory: true)
         repository = LibraryRepository(root: root)
-        progress = ListeningProgress(url: URL.applicationSupportDirectory.appendingPathComponent("ListeningProgress.json"))
-        player.onTrackFinished = { [weak self] id in self?.setListened(true, ids: [id]) }
+        progress = ListeningProgress(url: applicationSupportURL.appendingPathComponent("ListeningProgress.json"))
+#if DEBUG
+        mappingReviewURL = applicationSupportURL.appendingPathComponent("MappingReview.json")
+#endif
+        player.onTrackFinished = { [weak self] id in self?.recordPlaybackCompletion(id) }
     }
 
     /// Loads the editable catalog and previous import, surfacing corruption without hiding the import controls.
@@ -56,6 +63,9 @@ final class LibraryModel {
 
     /// Starts one cancellable import and publishes the new library only after the repository commits it.
     func importZIP(_ url: URL) {
+#if DEBUG
+        guard !isReviewingMapping else { return }
+#endif
         guard !isImporting, let mapping else { return }
         isImporting = true
         completed = 0
@@ -93,9 +103,47 @@ final class LibraryModel {
         let url = root.appendingPathComponent(saved.directory).appendingPathComponent(track.imported.filename)
         Task {
             guard self.saved?.directory == saved.directory else { return }
+#if DEBUG
+            guard !self.isReviewingMapping else { return }
+#endif
             await player.play(track, at: url)
         }
     }
+
+    /// Review listening is intentionally not learning progress.
+    private func recordPlaybackCompletion(_ id: Int) {
+#if DEBUG
+        guard !isReviewingMapping else { return }
+#endif
+        setListened(true, ids: [id])
+    }
+
+#if DEBUG
+    /// Reuses the single shared player without allowing ordinary completion callbacks to mark review audio listened.
+    func beginMappingReview() throws {
+        guard !isImporting, mapping != nil else {
+            throw MappingReviewError.invalid("Wait for the library to finish loading or importing.")
+        }
+        player.stop()
+        isReviewingMapping = true
+    }
+
+    /// Invalidates pending playback before re-enabling normal listened-state updates.
+    func endMappingReview() {
+        player.stop()
+        isReviewingMapping = false
+    }
+
+    /// Auditions an edited row using the original imported recording; no review audio is bundled or downloaded.
+    func playForMappingReview(_ track: MappedTrack) async throws {
+        guard isReviewingMapping, let saved,
+              let imported = saved.manifest.tracks.first(where: { $0.id == track.id }) else {
+            throw MappingReviewError.invalid("Import the audio for this track before playing it.")
+        }
+        let url = root.appendingPathComponent(saved.directory).appendingPathComponent(imported.filename)
+        await player.play(LibraryTrack(mapping: track, imported: imported), at: url)
+    }
+#endif
 
     /// Uses the full mapped group or section, not just imported tracks, when calculating completion.
     func trackIDs(for group: LibraryGroup, section: Int? = nil) -> Set<Int> {
