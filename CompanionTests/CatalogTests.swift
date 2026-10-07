@@ -23,11 +23,13 @@ final class CatalogTests: XCTestCase {
         XCTAssertEqual(mapping.tracks.filter { $0.lesson == 1 }.map(\.id), Array(2...14))
         XCTAssertTrue(mapping.tracks.filter { $0.lesson == 1 }.allSatisfy { !$0.needsReview })
         XCTAssertEqual(byID[14]?.title, "Conversation 1")
+        XCTAssertEqual(mapping.tracks.filter { $0.lesson == 2 }.map(\.id), Array(15...25))
+        XCTAssertTrue(mapping.tracks.filter { $0.lesson == 2 }.allSatisfy { !$0.needsReview })
         XCTAssertEqual(byID[99]?.section, 67)
         XCTAssertEqual(byID[99]?.subsection, "a")
         XCTAssertEqual(byID[145]?.group, .appendices)
         XCTAssertEqual(byID[148]?.group, .readingPractice)
-        XCTAssertTrue(try XCTUnwrap(byID[15]).needsReview)
+        XCTAssertTrue(try XCTUnwrap(byID[26]).needsReview)
     }
 
     /// Explicit subsection gaps produce a section even when there is no recorded parent track.
