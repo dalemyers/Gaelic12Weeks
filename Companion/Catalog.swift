@@ -18,6 +18,15 @@ struct TrackMapping: Codable, Sendable {
     let schemaVersion: Int
     let tracks: [MappedTrack]
 
+    /// Resolves all mapped recordings in a group or numbered section, including audio not yet imported.
+    func trackIDs(for group: LibraryGroup, section: Int? = nil) -> Set<Int> {
+        guard let first = group.tracks.first else { return [] }
+        return Set(tracks.filter {
+            $0.group == first.mapping.group && $0.lesson == first.mapping.lesson
+                && (section == nil || $0.section == section)
+        }.map(\.id))
+    }
+
     /// Loads and validates the editable mapping bundled with the app.
     static func load(bundle: Bundle = .main) throws -> TrackMapping {
         guard let url = bundle.url(forResource: "TrackMapping", withExtension: "json") else {

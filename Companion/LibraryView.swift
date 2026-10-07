@@ -210,19 +210,29 @@ private struct GroupView: View {
                         if group.id.hasPrefix("lesson-") { Text(section.title) }
                     }
                 } else {
+                    let listened = library.progress.isListened(library.trackIDs(for: group, section: section.number))
                     NavigationLink {
                         List(section.tracks) { TrackRow(track: $0, library: library) }
                             .navigationTitle(section.title)
                     } label: {
-                        VStack(alignment: .leading, spacing: 4) {
-                            Text(section.title).font(.headline)
-                            if let main = section.tracks.first(where: { $0.mapping.subsection == nil }) {
-                                Text(main.mapping.title).foregroundStyle(.secondary)
-                            } else {
-                                Text("\(section.tracks.count) subsection recordings").foregroundStyle(.secondary)
+                        HStack {
+                            VStack(alignment: .leading, spacing: 4) {
+                                Text(section.title).font(.headline)
+                                if let main = section.tracks.first(where: { $0.mapping.subsection == nil }) {
+                                    Text(main.mapping.title).foregroundStyle(.secondary)
+                                } else {
+                                    Text("\(section.tracks.count) subsection recordings").foregroundStyle(.secondary)
+                                }
+                            }
+                            Spacer()
+                            if listened {
+                                Image(systemName: "checkmark.circle.fill")
+                                    .foregroundStyle(.teal).accessibilityHidden(true)
                             }
                         }
-                    }.accessibilityIdentifier(section.id)
+                    }
+                    .accessibilityIdentifier(section.id)
+                    .accessibilityValue(listened ? "Listened" : "Unlistened")
                 }
             }
         }

@@ -1,0 +1,23 @@
+{
+  "directory": "84EF3E94-3346-4516-8BB4-5702C7D7F6B5",
+  "manifest": {
+    "schemaVersion": 1,
+    "tracks": [
+      {
+        "id": 6,
+        "filename": "1_006.mp3",
+        "metadataTitle": "Synthetic section main recording"
+      },
+      {
+        "id": 7,
+        "filename": "1_007.mp3",
+        "metadataTitle": "Synthetic subsection a"
+      },
+      {
+        "id": 8,
+        "filename": "1_008.mp3",
+        "metadataTitle": "Synthetic subsection b"
+      }
+    ]
+  }
+}

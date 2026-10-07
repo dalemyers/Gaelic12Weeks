@@ -97,12 +97,9 @@ final class LibraryModel {
         }
     }
 
-    /// Uses the full mapped lesson, not just imported tracks, when calculating completion.
-    func trackIDs(for group: LibraryGroup) -> Set<Int> {
-        guard let mapping, let first = group.tracks.first else { return [] }
-        return Set(mapping.tracks.filter {
-            $0.group == first.mapping.group && $0.lesson == first.mapping.lesson
-        }.map(\.id))
+    /// Uses the full mapped group or section, not just imported tracks, when calculating completion.
+    func trackIDs(for group: LibraryGroup, section: Int? = nil) -> Set<Int> {
+        mapping?.trackIDs(for: group, section: section) ?? []
     }
 
     /// Persists listened/unlistened state for both manual toggles and successful playback completion.

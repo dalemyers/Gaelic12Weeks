@@ -68,4 +68,59 @@ final class ListeningProgressTests: XCTestCase {
         XCTAssertThrowsError(try progress.setListened(true, ids: [2]))
         XCTAssertTrue(progress.listenedIDs.isEmpty)
     }
+
+    /// Section status includes its main recording and subsections, survives reload and clears on child changes.
+    func testSectionCompletionAndReopening() throws {
+        let directory = FileManager.default.temporaryDirectory.appendingPathComponent(UUID().uuidString)
+        defer { try? FileManager.default.removeItem(at: directory) }
+        let url = directory.appendingPathComponent("progress.json")
+        let progress = ListeningProgress(url: url)
+        try progress.load()
+        let mapping = try TrackMapping.load()
+        let group = try XCTUnwrap(Catalog.groups(mapping: mapping, imported: [6, 7, 8, 9].map {
+            ImportedTrack(id: $0, filename: "1_00\($0).mp3", metadataTitle: "Title")
+        }).first)
+        let ids = mapping.trackIDs(for: group, section: 4)
+        XCTAssertEqual(ids, [6, 7, 8])
+        XCTAssertFalse(progress.isListened(ids))
+        try progress.setListened(true, ids: [7, 8])
+        XCTAssertFalse(progress.isListened(ids), "The main recording is also required.")
+        try progress.setListened(true, ids: [6])
+        XCTAssertTrue(progress.isListened(ids))
+        XCTAssertFalse(progress.isListened(mapping.trackIDs(for: group, section: 5)))
+        XCTAssertFalse(progress.isListened(mapping.trackIDs(for: group)), "One section does not complete its lesson.")
+        let reloaded = ListeningProgress(url: url)
+        try reloaded.load()
+        XCTAssertTrue(reloaded.isListened(ids))
+        try reloaded.setListened(false, ids: [8])
+        XCTAssertFalse(reloaded.isListened(ids))
+        try reloaded.setListened(true, ids: [8])
+        XCTAssertTrue(reloaded.isListened(ids))
+    }
+
+    /// Missing imported children still count, while subsection-only sections need no phantom main track.
+    func testSectionCompletionUsesMappingRatherThanImportedSubset() throws {
+        let directory = FileManager.default.temporaryDirectory.appendingPathComponent(UUID().uuidString)
+        defer { try? FileManager.default.removeItem(at: directory) }
+        let progress = ListeningProgress(url: directory.appendingPathComponent("progress.json"))
+        try progress.load()
+        let mapping = try TrackMapping.load()
+        let groups = try Catalog.groups(mapping: mapping, imported: [7, 99].map {
+            ImportedTrack(id: $0, filename: "1_\(String(format: "%03d", $0)).mp3", metadataTitle: "Title")
+        })
+        let partialLesson = try XCTUnwrap(groups.first(where: { $0.id == "lesson-1" }))
+        let subsectionOnlyLesson = try XCTUnwrap(groups.first(where: { $0.tracks.contains { $0.id == 99 } }))
+        let partialSection = mapping.trackIDs(for: partialLesson, section: 4)
+        XCTAssertEqual(partialSection, [6, 7, 8])
+        try progress.setListened(true, ids: [7])
+        XCTAssertFalse(progress.isListened(partialSection))
+        let subsectionOnly = mapping.trackIDs(for: subsectionOnlyLesson, section: 67)
+        XCTAssertEqual(subsectionOnly, [99])
+        XCTAssertFalse(progress.isListened(subsectionOnly))
+        try progress.setListened(true, ids: [99])
+        XCTAssertTrue(progress.isListened(subsectionOnly))
+        XCTAssertTrue(mapping.trackIDs(for: partialLesson, section: 67).isEmpty)
+        XCTAssertFalse(progress.isListened(mapping.trackIDs(for: partialLesson, section: 999)))
+        XCTAssertTrue(mapping.trackIDs(for: LibraryGroup(id: "empty", title: "Empty", tracks: [])).isEmpty)
+    }
 }

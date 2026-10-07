@@ -2,3 +2,4 @@
 - Explicit Info.plist UIBackgroundModes is required here: the generated INFOPLIST_KEY_UIBackgroundModes build setting did not appear in the built app plist.
 - Audio-session activation/category changes must run off MainActor; serialized transitions and request revisions prevent a delayed activation from restarting stopped audio.
 - Attach the persistent mini-player inset to NavigationStack itself, not its root content, so pushed lesson and section screens retain the controls.
+- Section completion is derived from all mapped recording IDs (main plus subsections), not only imported children; section rows must observe and display that aggregate.

@@ -33,7 +33,7 @@ final class ListeningProgress {
         hasLoaded = true
     }
 
-    /// Returns true only when every mapped recording is complete; an empty lesson is not complete.
+    /// Returns true only when every mapped recording is complete; an empty group or section is not complete.
     func isListened(_ ids: Set<Int>) -> Bool {
         !ids.isEmpty && ids.isSubset(of: listenedIDs)
     }

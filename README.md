@@ -45,6 +45,11 @@ off the UI thread; stopping or pausing invalidates pending playback requests.
 Successfully finishing a recording marks that recording listened. A lesson is
 listened only after **all recordings mapped to it** have finished, including its
 conversation. Missing, unimported recordings prevent automatic lesson completion.
+A section likewise shows a listened checkmark when all recordings mapped to that
+section are listened, including its main recording (if present) and every
+subsection. Marking any of them unlistened removes the section's checkmark.
+Section status is derived from saved recording progress, so already-completed
+sections appear correctly without replaying their audio.
 Swipe a lesson/recording row, or use the lesson's **…** menu, to manually mark it
 listened or unlistened. Manual lesson toggles update all its mapped recordings.
 Status persists across launches and ZIP replacement; it is keyed by numeric track
@@ -141,6 +146,17 @@ ffmpeg -nostdin -v error -n -f lavfi -i anullsrc=r=44100:cl=mono -t 60 \
   -metadata title="Synthetic mini-player fixture" "$LIBRARY/$GENERATION/1_002.mp3" &&
 cp TestSupport/MiniPlayerLibrary/Current.json "$LIBRARY/Current.json"
 ```
+
+The section-completion UI regression
+`GaelicCompanionUITests/OnboardingTests/testSectionListenedStatusFollowsChildren`
+uses a separate fresh simulator fixture: set `GENERATION` to
+`84EF3E94-3346-4516-8BB4-5702C7D7F6B5`, generate the same one-minute silent MP3
+as `1_006.mp3`, copy it to `1_007.mp3` and `1_008.mp3` in that generation, and
+use `TestSupport/SectionLibrary/Current.json` as the manifest. Run only that UI
+test against the fixture. It checks partial completion, completion after the last
+subsection finishes playing, persistence across relaunch, and clearing the
+section's checkmark when a child is marked unlistened. Both seeded UI checks skip
+when their required library is absent; onboarding needs a fresh installation.
 
 When the local `Audio/` folder exists, an optional integration test builds a
 temporary ZIP of its 150 individual tracks and exercises the production importer
