@@ -5,13 +5,14 @@ import XCTest
 @MainActor
 final class AudioPlayerTests: XCTestCase {
     /// Generates an original silent WAV fixture for deterministic playback tests.
-    private func makeAudio(in directory: URL) throws -> URL {
+    private func makeAudio(in directory: URL, seconds: UInt32 = 1) throws -> URL {
         let url = directory.appendingPathComponent("silence.wav")
         let format = try XCTUnwrap(AVAudioFormat(standardFormatWithSampleRate: 8_000, channels: 1))
-        let buffer = try XCTUnwrap(AVAudioPCMBuffer(pcmFormat: format, frameCapacity: 8_000))
-        buffer.frameLength = 8_000
+        let frames = 8_000 * seconds
+        let buffer = try XCTUnwrap(AVAudioPCMBuffer(pcmFormat: format, frameCapacity: frames))
+        buffer.frameLength = frames
         let samples = try XCTUnwrap(buffer.floatChannelData)
-        samples[0].initialize(repeating: 0, count: 8_000)
+        samples[0].initialize(repeating: 0, count: Int(frames))
         let file = try AVAudioFile(forWriting: url, settings: format.settings)
         try file.write(from: buffer)
         return url
@@ -140,5 +141,39 @@ final class AudioPlayerTests: XCTestCase {
         XCTAssertFalse(player.isPreparing)
         XCTAssertNil(player.currentTrack)
         XCTAssertNil(player.errorMessage)
+    }
+
+    /// Mini-player skips move exactly five seconds, clamp at both ends and do not mark a track listened.
+    func testFiveSecondSkips() async throws {
+        let directory = FileManager.default.temporaryDirectory.appendingPathComponent(UUID().uuidString)
+        try FileManager.default.createDirectory(at: directory, withIntermediateDirectories: true)
+        defer { try? FileManager.default.removeItem(at: directory) }
+        let url = try makeAudio(in: directory, seconds: 20)
+        let entry = try XCTUnwrap(TrackMapping.load().tracks.first)
+        let player = AudioPlayer()
+        defer { player.stop() }
+        var completed = false
+        player.onTrackFinished = { _ in completed = true }
+        player.skipBackward()
+        player.skipForward()
+        XCTAssertEqual(player.position, 0)
+        await player.play(LibraryTrack(
+            mapping: entry, imported: ImportedTrack(id: entry.id, filename: "123_002.mp3", metadataTitle: entry.title)
+        ), at: url)
+        XCTAssertNil(player.errorMessage)
+        player.pause()
+        player.seek(to: 10)
+        player.skipBackward()
+        XCTAssertEqual(player.position, 5)
+        player.skipForward()
+        XCTAssertEqual(player.position, 10)
+        player.seek(to: 2)
+        player.skipBackward()
+        XCTAssertEqual(player.position, 0)
+        player.seek(to: 18)
+        player.skipForward()
+        XCTAssertEqual(player.position, 20, accuracy: 0.001)
+        XCTAssertFalse(player.isPlaying)
+        XCTAssertFalse(completed)
     }
 }

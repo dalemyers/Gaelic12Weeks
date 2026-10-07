@@ -35,7 +35,10 @@ Choose an installed simulator name if different. Build settings are explicit in
 
 Conversation recordings are shown directly within their provisional lesson.
 Appendices and Reading Practice have separate top-level groups. Playback includes
-pause/resume, seeking, 15-second skips, background audio and lock-screen controls.
+pause/resume, seeking, 5-second skips, background audio and lock-screen controls.
+The compact bottom player stays visible while browsing lessons and sections,
+during imports, and in About & download. Before a recording is selected it shows
+"Select a recording" with disabled controls.
 Recordings do not automatically advance. Audio-session transitions are serialized
 off the UI thread; stopping or pausing invalidates pending playback requests.
 
@@ -119,6 +122,25 @@ Tests cover catalog validation/grouping, explicit subsection gaps, safe ZIP
 extraction, corruption and rollback, saved libraries, missing files, playback
 completion, persistent/manual listened status, and onboarding/file-picker access.
 Test archives and playback WAVs are generated from original synthetic data.
+
+`testPlayerAcrossLibraryNavigation` is an opt-in UI integration check using a
+one-minute synthetic recording. On a **dedicated simulator**, first run
+`testOnboardingAndAbout` with no imported library, then seed the fixture below
+and run only `GaelicCompanionUITests/OnboardingTests/testPlayerAcrossLibraryNavigation`.
+Do not seed a simulator containing a real user's library. This requires an
+existing `ffmpeg` installation; no publisher recordings are used.
+
+```sh
+# Set SIMULATOR_ID to your dedicated, booted test simulator with this app installed.
+CONTAINER=$(xcrun simctl get_app_container "$SIMULATOR_ID" com.dalemyers.GaelicCompanion data) &&
+LIBRARY="$CONTAINER/Library/Application Support/ImportedLibrary" &&
+GENERATION=A1815CE7-4570-4B28-8A8D-7D347B45EE54 &&
+test ! -e "$LIBRARY/Current.json" &&
+mkdir -p "$LIBRARY/$GENERATION" &&
+ffmpeg -nostdin -v error -n -f lavfi -i anullsrc=r=44100:cl=mono -t 60 \
+  -metadata title="Synthetic mini-player fixture" "$LIBRARY/$GENERATION/1_002.mp3" &&
+cp TestSupport/MiniPlayerLibrary/Current.json "$LIBRARY/Current.json"
+```
 
 When the local `Audio/` folder exists, an optional integration test builds a
 temporary ZIP of its 150 individual tracks and exercises the production importer

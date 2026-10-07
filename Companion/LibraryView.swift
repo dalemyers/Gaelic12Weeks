@@ -33,15 +33,14 @@ struct LibraryView: View {
                         .accessibilityIdentifier("aboutAudio")
                 }
             }
-            .safeAreaInset(edge: .bottom) {
-                if library.isImporting {
-                    importProgress
-                } else if library.player.currentTrack != nil {
-                    PlaybackView(player: library.player)
-                }
-            }
         }
         .id(library.saved?.directory ?? "empty-library")
+        .safeAreaInset(edge: .bottom, spacing: 0) {
+            VStack(spacing: 0) {
+                if library.isImporting { importProgress }
+                PlaybackView(player: library.player)
+            }
+        }
         .fileImporter(
             isPresented: $showingImporter, allowedContentTypes: [.zip], allowsMultipleSelection: false
         ) { result in
@@ -82,6 +81,9 @@ struct LibraryView: View {
                     } message: {
                         Text("All lessons and recordings will be marked unlistened. Your audio will not be removed.")
                     }
+            }
+            .safeAreaInset(edge: .bottom, spacing: 0) {
+                PlaybackView(player: library.player)
             }
         }
         .alert("Unable to complete action", isPresented: Binding(
@@ -282,32 +284,47 @@ private struct PlaybackView: View {
     @Bindable var player: AudioPlayer
 
     var body: some View {
-        VStack(spacing: 8) {
-            Text(player.currentTrack?.mapping.title ?? "").font(.subheadline.bold()).lineLimit(2)
+        VStack(spacing: 0) {
+            HStack(spacing: 8) {
+                VStack(alignment: .leading, spacing: 2) {
+                    Text(player.currentTrack?.mapping.title ?? "Select a recording")
+                        .font(.subheadline.bold()).lineLimit(2)
+                    Text("\(time(player.position)) / \(time(player.duration))")
+                        .monospacedDigit().font(.caption).foregroundStyle(.secondary)
+                }
+                .frame(maxWidth: .infinity, alignment: .leading)
+                Button { player.skipBackward() } label: {
+                    Image(systemName: "gobackward.5").font(.title2)
+                        .frame(width: 44, height: 44)
+                }
+                .accessibilityLabel("Back 5 seconds")
+                .accessibilityIdentifier("skipBackward")
+                Button { Task { await player.toggle() } } label: {
+                    Image(systemName: player.isPlaying ? "pause.circle.fill" : "play.circle.fill")
+                        .font(.largeTitle).frame(width: 44, height: 44)
+                }
+                .accessibilityLabel(player.isPlaying ? "Pause" : "Play")
+                .accessibilityIdentifier("togglePlayback")
+                Button { player.skipForward() } label: {
+                    Image(systemName: "goforward.5").font(.title2)
+                        .frame(width: 44, height: 44)
+                }
+                .accessibilityLabel("Forward 5 seconds")
+                .accessibilityIdentifier("skipForward")
+            }
+            .buttonStyle(.borderless)
             Slider(value: Binding(get: { player.position }, set: { player.seek(to: $0) }),
                    in: 0...max(player.duration, 0.01))
                 .accessibilityLabel("Playback position")
                 .accessibilityValue("\(time(player.position)) of \(time(player.duration))")
                 .accessibilityIdentifier("playbackPosition")
-            HStack {
-                Text(time(player.position)).monospacedDigit().font(.caption)
-                Spacer()
-                Button { player.seek(to: player.position - 15) } label: {
-                    Image(systemName: "gobackward.15").font(.title2)
-                }.accessibilityLabel("Back 15 seconds")
-                Button { Task { await player.toggle() } } label: {
-                    Image(systemName: player.isPlaying ? "pause.circle.fill" : "play.circle.fill").font(.largeTitle)
-                }
-                .accessibilityLabel(player.isPlaying ? "Pause" : "Play")
-                .accessibilityIdentifier("togglePlayback")
-                .disabled(player.isPreparing)
-                Button { player.seek(to: player.position + 15) } label: {
-                    Image(systemName: "goforward.15").font(.title2)
-                }.accessibilityLabel("Forward 15 seconds")
-                Spacer()
-                Text(time(player.duration)).monospacedDigit().font(.caption)
-            }.buttonStyle(.borderless)
-        }.padding().background(.regularMaterial)
+        }
+        .disabled(player.currentTrack == nil || player.isPreparing)
+        .padding(.horizontal)
+        .padding(.top, 8)
+        .background(.regularMaterial)
+        .accessibilityElement(children: .contain)
+        .accessibilityIdentifier("miniPlayer")
     }
 
     /// Formats finite audio durations for the elapsed and total time labels.

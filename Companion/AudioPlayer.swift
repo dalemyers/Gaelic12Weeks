@@ -99,6 +99,16 @@ final class AudioPlayer: NSObject, AVAudioPlayerDelegate {
         updateNowPlaying()
     }
 
+    /// Skips backward five seconds without moving before the start of the recording.
+    func skipBackward() {
+        seek(to: position - 5)
+    }
+
+    /// Skips forward five seconds without moving past the end of the recording.
+    func skipForward() {
+        seek(to: position + 5)
+    }
+
     /// Seeks within the recording, clamping remote and UI requests to its duration.
     func seek(to time: TimeInterval) {
         guard let audio, time.isFinite else { return }

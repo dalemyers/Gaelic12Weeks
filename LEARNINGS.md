@@ -1,3 +1,4 @@
 - The supplied ID3 titles omit lesson boundaries and some early section numbers; TrackMapping.json is the editable authority, and inferred assignments remain marked needsReview.
 - Explicit Info.plist UIBackgroundModes is required here: the generated INFOPLIST_KEY_UIBackgroundModes build setting did not appear in the built app plist.
 - Audio-session activation/category changes must run off MainActor; serialized transitions and request revisions prevent a delayed activation from restarting stopped audio.
+- Attach the persistent mini-player inset to NavigationStack itself, not its root content, so pushed lesson and section screens retain the controls.
