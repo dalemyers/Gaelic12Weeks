@@ -1,0 +1,489 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 77;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		2685FA68531E34AD3E1B9A6A /* ZIPFoundation in Frameworks */ = {isa = PBXBuildFile; productRef = 8B90DB296671ADF38B9F71A8 /* ZIPFoundation */; };
+		34B77BE4C8ADA5BB3D4A14E2 /* LibraryRepositoryTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DED95A71351906DE4843467C /* LibraryRepositoryTests.swift */; };
+		48030B40E4FA13E63EFA7DD0 /* AudioSessionController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3476B6BC1CD64591F6964720 /* AudioSessionController.swift */; };
+		5447F0B237599D2BE53A712E /* ZIPFoundation in Frameworks */ = {isa = PBXBuildFile; productRef = CC15E5FD08ADC9ED86643CFF /* ZIPFoundation */; };
+		57C9E0ED64D2040202E52D7C /* ListeningProgress.swift in Sources */ = {isa = PBXBuildFile; fileRef = 265E338084746A7C9BDEC010 /* ListeningProgress.swift */; };
+		6A5AAB57C901865BAF22FDA6 /* ListeningProgressTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1C7032399EE0AF93C30D0AE /* ListeningProgressTests.swift */; };
+		6C23A2206F8A07E42814CADE /* OnboardingTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1011C3E4B42E3DFDA39B909B /* OnboardingTests.swift */; };
+		6CA10B3129775676853D820F /* AudioPlayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA860D1E163D33424C46364F /* AudioPlayer.swift */; };
+		7ABE20BD8942F1327F6B47B0 /* LibraryRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67F4121489AA4B5456DD2FEC /* LibraryRepository.swift */; };
+		89ECB03B9FC19023B2140E67 /* LibraryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59AE7FD2FB22016BF6650AF9 /* LibraryView.swift */; };
+		9E2F0005399BF81BD6037195 /* CatalogTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7D129EB429F5516AA80B2C3 /* CatalogTests.swift */; };
+		A1A4EBF1B5B80E74585E9437 /* CompanionApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A32AF569EC613949562ADEA /* CompanionApp.swift */; };
+		AA03F9EF57278E75BC717F2A /* AudioPlayerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 840C93E64877717CC742DA3D /* AudioPlayerTests.swift */; };
+		D6B05E1655C734B78F78BC21 /* Catalog.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1421A66E0589AF0B2FAC03B7 /* Catalog.swift */; };
+		DCC7C320CD8A8D07A84B75AA /* TrackMapping.json in Resources */ = {isa = PBXBuildFile; fileRef = B0B47C275B1E56A189D30AB0 /* TrackMapping.json */; };
+		DE9FF506B7BBE7EFC802D2AA /* LibraryModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B74618D018F3F2E4C579C2E8 /* LibraryModel.swift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		2D4B62C70E42EEDE9D664B4B /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 559730A7DCECB40A06236E85 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 176FD5C8CFA2C7A24C025486;
+			remoteInfo = GaelicCompanion;
+		};
+		57A1CD0504839D307FB7C722 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 559730A7DCECB40A06236E85 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 176FD5C8CFA2C7A24C025486;
+			remoteInfo = GaelicCompanion;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		0A32AF569EC613949562ADEA /* CompanionApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompanionApp.swift; sourceTree = "<group>"; };
+		1011C3E4B42E3DFDA39B909B /* OnboardingTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingTests.swift; sourceTree = "<group>"; };
+		1421A66E0589AF0B2FAC03B7 /* Catalog.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Catalog.swift; sourceTree = "<group>"; };
+		1438B3AD81DEA9E7386563C0 /* GaelicCompanionUITests.xctest */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.cfbundle; path = GaelicCompanionUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		265E338084746A7C9BDEC010 /* ListeningProgress.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListeningProgress.swift; sourceTree = "<group>"; };
+		3476B6BC1CD64591F6964720 /* AudioSessionController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioSessionController.swift; sourceTree = "<group>"; };
+		59AE7FD2FB22016BF6650AF9 /* LibraryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LibraryView.swift; sourceTree = "<group>"; };
+		67F4121489AA4B5456DD2FEC /* LibraryRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LibraryRepository.swift; sourceTree = "<group>"; };
+		840C93E64877717CC742DA3D /* AudioPlayerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioPlayerTests.swift; sourceTree = "<group>"; };
+		B0B47C275B1E56A189D30AB0 /* TrackMapping.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = TrackMapping.json; sourceTree = "<group>"; };
+		B3EEFC72829A74C73D6567BF /* GaelicCompanion.app */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.application; path = GaelicCompanion.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		B74618D018F3F2E4C579C2E8 /* LibraryModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LibraryModel.swift; sourceTree = "<group>"; };
+		DA860D1E163D33424C46364F /* AudioPlayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioPlayer.swift; sourceTree = "<group>"; };
+		DD33A26B6091289F87F1E56A /* GaelicCompanionTests.xctest */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.cfbundle; path = GaelicCompanionTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		DED95A71351906DE4843467C /* LibraryRepositoryTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LibraryRepositoryTests.swift; sourceTree = "<group>"; };
+		E1C7032399EE0AF93C30D0AE /* ListeningProgressTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListeningProgressTests.swift; sourceTree = "<group>"; };
+		EFDB00E618759BF4625BA31D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
+		F7D129EB429F5516AA80B2C3 /* CatalogTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CatalogTests.swift; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		88724CC47E93DA15FFCCD313 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				2685FA68531E34AD3E1B9A6A /* ZIPFoundation in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		A2FFF9DA0811AB8B6655D2B7 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				5447F0B237599D2BE53A712E /* ZIPFoundation in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		1026C3CE5311E3770C6FCC02 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				B3EEFC72829A74C73D6567BF /* GaelicCompanion.app */,
+				DD33A26B6091289F87F1E56A /* GaelicCompanionTests.xctest */,
+				1438B3AD81DEA9E7386563C0 /* GaelicCompanionUITests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		30C8F0872D1E7E558A194DB9 /* CompanionTests */ = {
+			isa = PBXGroup;
+			children = (
+				840C93E64877717CC742DA3D /* AudioPlayerTests.swift */,
+				F7D129EB429F5516AA80B2C3 /* CatalogTests.swift */,
+				DED95A71351906DE4843467C /* LibraryRepositoryTests.swift */,
+				E1C7032399EE0AF93C30D0AE /* ListeningProgressTests.swift */,
+			);
+			path = CompanionTests;
+			sourceTree = "<group>";
+		};
+		9E930292550E5E0B410957A5 /* Companion */ = {
+			isa = PBXGroup;
+			children = (
+				DA860D1E163D33424C46364F /* AudioPlayer.swift */,
+				3476B6BC1CD64591F6964720 /* AudioSessionController.swift */,
+				1421A66E0589AF0B2FAC03B7 /* Catalog.swift */,
+				0A32AF569EC613949562ADEA /* CompanionApp.swift */,
+				EFDB00E618759BF4625BA31D /* Info.plist */,
+				B74618D018F3F2E4C579C2E8 /* LibraryModel.swift */,
+				67F4121489AA4B5456DD2FEC /* LibraryRepository.swift */,
+				59AE7FD2FB22016BF6650AF9 /* LibraryView.swift */,
+				265E338084746A7C9BDEC010 /* ListeningProgress.swift */,
+				EF54C5BE9E8DD4CA9F013287 /* Resources */,
+			);
+			path = Companion;
+			sourceTree = "<group>";
+		};
+		D21DE7748F50AFEF5D4F5D0E = {
+			isa = PBXGroup;
+			children = (
+				9E930292550E5E0B410957A5 /* Companion */,
+				30C8F0872D1E7E558A194DB9 /* CompanionTests */,
+				D9BA23785341BCB46C7C2E93 /* CompanionUITests */,
+				1026C3CE5311E3770C6FCC02 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		D9BA23785341BCB46C7C2E93 /* CompanionUITests */ = {
+			isa = PBXGroup;
+			children = (
+				1011C3E4B42E3DFDA39B909B /* OnboardingTests.swift */,
+			);
+			path = CompanionUITests;
+			sourceTree = "<group>";
+		};
+		EF54C5BE9E8DD4CA9F013287 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				B0B47C275B1E56A189D30AB0 /* TrackMapping.json */,
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		176FD5C8CFA2C7A24C025486 /* GaelicCompanion */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 25DC9CDAC317974F594A7F98 /* Build configuration list for PBXNativeTarget "GaelicCompanion" */;
+			buildPhases = (
+				9D9ED8717A86B74009615981 /* Sources */,
+				203B53AB1EE66E546C85C6AC /* Resources */,
+				A2FFF9DA0811AB8B6655D2B7 /* Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = GaelicCompanion;
+			packageProductDependencies = (
+				CC15E5FD08ADC9ED86643CFF /* ZIPFoundation */,
+			);
+			productName = GaelicCompanion;
+			productReference = B3EEFC72829A74C73D6567BF /* GaelicCompanion.app */;
+			productType = "com.apple.product-type.application";
+		};
+		3573A50C6047F2EF3F2A2082 /* GaelicCompanionTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 22B7E91D94A7CACDEBE841AA /* Build configuration list for PBXNativeTarget "GaelicCompanionTests" */;
+			buildPhases = (
+				0DE78C7CD666B7900928C8DD /* Sources */,
+				88724CC47E93DA15FFCCD313 /* Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				505BC42B7815F059936067AF /* PBXTargetDependency */,
+			);
+			name = GaelicCompanionTests;
+			packageProductDependencies = (
+				8B90DB296671ADF38B9F71A8 /* ZIPFoundation */,
+			);
+			productName = GaelicCompanionTests;
+			productReference = DD33A26B6091289F87F1E56A /* GaelicCompanionTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		61EEF1E6604FE11A65BA7CA9 /* GaelicCompanionUITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = EDBC32E8E59A269B2848971E /* Build configuration list for PBXNativeTarget "GaelicCompanionUITests" */;
+			buildPhases = (
+				D96E13B4EFCEB7F0D9B149D0 /* Sources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				101E1CB11EBFB2B0F40620BB /* PBXTargetDependency */,
+			);
+			name = GaelicCompanionUITests;
+			packageProductDependencies = (
+			);
+			productName = GaelicCompanionUITests;
+			productReference = 1438B3AD81DEA9E7386563C0 /* GaelicCompanionUITests.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		559730A7DCECB40A06236E85 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = YES;
+				LastUpgradeCheck = 1430;
+				TargetAttributes = {
+					176FD5C8CFA2C7A24C025486 = {
+						ProvisioningStyle = Automatic;
+					};
+					3573A50C6047F2EF3F2A2082 = {
+						ProvisioningStyle = Automatic;
+					};
+					61EEF1E6604FE11A65BA7CA9 = {
+						ProvisioningStyle = Automatic;
+						TestTargetID = 176FD5C8CFA2C7A24C025486;
+					};
+				};
+			};
+			buildConfigurationList = CA6799509DEDED421F26EA0D /* Build configuration list for PBXProject "GaelicCompanion" */;
+			compatibilityVersion = "Xcode 14.0";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				Base,
+				en,
+			);
+			mainGroup = D21DE7748F50AFEF5D4F5D0E;
+			minimizedProjectReferenceProxies = 1;
+			packageReferences = (
+				2C47ED479D0B8D1C7622D3C8 /* XCRemoteSwiftPackageReference "ZIPFoundation" */,
+			);
+			preferredProjectObjectVersion = 77;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				176FD5C8CFA2C7A24C025486 /* GaelicCompanion */,
+				3573A50C6047F2EF3F2A2082 /* GaelicCompanionTests */,
+				61EEF1E6604FE11A65BA7CA9 /* GaelicCompanionUITests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		203B53AB1EE66E546C85C6AC /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				DCC7C320CD8A8D07A84B75AA /* TrackMapping.json in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		0DE78C7CD666B7900928C8DD /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				AA03F9EF57278E75BC717F2A /* AudioPlayerTests.swift in Sources */,
+				9E2F0005399BF81BD6037195 /* CatalogTests.swift in Sources */,
+				34B77BE4C8ADA5BB3D4A14E2 /* LibraryRepositoryTests.swift in Sources */,
+				6A5AAB57C901865BAF22FDA6 /* ListeningProgressTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		9D9ED8717A86B74009615981 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				6CA10B3129775676853D820F /* AudioPlayer.swift in Sources */,
+				48030B40E4FA13E63EFA7DD0 /* AudioSessionController.swift in Sources */,
+				D6B05E1655C734B78F78BC21 /* Catalog.swift in Sources */,
+				A1A4EBF1B5B80E74585E9437 /* CompanionApp.swift in Sources */,
+				DE9FF506B7BBE7EFC802D2AA /* LibraryModel.swift in Sources */,
+				7ABE20BD8942F1327F6B47B0 /* LibraryRepository.swift in Sources */,
+				89ECB03B9FC19023B2140E67 /* LibraryView.swift in Sources */,
+				57C9E0ED64D2040202E52D7C /* ListeningProgress.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		D96E13B4EFCEB7F0D9B149D0 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				6C23A2206F8A07E42814CADE /* OnboardingTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		101E1CB11EBFB2B0F40620BB /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 176FD5C8CFA2C7A24C025486 /* GaelicCompanion */;
+			targetProxy = 2D4B62C70E42EEDE9D664B4B /* PBXContainerItemProxy */;
+		};
+		505BC42B7815F059936067AF /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 176FD5C8CFA2C7A24C025486 /* GaelicCompanion */;
+			targetProxy = 57A1CD0504839D307FB7C722 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin XCBuildConfiguration section */
+		09618544AFC665DC1071C301 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				GENERATE_INFOPLIST_FILE = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = com.dalemyers.GaelicCompanionUITests;
+				TEST_TARGET_NAME = GaelicCompanion;
+			};
+			name = Release;
+		};
+		1317E637EBA79646800A27D6 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				GENERATE_INFOPLIST_FILE = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = com.dalemyers.GaelicCompanionTests;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/GaelicCompanion.app/GaelicCompanion";
+			};
+			name = Release;
+		};
+		1A7494E40598430D6F2922D3 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				GENERATE_INFOPLIST_FILE = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = com.dalemyers.GaelicCompanionTests;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/GaelicCompanion.app/GaelicCompanion";
+			};
+			name = Debug;
+		};
+		4444BC9FD92733307D83D83E /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				SWIFT_VERSION = 6.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+		6D4B985E808C083906A84EBD /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				GENERATE_INFOPLIST_FILE = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = com.dalemyers.GaelicCompanionUITests;
+				TEST_TARGET_NAME = GaelicCompanion;
+			};
+			name = Debug;
+		};
+		714B194CA20E49F8E1FFC000 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				ENABLE_TESTABILITY = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				ONLY_ACTIVE_ARCH = YES;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 6.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		85595CC53291CA1D7F6E27AE /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CURRENT_PROJECT_VERSION = 1;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = Companion/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = "Unofficial Companion to 'Scottish Gaelic In 12 Weeks'";
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.education";
+				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.dalemyers.GaelicCompanion;
+			};
+			name = Release;
+		};
+		CB0C07255102EF22DA790356 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CURRENT_PROJECT_VERSION = 1;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = Companion/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = "Unofficial Companion to 'Scottish Gaelic In 12 Weeks'";
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.education";
+				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.dalemyers.GaelicCompanion;
+			};
+			name = Debug;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		22B7E91D94A7CACDEBE841AA /* Build configuration list for PBXNativeTarget "GaelicCompanionTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				1A7494E40598430D6F2922D3 /* Debug */,
+				1317E637EBA79646800A27D6 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+		25DC9CDAC317974F594A7F98 /* Build configuration list for PBXNativeTarget "GaelicCompanion" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				CB0C07255102EF22DA790356 /* Debug */,
+				85595CC53291CA1D7F6E27AE /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+		CA6799509DEDED421F26EA0D /* Build configuration list for PBXProject "GaelicCompanion" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				714B194CA20E49F8E1FFC000 /* Debug */,
+				4444BC9FD92733307D83D83E /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+		EDBC32E8E59A269B2848971E /* Build configuration list for PBXNativeTarget "GaelicCompanionUITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				6D4B985E808C083906A84EBD /* Debug */,
+				09618544AFC665DC1071C301 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+/* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		2C47ED479D0B8D1C7622D3C8 /* XCRemoteSwiftPackageReference "ZIPFoundation" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/weichsel/ZIPFoundation.git";
+			requirement = {
+				kind = exactVersion;
+				version = 0.9.20;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		8B90DB296671ADF38B9F71A8 /* ZIPFoundation */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 2C47ED479D0B8D1C7622D3C8 /* XCRemoteSwiftPackageReference "ZIPFoundation" */;
+			productName = ZIPFoundation;
+		};
+		CC15E5FD08ADC9ED86643CFF /* ZIPFoundation */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 2C47ED479D0B8D1C7622D3C8 /* XCRemoteSwiftPackageReference "ZIPFoundation" */;
+			productName = ZIPFoundation;
+		};
+/* End XCSwiftPackageProductDependency section */
+	};
+	rootObject = 559730A7DCECB40A06236E85 /* Project object */;
+}
