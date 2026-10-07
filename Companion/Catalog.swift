@@ -134,7 +134,7 @@ enum Catalog {
             }
             return LibraryTrack(mapping: entry, imported: importedTrack)
         }
-        var groups = (1...12).map { lesson in
+        var groups = (1...12).map { (lesson: Int) in
             LibraryGroup(
                 id: "lesson-\(lesson)", title: "Lesson \(lesson)",
                 tracks: tracks.filter { $0.mapping.group == .lesson && $0.mapping.lesson == lesson }
