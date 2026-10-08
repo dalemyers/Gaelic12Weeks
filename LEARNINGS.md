@@ -5,3 +5,4 @@
 - Section completion is derived from all mapped recording IDs (main plus subsections), not only imported children; section rows must observe and display that aggregate.
 - DEBUG mapping review reuses the single audio player with listened callbacks suppressed; corrections live in MappingReview.json and only exported TrackMapping.json updates the bundled hierarchy.
 - Attach the review sheet's player inset directly to its Form so the final export/reset rows scroll above the player.
+- Routine mapping-review imports use JSON consistency and diff checks; do not rerun the test suites for every data update.
