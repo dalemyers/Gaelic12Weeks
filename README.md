@@ -88,9 +88,10 @@ during import; the editable mapping's title is used for display.
 | `title` | Editable display title, initially copied from the supplied ID3 Title. |
 | `needsReview` | `true` displays a provisional-mapping warning. Set to `false` after checking against the book. |
 
-**Assignments still need your manual review.** IDs 002–025 have been confirmed
-through the Lessons 1–2 reviews. IDs 026–144 are flagged for review: lesson boundaries are provisionally
-placed after each of the 12 Conversation tracks, and unnumbered section titles
+**Assignments still need your manual review.** IDs 002–030 have been confirmed,
+covering Lessons 1–2 and part of Lesson 3. Track 030 ("Days, Months And Seasons")
+is confirmed as Section 25. IDs 031–144 are flagged for review: lesson boundaries
+are provisionally placed after each of the 12 Conversation tracks, and unnumbered section titles
 were counted upward. Explicit section numbers and gaps are preserved. In particular,
 the early metadata has missing numbers (e.g. an unnumbered title followed by `14a`,
 and a later jump to `22a`), so some inferred section numbers are not authoritative.
