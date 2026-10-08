@@ -91,9 +91,11 @@ during import; the editable mapping's title is used for display.
 **Assignments still need your manual review.** IDs 002–032 have been confirmed,
 covering Lessons 1–3. Track 030 ("Days, Months And Seasons") is confirmed as
 Section 25, and track 031 ("Emphatic Suffixes") as Section 26.
+The remaining 103 numbered proposals after Lesson 3 have received the same +2
+offset once; their titles and unconfirmed status are unchanged.
 IDs 033–144 are flagged for review: lesson boundaries
 are provisionally placed after each of the 12 Conversation tracks, and unnumbered section titles
-were counted upward. Explicit section numbers and gaps are preserved. In particular,
+were counted upward. Section gaps are preserved when applying offsets. In particular,
 the early metadata has missing numbers (e.g. an unnumbered title followed by `14a`,
 and a later jump to `22a`), so some inferred section numbers are not authoritative.
 Appendices 145–147 and Reading Practice 148–151 identify themselves.
@@ -116,6 +118,8 @@ section or lesson listened. Entering and leaving review stops the previous audio
 
 - **Confirm & next** saves corrections, clears `needsReview`, and advances to the
   next track in the current filter. At the end it stays on the confirmed track.
+  Increasing or decreasing a section number shifts later unconfirmed numbered
+  recordings by the same amount, across lesson boundaries.
 - **Save correction for review** saves edits without confirming them and sets
   `needsReview` to `true`.
 - **Mark incorrect** saves the current corrections/note, records an incorrect
@@ -123,6 +127,20 @@ section or lesson listened. Entering and leaving review stops the previous audio
 - **Show** filters all, unconfirmed, incorrect or confirmed tracks. **Choose track**
   jumps to a particular recording; Previous/Next follow numeric filename IDs.
   Unimported recordings can be edited but cannot be played.
+
+Automatic section shifts follow numeric filename IDs, not the active filter.
+Already-confirmed recordings (in the draft or bundled mapping), conversations
+without sections, and bonus tracks are left alone. Subsection letters, titles,
+notes and lesson assignments are preserved; shifted proposals still need review.
+The confirmation notice reports how many recordings shifted and by how much.
+
+**Save correction for review** and **Mark incorrect** retain a pending section
+offset without shifting anything yet. Confirmation applies that pending offset
+once, even after relaunching. Confirming an automatically shifted proposal as-is
+does not shift everything again. Further edits to an already confirmed track
+apply only the new difference. Adding or removing a section number does not
+infer an offset. Invalid results (below Section 1 or integer overflow) and write
+failures reject the entire save, leaving the draft unchanged.
 
 Blank section/subsection fields are supported for conversations and main tracks.
 Bonus groups clear lesson/section/subsection fields on save. Invalid values fail
@@ -132,7 +150,9 @@ requires confirmation; export is disabled until edits are saved or confirmed.
 Decisions and corrections persist in a separate `MappingReview.json` in Application
 Support. They are a **review draft**, not a live replacement of the normal library's
 mapping. Existing `needsReview: false` source rows still start *unreviewed* in this
-tool; untouched rows preserve their original flags when exported.
+tool; untouched rows preserve their original flags when exported and confirmed
+source rows are protected from automatic shifts. Older review backups remain
+readable; previously confirmed corrections are not automatically replayed.
 
 Choose **Export corrected TrackMapping.json** to save the complete, validated
 150-track mapping through Files. Replace `Companion/Resources/TrackMapping.json`

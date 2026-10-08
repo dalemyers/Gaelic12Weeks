@@ -275,6 +275,10 @@ struct MappingReviewView: View {
             Text("Confirm clears needsReview. Save correction or Incorrect keeps it set. "
                  + "Notes are included in the review backup, not TrackMapping.json.")
                 .font(.footnote).foregroundStyle(.secondary)
+            Text("Confirming a section-number change shifts later unconfirmed numbered recordings "
+                 + "by the same amount, across all lessons. Saved corrections wait until confirmation. "
+                 + "Confirmed tracks, unnumbered recordings and titles stay unchanged.")
+                .font(.footnote).foregroundStyle(.secondary)
         }
     }
 
@@ -345,8 +349,14 @@ struct MappingReviewView: View {
     private func save(_ decision: MappingReviewDecision, advance: Bool = false) {
         guard let selectedID, let fields else { return }
         do {
-            try store.save(id: selectedID, fields: fields, decision: decision)
-            notice = "Track \(String(format: "%03d", selectedID)): \(decision.label.lowercased())."
+            let result = try store.save(id: selectedID, fields: fields, decision: decision)
+            let confirmation = "Track \(String(format: "%03d", selectedID)): \(decision.label.lowercased())."
+            if result.shiftedTrackCount > 0 {
+                let delta = result.sectionDelta > 0 ? "+\(result.sectionDelta)" : "\(result.sectionDelta)"
+                notice = "\(confirmation) Shifted \(result.shiftedTrackCount) later unconfirmed recordings by \(delta)."
+            } else {
+                notice = confirmation
+            }
             select(advance ? adjacentID(forward: true) ?? selectedID : selectedID)
         } catch {
             errorMessage = error.localizedDescription

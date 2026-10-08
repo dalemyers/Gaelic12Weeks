@@ -75,6 +75,21 @@ struct MappingReviewRecord: Codable {
     let edited: MappedTrack
     let decision: MappingReviewDecision
     let note: String
+    let pendingSectionDelta: Int?
+
+    /// Older drafts have no pending delta; confirmed edits must never be propagated retroactively.
+    var unappliedSectionDelta: Int {
+        if decision == .confirmed { return 0 }
+        if let pendingSectionDelta { return pendingSectionDelta }
+        guard original.group == .lesson, edited.group == .lesson,
+              let originalSection = original.section, let editedSection = edited.section else { return 0 }
+        return editedSection - originalSection
+    }
+}
+
+struct MappingReviewSaveResult {
+    let sectionDelta: Int
+    let shiftedTrackCount: Int
 }
 
 @MainActor
@@ -125,12 +140,19 @@ final class MappingReviewStore {
                     "Bundled track \(id) changed since this draft was saved. Export a backup before resetting the draft."
                 )
             }
-            _ = try TrackMapping.decode(JSONEncoder().encode(TrackMapping(schemaVersion: 1, tracks: [record.edited])))
+            for track in [record.original, record.edited] {
+                _ = try TrackMapping.decode(JSONEncoder().encode(TrackMapping(schemaVersion: 1, tracks: [track])))
+            }
             guard record.edited.needsReview == (record.decision != .confirmed) else {
                 throw MappingReviewError.invalid("Saved decision for track \(id) does not match its review flag.")
             }
+            if let pending = record.pendingSectionDelta,
+               pending != 0 && (record.decision == .confirmed || record.edited.section == nil) {
+                throw MappingReviewError.invalid("Saved section correction for track \(id) is inconsistent.")
+            }
             loaded[id] = MappingReviewRecord(
-                original: original, edited: record.edited, decision: record.decision, note: record.note
+                original: original, edited: record.edited, decision: record.decision, note: record.note,
+                pendingSectionDelta: record.unappliedSectionDelta
             )
         }
         records = loaded
@@ -153,17 +175,64 @@ final class MappingReviewStore {
         return MappingReviewFields(track: track, note: records[id]?.note ?? "")
     }
 
-    /// Writes the full draft atomically before publishing a correction or decision to the UI.
-    func save(id: Int, fields: MappingReviewFields, decision: MappingReviewDecision) throws {
+    /// Confirms section offsets across later unconfirmed tracks, committing the entire change atomically.
+    /// Tentative corrections retain their pending offset until confirmation; invalid shifts throw without saving.
+    @discardableResult
+    func save(id: Int, fields: MappingReviewFields, decision: MappingReviewDecision) throws -> MappingReviewSaveResult {
         try requireReady()
         guard let original = source.tracks.first(where: { $0.id == id }) else {
             throw MappingReviewError.invalid("Track \(id) is not in the bundled mapping.")
         }
         let edited = try fields.track(id: id, decision: decision)
+        let current = records[id]?.edited ?? original
+        var pendingDelta = 0
+        if let oldSection = current.section, let newSection = edited.section {
+            let change = newSection - oldSection
+            let (pending, overflow) = (records[id]?.unappliedSectionDelta ?? 0).addingReportingOverflow(change)
+            guard !overflow else {
+                throw MappingReviewError.invalid("The section correction is too large. No changes were saved.")
+            }
+            pendingDelta = pending
+        }
+        let sectionDelta = decision == .confirmed ? pendingDelta : 0
         var updated = records
-        updated[id] = MappingReviewRecord(original: original, edited: edited, decision: decision, note: fields.note)
+        updated[id] = MappingReviewRecord(
+            original: original, edited: edited, decision: decision, note: fields.note,
+            pendingSectionDelta: decision == .confirmed ? 0 : pendingDelta
+        )
+        let shiftedCount = try shiftFollowingTracks(after: id, by: sectionDelta, in: &updated)
         try persist(updated)
         records = updated
+        return MappingReviewSaveResult(sectionDelta: sectionDelta, shiftedTrackCount: shiftedCount)
+    }
+
+    /// Moves proposals in filename-ID order, preserving confirmed rows, notes, suffixes and pending manual edits.
+    private func shiftFollowingTracks(
+        after id: Int, by delta: Int, in updated: inout [Int: MappingReviewRecord]
+    ) throws -> Int {
+        guard delta != 0 else { return 0 }
+        var shiftedCount = 0
+        for original in source.tracks where original.id > id {
+            let record = updated[original.id]
+            let current = record?.edited ?? original
+            guard current.group == .lesson, current.needsReview, let section = current.section else { continue }
+            let (shiftedSection, overflow) = section.addingReportingOverflow(delta)
+            guard !overflow, shiftedSection > 0 else {
+                throw MappingReviewError.invalid(
+                    "Shifting track \(current.id) would produce an invalid section number. No changes were saved."
+                )
+            }
+            let shifted = MappedTrack(
+                id: current.id, lesson: current.lesson, section: shiftedSection, subsection: current.subsection,
+                group: current.group, title: current.title, needsReview: current.needsReview
+            )
+            updated[original.id] = MappingReviewRecord(
+                original: original, edited: shifted, decision: record?.decision ?? .unreviewed,
+                note: record?.note ?? "", pendingSectionDelta: record?.unappliedSectionDelta ?? 0
+            )
+            shiftedCount += 1
+        }
+        return shiftedCount
     }
 
     /// Exports every mapped ID in numeric order; no audio or review-only fields enter TrackMapping.json.

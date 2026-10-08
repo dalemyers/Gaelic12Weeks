@@ -6,3 +6,4 @@
 - DEBUG mapping review reuses the single audio player with listened callbacks suppressed; corrections live in MappingReview.json and only exported TrackMapping.json updates the bundled hierarchy.
 - Attach the review sheet's player inset directly to its Form so the final export/reset rows scroll above the player.
 - Routine mapping-review imports use JSON consistency and diff checks; do not rerun the test suites for every data update.
+- Section cascades track pending manual deltas separately from shifted proposals, so confirmation applies an offset once and leaves already-confirmed rows unchanged.

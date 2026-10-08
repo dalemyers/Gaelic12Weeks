@@ -5,11 +5,229 @@ import XCTest
 @MainActor
 final class MappingReviewTests: XCTestCase {
     /// Creates a review store outside the application's real data container.
-    private func makeStore() throws -> (URL, MappingReviewStore) {
+    private func makeStore(source: TrackMapping? = nil) throws -> (URL, MappingReviewStore) {
         let directory = FileManager.default.temporaryDirectory.appendingPathComponent(UUID().uuidString)
         return (directory, MappingReviewStore(
-            source: try TrackMapping.load(), url: directory.appendingPathComponent("review.json")
+            source: try source ?? TrackMapping.load(), url: directory.appendingPathComponent("review.json")
         ))
+    }
+
+    /// Provides deliberately unsorted IDs, shared sections, later lessons, confirmed rows and unnumbered audio.
+    private func sectionShiftMapping() -> TrackMapping {
+        let sections: [Int: Int] = [2: 10, 3: 10, 4: 11, 5: 12, 7: 13, 8: 14, 9: 15, 12: 16]
+        let tracks = (2...12).reversed().map { id in
+            MappedTrack(
+                id: id, lesson: id == 10 || id == 11 ? nil : (id < 5 ? 1 : 2),
+                section: sections[id], subsection: id == 3 ? "a" : nil,
+                group: id == 10 ? .appendices : (id == 11 ? .readingPractice : .lesson),
+                title: "Original title \(id)", needsReview: id != 7
+            )
+        }
+        return TrackMapping(schemaVersion: 1, tracks: tracks)
+    }
+
+    /// Writes a version-one draft, including records that omit the new optional pending-offset field.
+    private func writeDraft(_ records: [MappingReviewRecord], to directory: URL) throws {
+        let rows = try JSONSerialization.jsonObject(with: JSONEncoder().encode(records))
+        let data = try JSONSerialization.data(withJSONObject: ["schemaVersion": 1, "records": rows])
+        try FileManager.default.createDirectory(at: directory, withIntermediateDirectories: true)
+        try data.write(to: directory.appendingPathComponent("review.json"))
+    }
+
+    /// Confirmation shifts later proposals across lessons, but preserves confirmed and unnumbered recordings.
+    func testSectionIncreaseShiftsOnlyLaterUnconfirmedNumberedTracks() throws {
+        let (directory, store) = try makeStore(source: sectionShiftMapping())
+        defer { try? FileManager.default.removeItem(at: directory) }
+        try store.load()
+        try store.save(id: 8, fields: XCTUnwrap(store.fields(8)), decision: .confirmed)
+        var incorrect = try XCTUnwrap(store.fields(9))
+        incorrect.note = "Still needs checking."
+        incorrect.title = "Keep my custom title"
+        try store.save(id: 9, fields: incorrect, decision: .incorrect)
+        var fields = try XCTUnwrap(store.fields(2))
+        fields.section = "12"
+        let result = try store.save(id: 2, fields: fields, decision: .confirmed)
+        XCTAssertEqual(result.sectionDelta, 2)
+        XCTAssertEqual(result.shiftedTrackCount, 5)
+        XCTAssertEqual(store.track(3)?.section, 12)
+        XCTAssertEqual(store.track(3)?.subsection, "a")
+        XCTAssertEqual(store.track(4)?.section, 13)
+        XCTAssertEqual(store.track(5)?.lesson, 2)
+        XCTAssertEqual(store.track(5)?.section, 14)
+        XCTAssertEqual(store.track(12)?.section, 18)
+        XCTAssertEqual(store.track(7)?.section, 13, "Bundled confirmations must also be protected.")
+        XCTAssertEqual(store.track(8)?.section, 14)
+        XCTAssertEqual(store.decision(9), .incorrect)
+        XCTAssertEqual(store.fields(9)?.note, incorrect.note)
+        XCTAssertEqual(store.track(9)?.title, incorrect.title)
+        for id in [6, 10, 11] {
+            XCTAssertEqual(store.track(id), store.source.tracks.first { $0.id == id })
+        }
+        XCTAssertEqual(store.confirmedCount, 2, "Shifted proposals must not become confirmed.")
+        let exported = try TrackMapping.decode(store.exportMapping())
+        let restored = MappingReviewStore(source: exported, url: directory.appendingPathComponent("review.json"))
+        try restored.load()
+        XCTAssertEqual(try TrackMapping.decode(restored.exportMapping()).tracks, exported.tracks)
+        let unchanged = try restored.save(id: 3, fields: XCTUnwrap(restored.fields(3)), decision: .confirmed)
+        XCTAssertEqual(unchanged.shiftedTrackCount, 0, "Confirming an automatically shifted proposal must not shift again.")
+        XCTAssertEqual(restored.track(4)?.section, 13)
+    }
+
+    /// Saving a tentative correction defers its offset, including across relaunches, until explicit confirmation.
+    func testSavedSectionCorrectionPropagatesOnceOnConfirmation() throws {
+        let (directory, store) = try makeStore(source: sectionShiftMapping())
+        defer { try? FileManager.default.removeItem(at: directory) }
+        try store.load()
+        var fields = try XCTUnwrap(store.fields(2))
+        fields.section = "13"
+        let saved = try store.save(id: 2, fields: fields, decision: .unreviewed)
+        XCTAssertEqual(saved.shiftedTrackCount, 0)
+        XCTAssertEqual(store.track(4)?.section, 11)
+        let restored = MappingReviewStore(source: store.source, url: directory.appendingPathComponent("review.json"))
+        try restored.load()
+        let confirmed = try restored.save(id: 2, fields: XCTUnwrap(restored.fields(2)), decision: .confirmed)
+        XCTAssertEqual(confirmed.sectionDelta, 3)
+        XCTAssertEqual(restored.track(4)?.section, 14)
+        let repeated = try restored.save(id: 2, fields: XCTUnwrap(restored.fields(2)), decision: .confirmed)
+        XCTAssertEqual(repeated.shiftedTrackCount, 0)
+        try restored.save(id: 4, fields: XCTUnwrap(restored.fields(4)), decision: .confirmed)
+        fields.section = "14"
+        let revised = try restored.save(id: 2, fields: fields, decision: .confirmed)
+        XCTAssertEqual(revised.sectionDelta, 1)
+        XCTAssertEqual(restored.track(3)?.section, 14)
+        XCTAssertEqual(restored.track(4)?.section, 14, "A confirmed later track must stay fixed.")
+    }
+
+    /// Cascading a proposal keeps its separate pending manual correction for that track's later confirmation.
+    func testShiftPreservesPendingCorrectionsOnFollowingTracks() throws {
+        let (directory, store) = try makeStore(source: sectionShiftMapping())
+        defer { try? FileManager.default.removeItem(at: directory) }
+        try store.load()
+        var later = try XCTUnwrap(store.fields(5))
+        later.section = "15"
+        try store.save(id: 5, fields: later, decision: .incorrect)
+        var earlier = try XCTUnwrap(store.fields(2))
+        earlier.section = "12"
+        try store.save(id: 2, fields: earlier, decision: .confirmed)
+        XCTAssertEqual(store.track(5)?.section, 17)
+        let result = try store.save(id: 5, fields: XCTUnwrap(store.fields(5)), decision: .confirmed)
+        XCTAssertEqual(result.sectionDelta, 3)
+        XCTAssertEqual(store.track(9)?.section, 20)
+        XCTAssertEqual(store.track(4)?.section, 13, "Earlier filename IDs never shift.")
+    }
+
+    /// Decrements propagate too; removing or adding a numbered section does not invent a numeric offset.
+    func testSectionDecreaseAndUnnumberedTransitions() throws {
+        let (directory, store) = try makeStore(source: sectionShiftMapping())
+        defer { try? FileManager.default.removeItem(at: directory) }
+        try store.load()
+        var fields = try XCTUnwrap(store.fields(2))
+        fields.section = "8"
+        let result = try store.save(id: 2, fields: fields, decision: .confirmed)
+        XCTAssertEqual(result.sectionDelta, -2)
+        XCTAssertEqual(store.track(3)?.section, 8)
+        XCTAssertEqual(store.track(5)?.section, 10)
+        fields.section = ""
+        XCTAssertEqual(try store.save(id: 2, fields: fields, decision: .confirmed).shiftedTrackCount, 0)
+        try store.save(id: 2, fields: fields, decision: .unreviewed)
+        fields.section = "3"
+        XCTAssertEqual(try store.save(id: 2, fields: fields, decision: .confirmed).shiftedTrackCount, 0)
+        XCTAssertEqual(store.track(3)?.section, 8)
+        fields.group = .appendices
+        XCTAssertEqual(try store.save(id: 2, fields: fields, decision: .confirmed).shiftedTrackCount, 0)
+        XCTAssertNil(store.track(2)?.section)
+    }
+
+    /// A zero/negative result or integer overflow rejects the whole operation without changing disk or memory.
+    func testInvalidCascadeIsAtomic() throws {
+        for lastSection in [1, Int.max] {
+            let base = sectionShiftMapping()
+            let source = TrackMapping(schemaVersion: 1, tracks: base.tracks.map { track in
+                guard track.id == 12 else { return track }
+                return MappedTrack(
+                    id: track.id, lesson: track.lesson, section: lastSection, subsection: track.subsection,
+                    group: track.group, title: track.title, needsReview: track.needsReview
+                )
+            })
+            let (directory, store) = try makeStore(source: source)
+            defer { try? FileManager.default.removeItem(at: directory) }
+            try store.load()
+            try store.save(id: 8, fields: XCTUnwrap(store.fields(8)), decision: .confirmed)
+            let before = try store.exportMapping()
+            let backup = try store.exportBackup()
+            var fields = try XCTUnwrap(store.fields(2))
+            fields.section = lastSection == 1 ? "8" : "12"
+            XCTAssertThrowsError(try store.save(id: 2, fields: fields, decision: .confirmed))
+            XCTAssertEqual(try store.exportMapping(), before)
+            XCTAssertEqual(try store.exportBackup(), backup)
+            XCTAssertEqual(store.decision(2), .unreviewed)
+        }
+    }
+
+    /// A failed multi-track write cannot publish the selected confirmation or any of its automatic shifts.
+    func testCascadeWriteFailurePreservesAllProposals() throws {
+        let (directory, store) = try makeStore(source: sectionShiftMapping())
+        defer { try? FileManager.default.removeItem(at: directory) }
+        try store.load()
+        let before = try store.exportMapping()
+        try Data([1]).write(to: directory)
+        var fields = try XCTUnwrap(store.fields(2))
+        fields.section = "12"
+        XCTAssertThrowsError(try store.save(id: 2, fields: fields, decision: .confirmed))
+        XCTAssertTrue(store.records.isEmpty)
+        XCTAssertEqual(try store.exportMapping(), before)
+    }
+
+    /// Drafts from before automatic shifts retain tentative offsets, but never replay old confirmed corrections.
+    func testLegacyDraftSectionCorrections() throws {
+        let source = sectionShiftMapping()
+        let (directory, store) = try makeStore(source: source)
+        defer { try? FileManager.default.removeItem(at: directory) }
+        var legacy: [MappingReviewRecord] = []
+        for (id, section, decision) in [(2, "13", MappingReviewDecision.unreviewed), (8, "18", .confirmed)] {
+            let original = try XCTUnwrap(source.tracks.first { $0.id == id })
+            var fields = MappingReviewFields(track: original)
+            fields.section = section
+            legacy.append(MappingReviewRecord(
+                original: original, edited: try fields.track(id: id, decision: decision),
+                decision: decision, note: "", pendingSectionDelta: nil
+            ))
+        }
+        try writeDraft(legacy, to: directory)
+        try store.load()
+        let appliedSource = try TrackMapping.decode(store.exportMapping())
+        let restored = MappingReviewStore(source: appliedSource, url: directory.appendingPathComponent("review.json"))
+        try restored.load()
+        XCTAssertEqual(try restored.save(id: 8, fields: XCTUnwrap(restored.fields(8)), decision: .confirmed).sectionDelta, 0)
+        XCTAssertEqual(try restored.save(id: 2, fields: XCTUnwrap(restored.fields(2)), decision: .confirmed).sectionDelta, 3)
+        XCTAssertEqual(restored.track(8)?.section, 18)
+        XCTAssertEqual(restored.track(9)?.section, 18)
+    }
+
+    /// Old original rows are validated before delta arithmetic, and overflowing pending offsets fail atomically.
+    func testMalformedBaselineAndPendingOffsetOverflow() throws {
+        let (directory, store) = try makeStore(source: sectionShiftMapping())
+        defer { try? FileManager.default.removeItem(at: directory) }
+        let track = try XCTUnwrap(store.source.tracks.first { $0.id == 2 })
+        let invalidOriginal = MappedTrack(
+            id: track.id, lesson: track.lesson, section: Int.min, subsection: nil,
+            group: track.group, title: track.title, needsReview: true
+        )
+        try writeDraft([MappingReviewRecord(
+            original: invalidOriginal, edited: track, decision: .unreviewed, note: "", pendingSectionDelta: nil
+        )], to: directory)
+        XCTAssertThrowsError(try store.load())
+        XCTAssertFalse(store.isReady)
+        try writeDraft([MappingReviewRecord(
+            original: track, edited: track, decision: .unreviewed, note: "", pendingSectionDelta: Int.max
+        )], to: directory)
+        try store.load()
+        let before = try store.exportBackup()
+        var fields = try XCTUnwrap(store.fields(2))
+        fields.section = "11"
+        XCTAssertThrowsError(try store.save(id: 2, fields: fields, decision: .confirmed))
+        XCTAssertEqual(try store.exportBackup(), before)
+        XCTAssertEqual(store.track(2), track)
     }
 
     /// Untouched rows export unchanged, and confirmation preserves the full catalog while clearing its flag.
@@ -38,6 +256,7 @@ final class MappingReviewTests: XCTestCase {
         XCTAssertFalse(corrected.needsReview)
         XCTAssertEqual(store.confirmedCount, 1)
         XCTAssertFalse(String(decoding: try store.exportMapping(), as: UTF8.self).contains("\"note\""))
+        XCTAssertFalse(String(decoding: try store.exportMapping(), as: UTF8.self).contains("\"pendingSectionDelta\""))
     }
 
     /// Incorrect decisions, notes and draft corrections survive reload without pretending to be confirmed.

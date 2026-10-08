@@ -74,7 +74,10 @@ final class MappingReviewUITests: XCTestCase {
         let confirm = app.buttons["confirmReviewTrack"]
         reveal(confirm, in: app)
         confirm.tap()
-        reveal(app.textFields["reviewLesson"], in: app, upward: false)
+        reveal(app.staticTexts["reviewNotice"], in: app, upward: false)
+        XCTAssertTrue(app.staticTexts["reviewNotice"].label.contains("Shifted "))
+        XCTAssertTrue(app.staticTexts["reviewNotice"].label.contains("by +13."))
+        reveal(app.textFields["reviewLesson"], in: app)
         XCTAssertEqual(app.textFields["reviewLesson"].value as? String, "1", "Confirmation advances to track 003.")
         let export = app.buttons["exportMapping"]
         reveal(export, in: app)
