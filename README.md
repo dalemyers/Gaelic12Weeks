@@ -39,6 +39,8 @@ pause/resume, seeking, 5-second skips, background audio and lock-screen controls
 The compact bottom player stays visible while browsing lessons and sections,
 during imports, and in About & download. Before a recording is selected it shows
 "Select a recording" with disabled controls.
+Navigation and the player/import footer occupy separate layout regions, so the
+last row can scroll fully above the player even when its height changes.
 Recordings do not automatically advance. Audio-session transitions are serialized
 off the UI thread; stopping or pausing invalidates pending playback requests.
 
@@ -228,6 +230,30 @@ test against the fixture. It checks partial completion, completion after the las
 subsection finishes playing, persistence across relaunch, and clearing the
 section's checkmark when a child is marked unlistened. Both seeded UI checks skip
 when their required library is absent; onboarding needs a fresh installation.
+
+`PlayerLayoutUITests/testWelcomeBottomActionStaysAbovePlayer` checks the final
+onboarding and About actions on an empty installation.
+`PlayerLayoutUITests/testBottomRowsStayAbovePlayer` checks the final library,
+lesson and section rows, landscape playback, and About. It requires a complete
+synthetic library on a dedicated simulator. After creating the one-minute
+MiniPlayerLibrary fixture above, extend it to all mapped IDs:
+
+```sh
+for ID in $(jq -r '.tracks[].id' Companion/Resources/TrackMapping.json); do
+  if [ "$ID" -ne 2 ]; then
+    cp "$LIBRARY/$GENERATION/1_002.mp3" \
+      "$LIBRARY/$GENERATION/$(printf '1_%03d.mp3' "$ID")" || exit 1
+  fi
+done
+jq --arg generation "$GENERATION" \
+  '{directory: $generation, manifest: {schemaVersion: 1, tracks: [.tracks[] |
+    {id, filename: ("1_" + (("000" + (.id | tostring))[-3:]) + ".mp3"),
+     metadataTitle: "Synthetic layout fixture"}]}}' \
+  Companion/Resources/TrackMapping.json > "$LIBRARY/Current.json"
+```
+
+These checks assert that each complete row is above the player's top edge, not
+just that XCTest reports the row as hittable.
 
 When the local `Audio/` folder exists, an optional integration test builds a
 temporary ZIP of its 150 individual tracks and exercises the production importer

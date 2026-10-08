@@ -1,7 +1,7 @@
 - The supplied ID3 titles omit lesson boundaries and some early section numbers; TrackMapping.json is the editable authority, not runtime inference.
 - Explicit Info.plist UIBackgroundModes is required here: the generated INFOPLIST_KEY_UIBackgroundModes build setting did not appear in the built app plist.
 - Audio-session activation/category changes must run off MainActor; serialized transitions and request revisions prevent a delayed activation from restarting stopped audio.
-- Attach the persistent mini-player inset to NavigationStack itself, not its root content, so pushed lesson and section screens retain the controls.
+- Keep NavigationStack and the intrinsic-height player/import footer as vertical siblings; an outer stack inset can leave List rows hidden behind the player.
 - Section completion is derived from all mapped recording IDs (main plus subsections), not only imported children; section rows must observe and display that aggregate.
 - DEBUG mapping review reuses the single audio player with listened callbacks suppressed; corrections live in MappingReview.json and only exported TrackMapping.json updates the bundled hierarchy.
 - Attach the review sheet's player inset directly to its Form so the final export/reset rows scroll above the player.

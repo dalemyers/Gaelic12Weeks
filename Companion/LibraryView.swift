@@ -12,37 +12,38 @@ struct LibraryView: View {
 #endif
 
     var body: some View {
-        NavigationStack {
-            Group {
-                if library.isLoading {
-                    ProgressView("Loading library")
-                } else if library.groups.isEmpty {
-                    welcome
-                } else {
-                    lessons
-                }
-            }
-            .navigationTitle("Gaelic Companion")
-            .toolbar {
-                ToolbarItem(placement: .topBarTrailing) {
-                    Button("Import audio", systemImage: "square.and.arrow.down") {
-                        if library.saved == nil { showingImporter = true } else { confirmingReplacement = true }
+        VStack(spacing: 0) {
+            NavigationStack {
+                Group {
+                    if library.isLoading {
+                        ProgressView("Loading library")
+                    } else if library.groups.isEmpty {
+                        welcome
+                    } else {
+                        lessons
                     }
-                    .disabled(library.isImporting || library.mapping == nil)
-                    .accessibilityIdentifier("importAudio")
                 }
-                ToolbarItem(placement: .topBarLeading) {
-                    Button("About & download", systemImage: "info.circle") { showingInstructions = true }
-                        .accessibilityIdentifier("aboutAudio")
+                .navigationTitle("Gaelic Companion")
+                .toolbar {
+                    ToolbarItem(placement: .topBarTrailing) {
+                        Button("Import audio", systemImage: "square.and.arrow.down") {
+                            if library.saved == nil { showingImporter = true } else { confirmingReplacement = true }
+                        }
+                        .disabled(library.isImporting || library.mapping == nil)
+                        .accessibilityIdentifier("importAudio")
+                    }
+                    ToolbarItem(placement: .topBarLeading) {
+                        Button("About & download", systemImage: "info.circle") { showingInstructions = true }
+                            .accessibilityIdentifier("aboutAudio")
+                    }
                 }
             }
-        }
-        .id(library.saved?.directory ?? "empty-library")
-        .safeAreaInset(edge: .bottom, spacing: 0) {
+            .id(library.saved?.directory ?? "empty-library")
             VStack(spacing: 0) {
                 if library.isImporting { importProgress }
                 PlaybackView(player: library.player)
             }
+            .fixedSize(horizontal: false, vertical: true)
         }
         .fileImporter(
             isPresented: $showingImporter, allowedContentTypes: [.zip], allowsMultipleSelection: false
@@ -64,31 +65,33 @@ struct LibraryView: View {
             Text("Your current library stays available unless the new ZIP imports successfully.")
         }
         .sheet(isPresented: $showingInstructions) {
-            NavigationStack {
-                ScrollView {
-                    VStack(alignment: .leading, spacing: 24) {
-                        instructions
+            VStack(spacing: 0) {
+                NavigationStack {
+                    ScrollView {
+                        VStack(alignment: .leading, spacing: 24) {
+                            instructions
 #if DEBUG
-                        Button("Review audio mapping (DEBUG)", systemImage: "checklist") {
-                            do {
-                                try library.beginMappingReview()
-                                showingMappingReview = true
-                            } catch {
-                                library.errorMessage = error.localizedDescription
+                            Button("Review audio mapping (DEBUG)", systemImage: "checklist") {
+                                do {
+                                    try library.beginMappingReview()
+                                    showingMappingReview = true
+                                } catch {
+                                    library.errorMessage = error.localizedDescription
+                                }
                             }
-                        }
-                        .disabled(library.mapping == nil || library.isLoading || library.isImporting)
-                        .accessibilityIdentifier("reviewMapping")
+                            .disabled(library.mapping == nil || library.isLoading || library.isImporting)
+                            .accessibilityIdentifier("reviewMapping")
 #endif
-                        Text("A lesson is marked listened after every mapped recording finishes. "
-                             + "Use the lesson menu or swipe a row to mark it manually. "
-                             + "Replacing the ZIP keeps your progress.")
-                            .font(.footnote).foregroundStyle(.secondary)
-                        Button("Reset all listening progress", role: .destructive) {
-                            confirmingProgressReset = true
-                        }
-                    }.padding(24)
-                }
+                            Text("A lesson is marked listened after every mapped recording finishes. "
+                                 + "Use the lesson menu or swipe a row to mark it manually. "
+                                 + "Replacing the ZIP keeps your progress.")
+                                .font(.footnote).foregroundStyle(.secondary)
+                            Button("Reset all listening progress", role: .destructive) {
+                                confirmingProgressReset = true
+                            }
+                        }.padding(24)
+                    }
+                    .accessibilityIdentifier("aboutScroll")
                     .navigationTitle("About & download")
                     .toolbar { Button("Done") { showingInstructions = false } }
                     .confirmationDialog("Reset all listening progress?", isPresented: $confirmingProgressReset) {
@@ -96,9 +99,9 @@ struct LibraryView: View {
                     } message: {
                         Text("All lessons and recordings will be marked unlistened. Your audio will not be removed.")
                     }
-            }
-            .safeAreaInset(edge: .bottom, spacing: 0) {
+                }
                 PlaybackView(player: library.player)
+                    .fixedSize(horizontal: false, vertical: true)
             }
 #if DEBUG
             .sheet(isPresented: $showingMappingReview, onDismiss: library.endMappingReview) {
@@ -138,6 +141,7 @@ struct LibraryView: View {
                 .accessibilityIdentifier("welcomeImport")
             }.padding(24).frame(maxWidth: 650, alignment: .leading).frame(maxWidth: .infinity)
         }
+        .accessibilityIdentifier("welcomeScroll")
     }
 
     private var instructions: some View {
@@ -202,7 +206,7 @@ struct LibraryView: View {
                     }
                 }
             }
-        }
+        }.accessibilityIdentifier("libraryList")
     }
 
     private var importProgress: some View {
@@ -235,6 +239,7 @@ private struct GroupView: View {
                     let listened = library.progress.isListened(library.trackIDs(for: group, section: section.number))
                     NavigationLink {
                         List(section.tracks) { TrackRow(track: $0, library: library) }
+                            .accessibilityIdentifier("sectionList")
                             .navigationTitle(section.title)
                     } label: {
                         HStack {
@@ -258,6 +263,7 @@ private struct GroupView: View {
                 }
             }
         }
+        .accessibilityIdentifier("groupList")
         .navigationTitle(group.title)
         .toolbar {
             Menu {
