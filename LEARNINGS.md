@@ -7,3 +7,4 @@
 - Attach the review sheet's player inset directly to its Form so the final export/reset rows scroll above the player.
 - Routine mapping-review imports use JSON consistency and diff checks; do not rerun the test suites for every data update.
 - Section cascades track pending manual deltas separately from shifted proposals, so confirmation applies an offset once and leaves already-confirmed rows unchanged.
+- Re-import lives in About; defer its root confirmation until the About sheet's onDismiss to avoid overlapping modal presentations.

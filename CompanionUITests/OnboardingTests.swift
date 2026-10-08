@@ -44,8 +44,7 @@ final class OnboardingTests: XCTestCase {
     func testPlayerAcrossLibraryNavigation() throws {
         let app = XCUIApplication()
         app.launch()
-        XCTAssertTrue(app.buttons["importAudio"].waitForExistence(timeout: 10))
-        guard app.buttons["lesson-1"].exists else {
+        guard app.buttons["lesson-1"].waitForExistence(timeout: 10) else {
             throw XCTSkip("Requires an imported lesson-1 fixture on an isolated test simulator.")
         }
         assertEmptyPlayer(in: app)
@@ -87,8 +86,7 @@ final class OnboardingTests: XCTestCase {
     func testSectionListenedStatusFollowsChildren() throws {
         let app = XCUIApplication()
         app.launch()
-        XCTAssertTrue(app.buttons["importAudio"].waitForExistence(timeout: 10))
-        guard app.buttons["lesson-1"].exists else {
+        guard app.buttons["lesson-1"].waitForExistence(timeout: 10) else {
             throw XCTSkip("Requires the synthetic SectionLibrary fixture on an isolated test simulator.")
         }
         app.buttons["lesson-1"].tap()
@@ -129,5 +127,55 @@ final class OnboardingTests: XCTestCase {
         app.navigationBars.buttons.element(boundBy: 0).tap()
         XCTAssertTrue(section.waitForExistence(timeout: 5))
         XCTAssertEqual(section.value as? String, "Unlistened")
+    }
+
+    /// Imported libraries omit the permanent banner and keep safe replacement available only from About.
+    @MainActor
+    func testLibraryReplacementLivesInAbout() throws {
+        continueAfterFailure = false
+        let app = XCUIApplication()
+        app.launch()
+        guard app.buttons["lesson-1"].waitForExistence(timeout: 10) else {
+            throw XCTSkip("Requires an imported lesson-1 fixture on an isolated test simulator.")
+        }
+        XCTAssertFalse(app.buttons["importAudio"].exists)
+        XCTAssertFalse(app.buttons["replaceAudio"].exists)
+        XCTAssertFalse(app.staticTexts.containing(NSPredicate(format: "label CONTAINS 'recordings imported'")).firstMatch.exists)
+
+        for chooseZIP in [false, true] {
+            app.buttons["aboutAudio"].tap()
+            let replacement = app.buttons["replaceAudio"]
+            XCTAssertTrue(replacement.waitForExistence(timeout: 5))
+            let scroll = app.scrollViews["aboutScroll"]
+            for _ in 0..<6 {
+                if replacement.isHittable { break }
+                scroll.swipeUp()
+            }
+            replacement.tap()
+            let choose = app.buttons["Choose replacement ZIP"]
+            XCTAssertTrue(choose.waitForExistence(timeout: 5))
+            if chooseZIP {
+                choose.tap()
+                XCTAssertTrue(app.buttons["Cancel"].waitForExistence(timeout: 20))
+                app.buttons["Cancel"].tap()
+            } else if app.buttons["Cancel"].exists {
+                app.buttons["Cancel"].tap()
+            } else {
+                // Popover confirmations dismiss outside their bounds rather than offering Cancel.
+                let navigationBar = app.navigationBars["Gaelic Companion"]
+                XCTAssertTrue(navigationBar.exists)
+                let frame = navigationBar.frame
+                app.coordinate(withNormalizedOffset: .zero)
+                    .withOffset(CGVector(dx: frame.midX, dy: frame.midY)).tap()
+            }
+            expectation(for: NSPredicate(format: "exists == false"), evaluatedWith: choose)
+            waitForExpectations(timeout: 5)
+            XCTAssertTrue(app.buttons["lesson-1"].waitForExistence(timeout: 5))
+            XCTAssertFalse(app.buttons["importAudio"].exists)
+        }
+        app.terminate()
+        app.launch()
+        XCTAssertTrue(app.buttons["lesson-1"].waitForExistence(timeout: 10))
+        XCTAssertFalse(app.buttons["importAudio"].exists)
     }
 }

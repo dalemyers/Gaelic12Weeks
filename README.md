@@ -183,8 +183,10 @@ remain visible. Remove that blocking fixture before running the normal review te
 - Duplicate track IDs, unsafe paths, symlinks, checksum mismatches, missing Title
   metadata and unplayable audio are rejected. Streaming extraction enforces
   512 MiB per recording and 3 GiB total limits.
-- Partial imports are allowed and show an imported/expected count. Replacement
-  replaces, rather than merges, the audio library.
+- Partial imports are allowed and show a missing-recordings notice, without a
+  permanent imported-count banner. After importing, use **About & download →
+  Replace imported audio** to choose another ZIP; the library toolbar no longer
+  shows the import button. Replacement replaces, rather than merges, the audio library.
 - Imports are staged in separate generations and published via an atomic manifest.
   Failure/cancellation preserves the previous library. Obsolete generations are
   removed after successful replacement and release of the old player; startup
@@ -207,6 +209,9 @@ one-minute synthetic recording. On a **dedicated simulator**, first run
 and run only `GaelicCompanionUITests/OnboardingTests/testPlayerAcrossLibraryNavigation`.
 Do not seed a simulator containing a real user's library. This requires an
 existing `ffmpeg` installation; no publisher recordings are used.
+The same fixture supports `OnboardingTests/testLibraryReplacementLivesInAbout`,
+which checks the removed banner/toolbar action and cancellation of replacement
+from About without losing the imported library.
 
 ```sh
 # Set SIMULATOR_ID to your dedicated, booted test simulator with this app installed.

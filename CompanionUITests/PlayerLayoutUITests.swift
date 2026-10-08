@@ -9,8 +9,7 @@ final class PlayerLayoutUITests: XCTestCase {
         defer { XCUIDevice.shared.orientation = .portrait }
         let app = XCUIApplication()
         app.launch()
-        XCTAssertTrue(app.buttons["importAudio"].waitForExistence(timeout: 10))
-        guard app.staticTexts["150 of 150 recordings imported"].waitForExistence(timeout: 5) else {
+        guard app.buttons["lesson-1"].waitForExistence(timeout: 10) else {
             throw XCTSkip("Requires the complete synthetic library on a dedicated simulator.")
         }
 

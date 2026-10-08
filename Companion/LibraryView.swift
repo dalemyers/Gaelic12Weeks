@@ -6,6 +6,7 @@ struct LibraryView: View {
     @State private var showingImporter = false
     @State private var showingInstructions = false
     @State private var confirmingReplacement = false
+    @State private var requestingReplacement = false
     @State private var confirmingProgressReset = false
 #if DEBUG
     @State private var showingMappingReview = false
@@ -25,12 +26,14 @@ struct LibraryView: View {
                 }
                 .navigationTitle("Gaelic Companion")
                 .toolbar {
-                    ToolbarItem(placement: .topBarTrailing) {
-                        Button("Import audio", systemImage: "square.and.arrow.down") {
-                            if library.saved == nil { showingImporter = true } else { confirmingReplacement = true }
+                    if library.saved == nil {
+                        ToolbarItem(placement: .topBarTrailing) {
+                            Button("Import audio", systemImage: "square.and.arrow.down") {
+                                showingImporter = true
+                            }
+                            .disabled(library.isLoading || library.isImporting || library.mapping == nil)
+                            .accessibilityIdentifier("importAudio")
                         }
-                        .disabled(library.isImporting || library.mapping == nil)
-                        .accessibilityIdentifier("importAudio")
                     }
                     ToolbarItem(placement: .topBarLeading) {
                         Button("About & download", systemImage: "info.circle") { showingInstructions = true }
@@ -64,12 +67,25 @@ struct LibraryView: View {
         } message: {
             Text("Your current library stays available unless the new ZIP imports successfully.")
         }
-        .sheet(isPresented: $showingInstructions) {
+        .sheet(isPresented: $showingInstructions, onDismiss: {
+            guard requestingReplacement else { return }
+            requestingReplacement = false
+            confirmingReplacement = true
+        }) {
             VStack(spacing: 0) {
                 NavigationStack {
                     ScrollView {
                         VStack(alignment: .leading, spacing: 24) {
                             instructions
+                            if library.saved != nil {
+                                Button("Replace imported audio", systemImage: "square.and.arrow.down") {
+                                    // Wait for About to dismiss before presenting the root confirmation and picker.
+                                    requestingReplacement = true
+                                    showingInstructions = false
+                                }
+                                .disabled(library.isLoading || library.isImporting || library.mapping == nil)
+                                .accessibilityIdentifier("replaceAudio")
+                            }
 #if DEBUG
                             Button("Review audio mapping (DEBUG)", systemImage: "checklist") {
                                 do {
@@ -154,7 +170,9 @@ struct LibraryView: View {
                 Label("Open publisher's download page", systemImage: "arrow.up.right.square")
             }.accessibilityIdentifier("publisherLink")
             Text("2. Save the ZIP in Files. If your browser extracts it automatically, keep or download the original ZIP.")
-            Text("3. Return here and choose Import audio, then select the ZIP.")
+            Text(library.saved == nil
+                 ? "3. Return here and choose Import audio, then select the ZIP."
+                 : "3. Choose Replace imported audio in About & download, then select the new ZIP.")
             Text("No recordings are bundled or downloaded automatically. Import only audio you are entitled to use. "
                  + "Imported recordings stay on this device and are excluded from the app's cloud backup.")
                 .font(.footnote).foregroundStyle(.secondary)
@@ -163,17 +181,16 @@ struct LibraryView: View {
 
     private var lessons: some View {
         List {
-            Section {
-                Label("\(library.importedCount) of \(library.expectedCount) recordings imported", systemImage: "music.note.list")
-                if library.hasProvisionalMapping {
-                    Label("Some lesson and section assignments are provisional.", systemImage: "exclamationmark.circle")
-                        .font(.footnote).foregroundStyle(.secondary)
-                }
-            } header: {
-                Text("Your listening library")
-            } footer: {
-                if library.importedCount < library.expectedCount {
-                    Text("Only imported recordings are shown. Import a complete ZIP to add the remaining tracks.")
+            if library.hasProvisionalMapping || library.importedCount < library.expectedCount {
+                Section {
+                    if library.hasProvisionalMapping {
+                        Label("Some lesson and section assignments are provisional.", systemImage: "exclamationmark.circle")
+                            .font(.footnote).foregroundStyle(.secondary)
+                    }
+                    if library.importedCount < library.expectedCount {
+                        Text("Only imported recordings are shown. Use About & download to import a complete ZIP.")
+                            .font(.footnote).foregroundStyle(.secondary)
+                    }
                 }
             }
             Section {
