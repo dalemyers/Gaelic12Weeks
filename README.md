@@ -33,7 +33,7 @@ Choose an installed simulator name if different. Build settings are explicit in
    parent section; a section can contain only subsection recordings when the
    source has no main recording.
 
-Conversation recordings are shown directly within their provisional lesson.
+Conversation recordings are shown directly within their mapped lesson.
 Appendices and Reading Practice have separate top-level groups. Playback includes
 pause/resume, seeking, 5-second skips, background audio and lock-screen controls.
 The compact bottom player stays visible while browsing lessons and sections,
@@ -88,18 +88,14 @@ during import; the editable mapping's title is used for display.
 | `title` | Editable display title, initially copied from the supplied ID3 Title. |
 | `needsReview` | `true` displays a provisional-mapping warning. Set to `false` after checking against the book. |
 
-**Assignments still need your manual review.** IDs 002–032 have been confirmed,
-covering Lessons 1–3. Track 030 ("Days, Months And Seasons") is confirmed as
-Section 25, and track 031 ("Emphatic Suffixes") as Section 26.
-The remaining 103 numbered proposals after Lesson 3 have received the same +2
-offset once; their titles and unconfirmed status are unchanged.
-IDs 033–144 are flagged for review: lesson boundaries
-are provisionally placed after each of the 12 Conversation tracks, and unnumbered section titles
-were counted upward. Section gaps are preserved when applying offsets. In particular,
-the early metadata has missing numbers (e.g. an unnumbered title followed by `14a`,
-and a later jump to `22a`), so some inferred section numbers are not authoritative.
-Appendices 145–147 and Reading Practice 148–151 identify themselves.
-Original title typos are retained for easy comparison with the source.
+**All 150 recordings (IDs 002–151) have been confirmed through the mapping review.**
+The reviewed section assignments supersede the initial inferred numbering.
+Track 030 ("Days, Months And Seasons") is Section 25, and track 031
+("Emphatic Suffixes") is Section 26. Appendices 145–147 and Reading Practice
+148–151 are also confirmed.
+Titles retain their source wording and typos unless explicitly corrected during
+review; the section/subsection fields determine the hierarchy, even when a title
+contains a different number.
 
 Keep `schemaVersion` at 1. Invalid mappings fail visibly instead of dropping tracks.
 If new recordings are supported, add their IDs to this file first. Importing an

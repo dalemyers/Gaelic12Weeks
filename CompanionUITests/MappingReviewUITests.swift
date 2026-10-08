@@ -42,12 +42,22 @@ final class MappingReviewUITests: XCTestCase {
         XCTAssertTrue(app.staticTexts["reviewProgress"].waitForExistence(timeout: 10))
         XCTAssertTrue(app.staticTexts["reviewProgress"].label.contains("0 of 150 confirmed"))
 
+        // Reopen track 003 for review so the fully confirmed catalog still exercises automatic shifting.
+        let next = app.buttons["nextReviewTrack"]
+        reveal(next, in: app)
+        next.tap()
+        let save = app.buttons["saveReviewCorrection"]
+        reveal(save, in: app)
+        save.tap()
+        let previous = app.buttons["previousReviewTrack"]
+        reveal(previous, in: app, upward: false)
+        previous.tap()
+
         let lesson = app.textFields["reviewLesson"]
         reveal(lesson, in: app)
         replace(lesson, with: "2")
         replace(app.textFields["reviewSection"], with: "14")
         app.buttons["finishReviewEditing"].tap()
-        let save = app.buttons["saveReviewCorrection"]
         reveal(save, in: app)
         save.tap()
         reveal(app.staticTexts["reviewNotice"], in: app, upward: false)
@@ -75,10 +85,10 @@ final class MappingReviewUITests: XCTestCase {
         reveal(confirm, in: app)
         confirm.tap()
         reveal(app.staticTexts["reviewNotice"], in: app, upward: false)
-        XCTAssertTrue(app.staticTexts["reviewNotice"].label.contains("Shifted "))
-        XCTAssertTrue(app.staticTexts["reviewNotice"].label.contains("by +13."))
+        XCTAssertTrue(app.staticTexts["reviewNotice"].label.contains("Shifted 1 later unconfirmed recordings by +13."))
         reveal(app.textFields["reviewLesson"], in: app)
         XCTAssertEqual(app.textFields["reviewLesson"].value as? String, "1", "Confirmation advances to track 003.")
+        XCTAssertEqual(app.textFields["reviewSection"].value as? String, "15")
         let export = app.buttons["exportMapping"]
         reveal(export, in: app)
         XCTAssertTrue(export.isEnabled)

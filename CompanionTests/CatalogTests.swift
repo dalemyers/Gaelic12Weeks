@@ -31,11 +31,12 @@ final class CatalogTests: XCTestCase {
         XCTAssertEqual(byID[30]?.section, 25)
         XCTAssertEqual(byID[31]?.section, 26)
         XCTAssertEqual(byID[33]?.section, 27)
-        XCTAssertEqual(byID[99]?.section, 69)
+        XCTAssertEqual(byID[34]?.section, 27)
+        XCTAssertEqual(byID[99]?.section, 67)
         XCTAssertEqual(byID[99]?.subsection, "a")
         XCTAssertEqual(byID[145]?.group, .appendices)
         XCTAssertEqual(byID[148]?.group, .readingPractice)
-        XCTAssertTrue(try XCTUnwrap(byID[33]).needsReview)
+        XCTAssertTrue(mapping.tracks.allSatisfy { !$0.needsReview })
     }
 
     /// Explicit subsection gaps produce a section even when there is no recorded parent track.
@@ -48,7 +49,7 @@ final class CatalogTests: XCTestCase {
         XCTAssertEqual(groups.first?.title, "Lesson 1")
         XCTAssertEqual(groups.first?.sections.map(\.number), [4, 5])
         XCTAssertEqual(groups.first?.sections.first?.tracks.map(\.id), [6, 7, 8])
-        XCTAssertTrue(groups.flatMap(\.sections).contains { $0.number == 69 && $0.tracks.count == 1 })
+        XCTAssertTrue(groups.flatMap(\.sections).contains { $0.number == 67 && $0.tracks.count == 1 })
     }
 
     /// Invalid manual edits fail visibly rather than silently losing files.
