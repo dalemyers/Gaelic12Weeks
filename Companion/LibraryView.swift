@@ -269,7 +269,8 @@ private struct TrackRow: View {
         } label: {
             HStack(alignment: .top, spacing: 12) {
                 Image(systemName: library.player.currentTrack?.id == track.id ? "speaker.wave.2.fill" : "play.circle")
-                    .foregroundStyle(.teal).accessibilityHidden(true)
+                    .foregroundStyle(library.player.currentTrack?.id == track.id ? Color.teal : Color.secondary)
+                    .accessibilityHidden(true)
                 VStack(alignment: .leading, spacing: 5) {
                     if track.mapping.section != nil {
                         Text(track.mapping.label).font(.caption).foregroundStyle(.secondary)
@@ -285,8 +286,11 @@ private struct TrackRow: View {
                     Image(systemName: "checkmark.circle.fill")
                         .foregroundStyle(.teal).accessibilityLabel("Listened")
                 }
-            }.padding(.vertical, 5)
+            }
+            .padding(.vertical, 5)
+            .contentShape(Rectangle())
         }
+        .buttonStyle(.plain)
         .accessibilityLabel("Play \(track.mapping.label), \(track.mapping.title)")
         .accessibilityIdentifier("track-\(track.id)")
         .accessibilityValue(library.progress.isListened([track.id]) ? "Listened" : "Unlistened")
