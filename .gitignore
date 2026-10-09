@@ -1,5 +1,6 @@
 [Aa]udio/
 *.mp3
+!IntroEditorTests/Fixtures/synthetic.mp3
 *.zip
 .DS_Store
 .build/

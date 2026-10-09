@@ -91,6 +91,20 @@ final class CatalogTests: XCTestCase {
         ))
     }
 
+    func testOptionalIntroOffsetsRemainBackwardCompatible() throws {
+        var track = try XCTUnwrap(TrackMapping.load().tracks.first)
+        XCTAssertNil(track.introEndSeconds)
+        for seconds in [0.0, 2.375] {
+            track.introEndSeconds = seconds
+            let data = try JSONEncoder().encode(TrackMapping(schemaVersion: 1, tracks: [track]))
+            XCTAssertEqual(try TrackMapping.decode(data).tracks.first?.introEndSeconds, seconds)
+        }
+        track.introEndSeconds = -0.1
+        XCTAssertThrowsError(try TrackMapping.decode(
+            JSONEncoder().encode(TrackMapping(schemaVersion: 1, tracks: [track]))
+        ))
+    }
+
     /// Duplicate imported identifiers are rejected before dictionary construction.
     func testRejectsDuplicateAndUnknownImports() throws {
         let mapping = try TrackMapping.load()

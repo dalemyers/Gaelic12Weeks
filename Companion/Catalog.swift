@@ -57,6 +57,9 @@ struct TrackMapping: Codable, Sendable {
             if let section = track.section, section < 1 {
                 throw CompanionError.invalidMapping("Track \(track.id) has an invalid section.")
             }
+            if let seconds = track.introEndSeconds, !seconds.isFinite || seconds < 0 {
+                throw CompanionError.invalidMapping("Track \(track.id) has an invalid intro end time.")
+            }
             if let subsection = track.subsection,
                track.section == nil || subsection.range(of: "^[a-z]+$", options: .regularExpression) == nil {
                 throw CompanionError.invalidMapping("Track \(track.id) has an invalid subsection.")
@@ -80,6 +83,7 @@ struct MappedTrack: Codable, Identifiable, Sendable, Equatable {
     let group: Group
     let title: String
     let needsReview: Bool
+    var introEndSeconds: Double? = nil
 
     var label: String {
         guard let section else { return title }

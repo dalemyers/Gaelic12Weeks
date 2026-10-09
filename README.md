@@ -90,6 +90,7 @@ during import; the editable mapping's title is used for display.
 | `group` | `"lesson"`, `"appendices"` or `"readingPractice"`. |
 | `title` | Editable display title, initially copied from the supplied ID3 Title. |
 | `needsReview` | `true` displays a provisional-mapping warning. Set to `false` after checking against the book. |
+| `introEndSeconds` | Optional intro-end position in seconds from the start of the original recording. Absent means unreviewed; `0` means explicitly no intro. |
 
 **All 150 recordings (IDs 002–151) have been confirmed through the mapping review.**
 The reviewed section assignments supersede the initial inferred numbering.
@@ -103,6 +104,65 @@ contains a different number.
 Keep `schemaVersion` at 1. Invalid mappings fail visibly instead of dropping tracks.
 If new recordings are supported, add their IDs to this file first. Importing an
 unmapped numeric ID is an error, not a silent omission.
+
+## Mark spoken introductions on Mac
+
+Open the **`GaelicIntroEditor`** scheme in Xcode and run on **My Mac** (macOS 14+).
+This is a separate, native authoring tool, not the iPhone app. It contains no book
+audio and never trims or rewrites recordings.
+
+1. Choose **Open Metadata…** and select `Companion/Resources/TrackMapping.json`.
+   **This edits that file directly**, not an exported copy.
+2. Choose **Open Audio Folder…** and select your extracted MP3 folder (`Audio/`
+   in a local checkout, if present). Nested folders are supported; duplicate
+   recording IDs are rejected and missing recordings are shown in the list.
+3. Select a recording by its lesson, section, title or filename ID. Listen with
+   **Space**, seek by clicking/dragging the waveform or moving the slider, then
+   use **±1s** and **±0.1s** to refine the boundary. Fine steps pause playback;
+   the left/right arrow keys step by 0.1 seconds.
+4. Press **Mark intro end here** (**M**) to save the current audio-clock position,
+   or **Mark & Next** (**Command-Return**) to save and advance. **No intro** writes
+   zero; **Clear mark** removes the field and returns the recording to unreviewed.
+5. Use **Play from split** or **Listen 1s before split** to check your edit. The
+   orange marker is the saved split; the teal playhead updates during playback.
+   Zoom to 5, 15 or 30 seconds, or the full clip. Waveform arrows browse the
+   timeline; **Follow playhead** brings it back into view.
+
+Every mark saves immediately as `introEndSeconds`. The first save after opening
+or reloading metadata creates a uniquely named `TrackMapping.json.backup-…`
+beside the file. Other metadata fields, including unknown fields, are preserved;
+JSON formatting is normalized. If the file changes externally, saving fails
+without overwriting it; use **Reload Metadata** to load those changes first.
+Write failures remain visible and **Mark & Next** does not advance on failure.
+The editor opens without files each launch; choose the same metadata to resume.
+
+These marks are preparation for intro skipping. **The iPhone app does not yet
+skip introductions**; playback is unchanged. Its metadata loader and DEBUG
+mapping reviewer preserve the optional timestamps.
+
+Build and open from Terminal:
+
+```sh
+xcodebuild -project GaelicCompanion.xcodeproj -scheme GaelicIntroEditor \
+  -destination 'platform=macOS' -derivedDataPath build/IntroEditor \
+  CODE_SIGN_IDENTITY=- build
+open build/IntroEditor/Build/Products/Debug/GaelicIntroEditor.app
+```
+
+The Mac unit tests cover backups, external edits, unknown JSON fields, invalid
+offsets, missing/duplicate audio, waveform decoding, precise seeks, playback,
+and changing recordings during waveform loading. The Mac UI test opens real
+file panels and checks marking, playback, waveform seeking and persistence.
+It uses only temporary metadata and an original synthetic tone in the test
+bundle, never your recordings or real mapping. Run on an unlocked Mac desktop:
+
+```sh
+xcodebuild -project GaelicCompanion.xcodeproj -scheme GaelicIntroEditor \
+  -destination 'platform=macOS' -derivedDataPath build/IntroEditor \
+  -parallel-testing-enabled NO CODE_SIGN_IDENTITY=- test
+```
+
+`IntroEditorView.swift` and `WaveformView.swift` include isolated Xcode previews.
 
 ## Confirm and correct mappings in DEBUG
 

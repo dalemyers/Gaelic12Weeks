@@ -7,19 +7,29 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		20E3477A564CBDF6CCFC1EE2 /* IntroAudioTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC7908DECBF19A2B136D97D0 /* IntroAudioTests.swift */; };
 		2685FA68531E34AD3E1B9A6A /* ZIPFoundation in Frameworks */ = {isa = PBXBuildFile; productRef = 8B90DB296671ADF38B9F71A8 /* ZIPFoundation */; };
+		2D2628CCB326305CF2FF6579 /* IntroEditorUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC27AFC85DE1BC0AE6A0F8AB /* IntroEditorUITests.swift */; };
+		342A33D76BAA95A11DC1F511 /* IntroAudioPlayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70959AE1864E970EB753E1BF /* IntroAudioPlayer.swift */; };
 		34B77BE4C8ADA5BB3D4A14E2 /* LibraryRepositoryTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DED95A71351906DE4843467C /* LibraryRepositoryTests.swift */; };
 		48030B40E4FA13E63EFA7DD0 /* AudioSessionController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3476B6BC1CD64591F6964720 /* AudioSessionController.swift */; };
+		5077FCD48EB363B18C5DACA8 /* synthetic.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = C2163EE967703B120BEC5CE5 /* synthetic.mp3 */; };
 		5447F0B237599D2BE53A712E /* ZIPFoundation in Frameworks */ = {isa = PBXBuildFile; productRef = CC15E5FD08ADC9ED86643CFF /* ZIPFoundation */; };
 		57C9E0ED64D2040202E52D7C /* ListeningProgress.swift in Sources */ = {isa = PBXBuildFile; fileRef = 265E338084746A7C9BDEC010 /* ListeningProgress.swift */; };
+		59C65FB7E7E9BB9BAE7048D1 /* IntroEditorApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5DDF0404ACC64C6BFAE9C588 /* IntroEditorApp.swift */; };
+		5EFEC3F36E58B6F465D79AAF /* IntroEditorModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3A101AE1AB4F91C65F7558B /* IntroEditorModel.swift */; };
 		6A5AAB57C901865BAF22FDA6 /* ListeningProgressTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1C7032399EE0AF93C30D0AE /* ListeningProgressTests.swift */; };
 		6C23A2206F8A07E42814CADE /* OnboardingTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1011C3E4B42E3DFDA39B909B /* OnboardingTests.swift */; };
 		6CA10B3129775676853D820F /* AudioPlayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA860D1E163D33424C46364F /* AudioPlayer.swift */; };
+		708C9578CCEF02E278030CF5 /* IntroMetadataTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A184D5A9B78F207C3819C82D /* IntroMetadataTests.swift */; };
 		7ABE20BD8942F1327F6B47B0 /* LibraryRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67F4121489AA4B5456DD2FEC /* LibraryRepository.swift */; };
 		81E14833BE2296526F6886BD /* MappingReviewView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7FB5F03662FCDDD8176C28B /* MappingReviewView.swift */; };
+		8712F7D9F271F6AF2D936E50 /* README.txt in Resources */ = {isa = PBXBuildFile; fileRef = 9F7686FAF2F644D8844EE4FA /* README.txt */; };
 		89ECB03B9FC19023B2140E67 /* LibraryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59AE7FD2FB22016BF6650AF9 /* LibraryView.swift */; };
 		954CDD688294774A4EB6F6E4 /* PlayerLayoutUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 252726A67F305662ABD1ABF1 /* PlayerLayoutUITests.swift */; };
+		9B75CB6934718C78B0F953C0 /* synthetic.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = C2163EE967703B120BEC5CE5 /* synthetic.mp3 */; };
 		9E2F0005399BF81BD6037195 /* CatalogTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7D129EB429F5516AA80B2C3 /* CatalogTests.swift */; };
+		A02D590D3424447C02FDB1EC /* Catalog.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1421A66E0589AF0B2FAC03B7 /* Catalog.swift */; };
 		A1A4EBF1B5B80E74585E9437 /* CompanionApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A32AF569EC613949562ADEA /* CompanionApp.swift */; };
 		AA03F9EF57278E75BC717F2A /* AudioPlayerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 840C93E64877717CC742DA3D /* AudioPlayerTests.swift */; };
 		AA3556546E461AE063F54FAC /* MappingReviewStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = F120C43E5AACF181B30C59FF /* MappingReviewStore.swift */; };
@@ -28,6 +38,10 @@
 		D6B05E1655C734B78F78BC21 /* Catalog.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1421A66E0589AF0B2FAC03B7 /* Catalog.swift */; };
 		DCC7C320CD8A8D07A84B75AA /* TrackMapping.json in Resources */ = {isa = PBXBuildFile; fileRef = B0B47C275B1E56A189D30AB0 /* TrackMapping.json */; };
 		DE9FF506B7BBE7EFC802D2AA /* LibraryModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B74618D018F3F2E4C579C2E8 /* LibraryModel.swift */; };
+		E7BD868DC2D6AC58E9BCDB8E /* WaveformView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD3CA9D256B19DE0A910DDB1 /* WaveformView.swift */; };
+		E7FF79638DAE49618C63B719 /* IntroMetadataStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81EBA3B9F1E6252B63812747 /* IntroMetadataStore.swift */; };
+		F0BBC3A72A9B5C125BF09EEC /* AudioWaveform.swift in Sources */ = {isa = PBXBuildFile; fileRef = 100498F5321095EED75BD44A /* AudioWaveform.swift */; };
+		FA2AEB258A543FF54DFFCE0F /* IntroEditorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA0A840E1B1768CA51963707 /* IntroEditorView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -45,10 +59,25 @@
 			remoteGlobalIDString = 176FD5C8CFA2C7A24C025486;
 			remoteInfo = GaelicCompanion;
 		};
+		82F1DFBFCF0F2BEA91860021 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 559730A7DCECB40A06236E85 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = BAA69D5DCDE6A1600DC3B9EE;
+			remoteInfo = GaelicIntroEditor;
+		};
+		CBCB3DE8272159B7E4E03760 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 559730A7DCECB40A06236E85 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = BAA69D5DCDE6A1600DC3B9EE;
+			remoteInfo = GaelicIntroEditor;
+		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
 		0A32AF569EC613949562ADEA /* CompanionApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompanionApp.swift; sourceTree = "<group>"; };
+		100498F5321095EED75BD44A /* AudioWaveform.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioWaveform.swift; sourceTree = "<group>"; };
 		1011C3E4B42E3DFDA39B909B /* OnboardingTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingTests.swift; sourceTree = "<group>"; };
 		1421A66E0589AF0B2FAC03B7 /* Catalog.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Catalog.swift; sourceTree = "<group>"; };
 		1438B3AD81DEA9E7386563C0 /* GaelicCompanionUITests.xctest */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.cfbundle; path = GaelicCompanionUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -56,21 +85,35 @@
 		265E338084746A7C9BDEC010 /* ListeningProgress.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListeningProgress.swift; sourceTree = "<group>"; };
 		3476B6BC1CD64591F6964720 /* AudioSessionController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioSessionController.swift; sourceTree = "<group>"; };
 		59AE7FD2FB22016BF6650AF9 /* LibraryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LibraryView.swift; sourceTree = "<group>"; };
+		5DDF0404ACC64C6BFAE9C588 /* IntroEditorApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IntroEditorApp.swift; sourceTree = "<group>"; };
 		67F4121489AA4B5456DD2FEC /* LibraryRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LibraryRepository.swift; sourceTree = "<group>"; };
+		70959AE1864E970EB753E1BF /* IntroAudioPlayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IntroAudioPlayer.swift; sourceTree = "<group>"; };
+		7A79532F57F631C9BBA0E306 /* GaelicIntroEditorTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = GaelicIntroEditorTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		7E18BC4BEE952E0395C179A0 /* GaelicIntroEditor.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = GaelicIntroEditor.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		81EBA3B9F1E6252B63812747 /* IntroMetadataStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IntroMetadataStore.swift; sourceTree = "<group>"; };
 		840C93E64877717CC742DA3D /* AudioPlayerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioPlayerTests.swift; sourceTree = "<group>"; };
 		9AE4CD4D7D22A21C77C40034 /* MappingReviewUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MappingReviewUITests.swift; sourceTree = "<group>"; };
+		9F7686FAF2F644D8844EE4FA /* README.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = README.txt; sourceTree = "<group>"; };
+		A184D5A9B78F207C3819C82D /* IntroMetadataTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IntroMetadataTests.swift; sourceTree = "<group>"; };
 		A7FB5F03662FCDDD8176C28B /* MappingReviewView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MappingReviewView.swift; sourceTree = "<group>"; };
+		AC7908DECBF19A2B136D97D0 /* IntroAudioTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IntroAudioTests.swift; sourceTree = "<group>"; };
 		B0B47C275B1E56A189D30AB0 /* TrackMapping.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = TrackMapping.json; sourceTree = "<group>"; };
 		B3EEFC72829A74C73D6567BF /* GaelicCompanion.app */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.application; path = GaelicCompanion.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B74618D018F3F2E4C579C2E8 /* LibraryModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LibraryModel.swift; sourceTree = "<group>"; };
+		C2163EE967703B120BEC5CE5 /* synthetic.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = synthetic.mp3; sourceTree = "<group>"; };
 		D37D6BC99BD7540836CAD7B7 /* MappingReviewTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MappingReviewTests.swift; sourceTree = "<group>"; };
+		D8E1C64837B3C7B51F5F9595 /* GaelicIntroEditorUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = GaelicIntroEditorUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		DA860D1E163D33424C46364F /* AudioPlayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioPlayer.swift; sourceTree = "<group>"; };
+		DC27AFC85DE1BC0AE6A0F8AB /* IntroEditorUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IntroEditorUITests.swift; sourceTree = "<group>"; };
 		DD33A26B6091289F87F1E56A /* GaelicCompanionTests.xctest */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.cfbundle; path = GaelicCompanionTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		DED95A71351906DE4843467C /* LibraryRepositoryTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LibraryRepositoryTests.swift; sourceTree = "<group>"; };
 		E1C7032399EE0AF93C30D0AE /* ListeningProgressTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListeningProgressTests.swift; sourceTree = "<group>"; };
+		EA0A840E1B1768CA51963707 /* IntroEditorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IntroEditorView.swift; sourceTree = "<group>"; };
 		EFDB00E618759BF4625BA31D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		F120C43E5AACF181B30C59FF /* MappingReviewStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MappingReviewStore.swift; sourceTree = "<group>"; };
+		F3A101AE1AB4F91C65F7558B /* IntroEditorModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IntroEditorModel.swift; sourceTree = "<group>"; };
 		F7D129EB429F5516AA80B2C3 /* CatalogTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CatalogTests.swift; sourceTree = "<group>"; };
+		FD3CA9D256B19DE0A910DDB1 /* WaveformView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WaveformView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -99,6 +142,9 @@
 				B3EEFC72829A74C73D6567BF /* GaelicCompanion.app */,
 				DD33A26B6091289F87F1E56A /* GaelicCompanionTests.xctest */,
 				1438B3AD81DEA9E7386563C0 /* GaelicCompanionUITests.xctest */,
+				7E18BC4BEE952E0395C179A0 /* GaelicIntroEditor.app */,
+				7A79532F57F631C9BBA0E306 /* GaelicIntroEditorTests.xctest */,
+				D8E1C64837B3C7B51F5F9595 /* GaelicIntroEditorUITests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -113,6 +159,30 @@
 				D37D6BC99BD7540836CAD7B7 /* MappingReviewTests.swift */,
 			);
 			path = CompanionTests;
+			sourceTree = "<group>";
+		};
+		84683DE7FA23A3B7FF857EA4 /* IntroEditorTests */ = {
+			isa = PBXGroup;
+			children = (
+				AC7908DECBF19A2B136D97D0 /* IntroAudioTests.swift */,
+				A184D5A9B78F207C3819C82D /* IntroMetadataTests.swift */,
+				AF5F45173CAB479F1FC0C96A /* Fixtures */,
+			);
+			path = IntroEditorTests;
+			sourceTree = "<group>";
+		};
+		921179BDB41ED84B12DC7184 /* IntroEditor */ = {
+			isa = PBXGroup;
+			children = (
+				100498F5321095EED75BD44A /* AudioWaveform.swift */,
+				70959AE1864E970EB753E1BF /* IntroAudioPlayer.swift */,
+				5DDF0404ACC64C6BFAE9C588 /* IntroEditorApp.swift */,
+				F3A101AE1AB4F91C65F7558B /* IntroEditorModel.swift */,
+				EA0A840E1B1768CA51963707 /* IntroEditorView.swift */,
+				81EBA3B9F1E6252B63812747 /* IntroMetadataStore.swift */,
+				FD3CA9D256B19DE0A910DDB1 /* WaveformView.swift */,
+			);
+			path = IntroEditor;
 			sourceTree = "<group>";
 		};
 		9E930292550E5E0B410957A5 /* Companion */ = {
@@ -134,12 +204,32 @@
 			path = Companion;
 			sourceTree = "<group>";
 		};
+		AF5F45173CAB479F1FC0C96A /* Fixtures */ = {
+			isa = PBXGroup;
+			children = (
+				9F7686FAF2F644D8844EE4FA /* README.txt */,
+				C2163EE967703B120BEC5CE5 /* synthetic.mp3 */,
+			);
+			path = Fixtures;
+			sourceTree = "<group>";
+		};
+		B56B0C1BA7C93D6A72978C95 /* IntroEditorUITests */ = {
+			isa = PBXGroup;
+			children = (
+				DC27AFC85DE1BC0AE6A0F8AB /* IntroEditorUITests.swift */,
+			);
+			path = IntroEditorUITests;
+			sourceTree = "<group>";
+		};
 		D21DE7748F50AFEF5D4F5D0E = {
 			isa = PBXGroup;
 			children = (
 				9E930292550E5E0B410957A5 /* Companion */,
 				30C8F0872D1E7E558A194DB9 /* CompanionTests */,
 				D9BA23785341BCB46C7C2E93 /* CompanionUITests */,
+				921179BDB41ED84B12DC7184 /* IntroEditor */,
+				84683DE7FA23A3B7FF857EA4 /* IntroEditorTests */,
+				B56B0C1BA7C93D6A72978C95 /* IntroEditorUITests */,
 				1026C3CE5311E3770C6FCC02 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -223,6 +313,61 @@
 			productReference = 1438B3AD81DEA9E7386563C0 /* GaelicCompanionUITests.xctest */;
 			productType = "com.apple.product-type.bundle.ui-testing";
 		};
+		826413579098781EF73E5664 /* GaelicIntroEditorTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = C9B57FCB4C04BEB64A18146A /* Build configuration list for PBXNativeTarget "GaelicIntroEditorTests" */;
+			buildPhases = (
+				A32FCEDB8195D99C6529FE8D /* Sources */,
+				D9ED9F21152F35C4E90EA362 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				626F0E09BC7D7A1E28B0EF3F /* PBXTargetDependency */,
+			);
+			name = GaelicIntroEditorTests;
+			packageProductDependencies = (
+			);
+			productName = GaelicIntroEditorTests;
+			productReference = 7A79532F57F631C9BBA0E306 /* GaelicIntroEditorTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		9038C7E8EA8C53E16C7B1F0D /* GaelicIntroEditorUITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 7FB0E1ED7B904AF44ADFA222 /* Build configuration list for PBXNativeTarget "GaelicIntroEditorUITests" */;
+			buildPhases = (
+				E53E18C26B7CF38287B4FAC8 /* Sources */,
+				BA8BA46A59896FCF64B0CE6D /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				B4041B6851097E8D3C85AA49 /* PBXTargetDependency */,
+			);
+			name = GaelicIntroEditorUITests;
+			packageProductDependencies = (
+			);
+			productName = GaelicIntroEditorUITests;
+			productReference = D8E1C64837B3C7B51F5F9595 /* GaelicIntroEditorUITests.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
+		BAA69D5DCDE6A1600DC3B9EE /* GaelicIntroEditor */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = C0BDDEC4EC7FA10AEADD5815 /* Build configuration list for PBXNativeTarget "GaelicIntroEditor" */;
+			buildPhases = (
+				F27051D2EC87BE016FE5291C /* Sources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = GaelicIntroEditor;
+			packageProductDependencies = (
+			);
+			productName = GaelicIntroEditor;
+			productReference = 7E18BC4BEE952E0395C179A0 /* GaelicIntroEditor.app */;
+			productType = "com.apple.product-type.application";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -241,6 +386,16 @@
 					61EEF1E6604FE11A65BA7CA9 = {
 						ProvisioningStyle = Automatic;
 						TestTargetID = 176FD5C8CFA2C7A24C025486;
+					};
+					826413579098781EF73E5664 = {
+						ProvisioningStyle = Automatic;
+					};
+					9038C7E8EA8C53E16C7B1F0D = {
+						ProvisioningStyle = Automatic;
+						TestTargetID = BAA69D5DCDE6A1600DC3B9EE;
+					};
+					BAA69D5DCDE6A1600DC3B9EE = {
+						ProvisioningStyle = Automatic;
 					};
 				};
 			};
@@ -264,6 +419,9 @@
 				176FD5C8CFA2C7A24C025486 /* GaelicCompanion */,
 				3573A50C6047F2EF3F2A2082 /* GaelicCompanionTests */,
 				61EEF1E6604FE11A65BA7CA9 /* GaelicCompanionUITests */,
+				BAA69D5DCDE6A1600DC3B9EE /* GaelicIntroEditor */,
+				826413579098781EF73E5664 /* GaelicIntroEditorTests */,
+				9038C7E8EA8C53E16C7B1F0D /* GaelicIntroEditorUITests */,
 			);
 		};
 /* End PBXProject section */
@@ -274,6 +432,23 @@
 			buildActionMask = 2147483647;
 			files = (
 				DCC7C320CD8A8D07A84B75AA /* TrackMapping.json in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		BA8BA46A59896FCF64B0CE6D /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				9B75CB6934718C78B0F953C0 /* synthetic.mp3 in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		D9ED9F21152F35C4E90EA362 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				8712F7D9F271F6AF2D936E50 /* README.txt in Resources */,
+				5077FCD48EB363B18C5DACA8 /* synthetic.mp3 in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -309,6 +484,15 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		A32FCEDB8195D99C6529FE8D /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				20E3477A564CBDF6CCFC1EE2 /* IntroAudioTests.swift in Sources */,
+				708C9578CCEF02E278030CF5 /* IntroMetadataTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		D96E13B4EFCEB7F0D9B149D0 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -316,6 +500,29 @@
 				C21C45816FC341658ACDDE5D /* MappingReviewUITests.swift in Sources */,
 				6C23A2206F8A07E42814CADE /* OnboardingTests.swift in Sources */,
 				954CDD688294774A4EB6F6E4 /* PlayerLayoutUITests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		E53E18C26B7CF38287B4FAC8 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				2D2628CCB326305CF2FF6579 /* IntroEditorUITests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		F27051D2EC87BE016FE5291C /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				F0BBC3A72A9B5C125BF09EEC /* AudioWaveform.swift in Sources */,
+				A02D590D3424447C02FDB1EC /* Catalog.swift in Sources */,
+				342A33D76BAA95A11DC1F511 /* IntroAudioPlayer.swift in Sources */,
+				59C65FB7E7E9BB9BAE7048D1 /* IntroEditorApp.swift in Sources */,
+				5EFEC3F36E58B6F465D79AAF /* IntroEditorModel.swift in Sources */,
+				FA2AEB258A543FF54DFFCE0F /* IntroEditorView.swift in Sources */,
+				E7FF79638DAE49618C63B719 /* IntroMetadataStore.swift in Sources */,
+				E7BD868DC2D6AC58E9BCDB8E /* WaveformView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -332,6 +539,16 @@
 			target = 176FD5C8CFA2C7A24C025486 /* GaelicCompanion */;
 			targetProxy = 57A1CD0504839D307FB7C722 /* PBXContainerItemProxy */;
 		};
+		626F0E09BC7D7A1E28B0EF3F /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = BAA69D5DCDE6A1600DC3B9EE /* GaelicIntroEditor */;
+			targetProxy = 82F1DFBFCF0F2BEA91860021 /* PBXContainerItemProxy */;
+		};
+		B4041B6851097E8D3C85AA49 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = BAA69D5DCDE6A1600DC3B9EE /* GaelicIntroEditor */;
+			targetProxy = CBCB3DE8272159B7E4E03760 /* PBXContainerItemProxy */;
+		};
 /* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
@@ -343,6 +560,18 @@
 				TEST_TARGET_NAME = GaelicCompanion;
 			};
 			name = Release;
+		};
+		0AE0B09D10879B2D185B277E /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				GENERATE_INFOPLIST_FILE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 14.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.dalemyers.GaelicIntroEditorUITests;
+				SDKROOT = macosx;
+				TARGETED_DEVICE_FAMILY = "";
+				TEST_TARGET_NAME = GaelicIntroEditor;
+			};
+			name = Debug;
 		};
 		1317E637EBA79646800A27D6 /* Release */ = {
 			isa = XCBuildConfiguration;
@@ -424,6 +653,32 @@
 			};
 			name = Release;
 		};
+		B1A115DE204F8AC3A8C511D6 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				GENERATE_INFOPLIST_FILE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 14.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.dalemyers.GaelicIntroEditorTests;
+				SDKROOT = macosx;
+				TARGETED_DEVICE_FAMILY = "";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/GaelicIntroEditor.app/Contents/MacOS/GaelicIntroEditor";
+			};
+			name = Release;
+		};
+		CAF7AD60CF8679B1A2A38951 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				GENERATE_INFOPLIST_FILE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 14.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.dalemyers.GaelicIntroEditorTests;
+				SDKROOT = macosx;
+				TARGETED_DEVICE_FAMILY = "";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/GaelicIntroEditor.app/Contents/MacOS/GaelicIntroEditor";
+			};
+			name = Debug;
+		};
 		CB0C07255102EF22DA790356 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -437,6 +692,50 @@
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.dalemyers.GaelicCompanion;
+			};
+			name = Debug;
+		};
+		D634031711DB75A12C4A779D /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CURRENT_PROJECT_VERSION = 1;
+				ENABLE_APP_SANDBOX = NO;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_CFBundleDisplayName = "Gaelic Intro Editor";
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.music";
+				MACOSX_DEPLOYMENT_TARGET = 14.0;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.dalemyers.GaelicIntroEditor;
+				SDKROOT = macosx;
+				TARGETED_DEVICE_FAMILY = "";
+			};
+			name = Release;
+		};
+		DD32F771C6EA187E1F3780B7 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				GENERATE_INFOPLIST_FILE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 14.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.dalemyers.GaelicIntroEditorUITests;
+				SDKROOT = macosx;
+				TARGETED_DEVICE_FAMILY = "";
+				TEST_TARGET_NAME = GaelicIntroEditor;
+			};
+			name = Release;
+		};
+		EFAE462B6AAC5CEF58380947 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CURRENT_PROJECT_VERSION = 1;
+				ENABLE_APP_SANDBOX = NO;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_CFBundleDisplayName = "Gaelic Intro Editor";
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.music";
+				MACOSX_DEPLOYMENT_TARGET = 14.0;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.dalemyers.GaelicIntroEditor;
+				SDKROOT = macosx;
+				TARGETED_DEVICE_FAMILY = "";
 			};
 			name = Debug;
 		};
@@ -457,6 +756,33 @@
 			buildConfigurations = (
 				CB0C07255102EF22DA790356 /* Debug */,
 				85595CC53291CA1D7F6E27AE /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+		7FB0E1ED7B904AF44ADFA222 /* Build configuration list for PBXNativeTarget "GaelicIntroEditorUITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				0AE0B09D10879B2D185B277E /* Debug */,
+				DD32F771C6EA187E1F3780B7 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+		C0BDDEC4EC7FA10AEADD5815 /* Build configuration list for PBXNativeTarget "GaelicIntroEditor" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				EFAE462B6AAC5CEF58380947 /* Debug */,
+				D634031711DB75A12C4A779D /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+		C9B57FCB4C04BEB64A18146A /* Build configuration list for PBXNativeTarget "GaelicIntroEditorTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				CAF7AD60CF8679B1A2A38951 /* Debug */,
+				B1A115DE204F8AC3A8C511D6 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Debug;

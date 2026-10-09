@@ -13,6 +13,7 @@ settings:
     PRODUCT_NAME: $(TARGET_NAME)
     SWIFT_VERSION: "6.0"
     CLANG_ENABLE_MODULES: YES
+    SDKROOT: iphoneos
     SWIFT_EMIT_LOC_STRINGS: YES
     TARGETED_DEVICE_FAMILY: "1,2"
     CODE_SIGN_STYLE: Automatic
@@ -27,6 +28,52 @@ settings:
       SWIFT_OPTIMIZATION_LEVEL: "-O"
       SWIFT_COMPILATION_MODE: wholemodule
 targets:
+  GaelicIntroEditor:
+    type: application
+    platform: macOS
+    deploymentTarget: "14.0"
+    sources:
+      - path: IntroEditor
+      - path: Companion/Catalog.swift
+    settings:
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: com.dalemyers.GaelicIntroEditor
+        GENERATE_INFOPLIST_FILE: YES
+        INFOPLIST_KEY_CFBundleDisplayName: Gaelic Intro Editor
+        INFOPLIST_KEY_LSApplicationCategoryType: public.app-category.music
+        MARKETING_VERSION: "1.0"
+        CURRENT_PROJECT_VERSION: "1"
+        ENABLE_APP_SANDBOX: NO
+        SDKROOT: macosx
+        TARGETED_DEVICE_FAMILY: ""
+  GaelicIntroEditorTests:
+    type: bundle.unit-test
+    platform: macOS
+    deploymentTarget: "14.0"
+    sources: [IntroEditorTests]
+    dependencies:
+      - target: GaelicIntroEditor
+    settings:
+      base:
+        GENERATE_INFOPLIST_FILE: YES
+        BUNDLE_LOADER: $(TEST_HOST)
+        SDKROOT: macosx
+        TARGETED_DEVICE_FAMILY: ""
+  GaelicIntroEditorUITests:
+    type: bundle.ui-testing
+    platform: macOS
+    deploymentTarget: "14.0"
+    sources:
+      - path: IntroEditorUITests
+      - path: IntroEditorTests/Fixtures/synthetic.mp3
+        buildPhase: resources
+    dependencies:
+      - target: GaelicIntroEditor
+    settings:
+      base:
+        GENERATE_INFOPLIST_FILE: YES
+        SDKROOT: macosx
+        TARGETED_DEVICE_FAMILY: ""
   GaelicCompanion:
     type: application
     platform: iOS
@@ -67,6 +114,12 @@ targets:
       base:
         GENERATE_INFOPLIST_FILE: YES
 schemes:
+  GaelicIntroEditor:
+    build:
+      targets:
+        GaelicIntroEditor: all
+    test:
+      targets: [GaelicIntroEditorTests, GaelicIntroEditorUITests]
   GaelicCompanion:
     build:
       targets:

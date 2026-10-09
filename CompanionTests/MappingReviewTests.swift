@@ -4,6 +4,21 @@ import XCTest
 
 @MainActor
 final class MappingReviewTests: XCTestCase {
+    func testIntroMarkersSurviveReviewEditsShiftsAndExport() throws {
+        var tracks = sectionShiftMapping().tracks
+        for index in tracks.indices { tracks[index].introEndSeconds = Double(tracks[index].id) / 2 }
+        let (directory, store) = try makeStore(source: TrackMapping(schemaVersion: 1, tracks: tracks))
+        defer { try? FileManager.default.removeItem(at: directory) }
+        try store.load()
+        var fields = try XCTUnwrap(store.fields(2))
+        fields.section = "12"
+        try store.save(id: 2, fields: fields, decision: .confirmed)
+        let exported = try TrackMapping.decode(store.exportMapping())
+        for track in exported.tracks {
+            XCTAssertEqual(track.introEndSeconds, Double(track.id) / 2)
+        }
+    }
+
     /// Creates a review store outside the application's real data container.
     private func makeStore(source: TrackMapping? = nil) throws -> (URL, MappingReviewStore) {
         let directory = FileManager.default.temporaryDirectory.appendingPathComponent(UUID().uuidString)

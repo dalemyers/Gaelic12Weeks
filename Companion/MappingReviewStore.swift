@@ -33,6 +33,7 @@ struct MappingReviewFields: Equatable {
     var subsection: String
     var title: String
     var note: String
+    var introEndSeconds: Double?
 
     /// Populates editable fields without discarding optional sections or the original Unicode title.
     init(track: MappedTrack, note: String = "") {
@@ -42,6 +43,7 @@ struct MappingReviewFields: Equatable {
         subsection = track.subsection ?? ""
         title = track.title
         self.note = note
+        introEndSeconds = track.introEndSeconds
     }
 
     /// Builds a validated mapping row; only an explicit confirmation removes needsReview.
@@ -53,7 +55,7 @@ struct MappingReviewFields: Equatable {
             id: id, lesson: lessonNumber, section: sectionNumber,
             subsection: group == .lesson && !suffix.isEmpty ? suffix : nil,
             group: group, title: title.trimmingCharacters(in: .whitespacesAndNewlines),
-            needsReview: decision != .confirmed
+            needsReview: decision != .confirmed, introEndSeconds: introEndSeconds
         )
         _ = try TrackMapping.decode(JSONEncoder().encode(TrackMapping(schemaVersion: 1, tracks: [track])))
         return track
@@ -224,7 +226,8 @@ final class MappingReviewStore {
             }
             let shifted = MappedTrack(
                 id: current.id, lesson: current.lesson, section: shiftedSection, subsection: current.subsection,
-                group: current.group, title: current.title, needsReview: current.needsReview
+                group: current.group, title: current.title, needsReview: current.needsReview,
+                introEndSeconds: current.introEndSeconds
             )
             updated[original.id] = MappingReviewRecord(
                 original: original, edited: shifted, decision: record?.decision ?? .unreviewed,
