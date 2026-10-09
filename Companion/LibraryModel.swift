@@ -119,6 +119,33 @@ final class LibraryModel {
     }
 
 #if DEBUG
+    /// Supplies metadata-only canvas fixtures with fresh, isolated storage for every preview.
+    static func preview(imported: Bool = true) -> LibraryModel {
+        let directory = URL.temporaryDirectory
+            .appendingPathComponent("GaelicCompanion-Preview-\(UUID().uuidString)", isDirectory: true)
+        let library = LibraryModel(applicationSupportURL: directory)
+        do {
+            let mapping = try TrackMapping.load()
+            library.mapping = mapping
+            try library.progress.load()
+            if imported {
+                let tracks = mapping.tracks.map {
+                    ImportedTrack(
+                        id: $0.id, filename: "1_\(String(format: "%03d", $0.id)).mp3", metadataTitle: $0.title
+                    )
+                }
+                library.saved = SavedLibrary(
+                    directory: UUID().uuidString, manifest: LibraryManifest(schemaVersion: 1, tracks: tracks)
+                )
+                library.groups = try Catalog.groups(mapping: mapping, imported: tracks)
+            }
+            library.isLoading = false
+            return library
+        } catch {
+            fatalError("Unable to create preview library: \(error.localizedDescription)")
+        }
+    }
+
     /// Reuses the single shared player without allowing ordinary completion callbacks to mark review audio listened.
     func beginMappingReview() throws {
         guard !isImporting, mapping != nil else {

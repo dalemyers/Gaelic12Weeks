@@ -250,9 +250,7 @@ private struct GroupView: View {
                 } else {
                     let listened = library.progress.isListened(library.trackIDs(for: group, section: section.number))
                     NavigationLink {
-                        List(section.tracks) { TrackRow(track: $0, library: library) }
-                            .accessibilityIdentifier("sectionList")
-                            .navigationTitle(section.title)
+                        SectionView(section: section, library: library)
                     } label: {
                         HStack {
                             VStack(alignment: .leading, spacing: 4) {
@@ -292,6 +290,17 @@ private struct GroupView: View {
     }
 }
 
+private struct SectionView: View {
+    let section: LibrarySection
+    let library: LibraryModel
+
+    var body: some View {
+        List(section.tracks) { TrackRow(track: $0, library: library) }
+            .accessibilityIdentifier("sectionList")
+            .navigationTitle(section.title)
+    }
+}
+
 private struct TrackRow: View {
     let track: LibraryTrack
     let library: LibraryModel
@@ -312,6 +321,7 @@ private struct TrackRow: View {
                         Text("Provisional mapping").font(.caption2).foregroundStyle(.secondary)
                     }
                 }
+
                 Spacer(minLength: 0)
                 if library.progress.isListened([track.id]) {
                     Image(systemName: "checkmark.circle.fill")
@@ -383,3 +393,45 @@ struct PlaybackView: View {
         return String(format: "%d:%02d", seconds / 60, seconds % 60)
     }
 }
+
+#if DEBUG
+#Preview("Onboarding") {
+    LibraryView(library: LibraryModel.preview(imported: false))
+        .tint(.teal)
+}
+
+#Preview("Imported library") {
+    LibraryView(library: LibraryModel.preview())
+        .tint(.teal)
+}
+
+#Preview("Lesson") {
+    let library = LibraryModel.preview()
+    NavigationStack {
+        GroupView(group: library.groups[0], library: library)
+    }
+    .tint(.teal)
+}
+
+#Preview("Section and subsections") {
+    let library = LibraryModel.preview()
+    NavigationStack {
+        SectionView(section: library.groups[0].sections[3], library: library)
+    }
+    .tint(.teal)
+}
+
+#Preview("Recording row", traits: .sizeThatFitsLayout) {
+    let library = LibraryModel.preview()
+    List {
+        TrackRow(track: library.groups[0].tracks[0], library: library)
+    }
+    .frame(height: 140)
+    .tint(.teal)
+}
+
+#Preview("Player", traits: .sizeThatFitsLayout) {
+    PlaybackView(player: AudioPlayer())
+        .tint(.teal)
+}
+#endif

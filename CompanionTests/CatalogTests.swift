@@ -2,6 +2,30 @@ import XCTest
 @testable import GaelicCompanion
 
 final class CatalogTests: XCTestCase {
+#if DEBUG
+    /// Canvas fixtures cover onboarding and the complete hierarchy without reading or writing user data.
+    @MainActor
+    func testPreviewLibrariesAreReadyAndIsolated() {
+        let onboarding = LibraryModel.preview(imported: false)
+        let imported = LibraryModel.preview()
+        XCTAssertFalse(onboarding.isLoading)
+        XCTAssertFalse(imported.isLoading)
+        XCTAssertNotNil(onboarding.mapping)
+        XCTAssertNil(onboarding.saved)
+        XCTAssertTrue(onboarding.groups.isEmpty)
+        XCTAssertEqual(imported.importedCount, imported.expectedCount)
+        XCTAssertEqual(imported.groups.count, 14)
+        XCTAssertEqual(imported.groups[0].sections[3].tracks.map(\.id), [6, 7, 8])
+        XCTAssertTrue(imported.progress.listenedIDs.isEmpty)
+        XCTAssertNil(imported.player.currentTrack)
+        XCTAssertNotEqual(onboarding.mappingReviewURL, imported.mappingReviewURL)
+        for library in [onboarding, imported] {
+            XCTAssertTrue(library.mappingReviewURL.path.contains("GaelicCompanion-Preview-"))
+            XCTAssertFalse(FileManager.default.fileExists(atPath: library.mappingReviewURL.deletingLastPathComponent().path))
+        }
+    }
+#endif
+
     /// Filename recognition must not confuse archive paths, suffixes, or the aggregate track.
     func testFilenameRecognition() {
         XCTAssertEqual(Catalog.trackID(filename: "9781788856034_002.mp3"), 2)

@@ -385,4 +385,14 @@ struct MappingReviewView: View {
         }
     }
 }
+
+#Preview("Mapping review") {
+    let library = LibraryModel.preview()
+    if let mapping = library.mapping {
+        MappingReviewView(mapping: mapping, library: library)
+            .tint(.teal)
+    } else {
+        ContentUnavailableView("Preview mapping is missing", systemImage: "exclamationmark.triangle")
+    }
+}
 #endif

@@ -200,6 +200,16 @@ remain visible. Remove that blocking fixture before running the normal review te
 `Audio/`, MP3s, ZIPs and build outputs are ignored by Git and excluded from app
 resources. Do not add publisher recordings to the project, commits, or releases.
 
+## Xcode previews
+
+Open the canvas in `LibraryView.swift` for onboarding, the imported library,
+lesson, section/subsections, recording-row, and player previews.
+`MappingReviewView.swift` includes a DEBUG mapping-review preview.
+Previews use the bundled mapping with metadata-only sample imports and unique
+temporary storage, never your saved library or listening progress. No recordings
+are bundled or generated, so sample playback is unavailable. About and the review
+track picker can also be opened interactively from their parent previews.
+
 ## Tests
 
 Tests cover catalog validation/grouping, explicit subsection gaps, safe ZIP
