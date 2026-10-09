@@ -81,10 +81,9 @@ final class OnboardingTests: XCTestCase {
         XCTAssertTrue(app.otherElements.matching(identifier: "miniPlayer").allElementsBoundByIndex.last?.exists == true)
         app.buttons["Done"].tap()
         app.buttons["lesson-1"].tap()
-        XCTAssertTrue(app.buttons["section-1"].waitForExistence(timeout: 5))
-        assertEmptyPlayer(in: app)
-        app.buttons["section-1"].tap()
         XCTAssertTrue(app.buttons["track-2"].waitForExistence(timeout: 5))
+        XCTAssertTrue(app.navigationBars["Lesson 1"].exists)
+        XCTAssertFalse(app.buttons["section-1"].exists)
         assertEmptyPlayer(in: app)
         app.buttons["track-2"].tap()
         let toggle = app.buttons["togglePlayback"]
@@ -102,9 +101,6 @@ final class OnboardingTests: XCTestCase {
         app.buttons["skipBackward"].tap()
         XCTAssertEqual(app.sliders["playbackPosition"].value as? String, "0:00 of 1:00")
         app.navigationBars.buttons.element(boundBy: 0).tap()
-        XCTAssertTrue(app.buttons["section-1"].waitForExistence(timeout: 5))
-        XCTAssertTrue(toggle.isHittable)
-        app.navigationBars.buttons.element(boundBy: 0).tap()
         XCTAssertTrue(app.buttons["lesson-1"].waitForExistence(timeout: 5))
         XCTAssertTrue(toggle.isHittable)
         toggle.tap()
@@ -113,29 +109,33 @@ final class OnboardingTests: XCTestCase {
         toggle.tap()
     }
 
-    /// A section follows child progress from both manual marks and playback, including reload and undo.
+    /// Main recordings and subsections share the lesson list and retain manual/playback progress.
     @MainActor
-    func testSectionListenedStatusFollowsChildren() throws {
+    func testInlineSectionAndSubsectionProgress() throws {
+        continueAfterFailure = false
         let app = XCUIApplication()
         app.launch()
         guard app.buttons["lesson-1"].waitForExistence(timeout: 10) else {
             throw XCTSkip("Requires the synthetic SectionLibrary fixture on an isolated test simulator.")
         }
         app.buttons["lesson-1"].tap()
-        guard app.buttons["section-4"].exists else {
+        guard app.buttons["track-6"].waitForExistence(timeout: 5) else {
             throw XCTSkip("Requires section 4 with its main recording and two subsection fixtures.")
         }
-        let section = app.buttons["section-4"]
-        XCTAssertEqual(section.value as? String, "Unlistened")
-        section.tap()
+        XCTAssertTrue(app.navigationBars["Lesson 1"].exists)
+        XCTAssertFalse(app.buttons["section-4"].exists)
+        for (id, label) in [(6, "Section 4,"), (7, "Section 4a,"), (8, "Section 4b,")] {
+            let track = app.buttons["track-\(id)"]
+            XCTAssertTrue(track.exists)
+            XCTAssertTrue(track.label.contains(label))
+            XCTAssertEqual(track.value as? String, "Unlistened")
+        }
         for id in [6, 7] {
             app.buttons["track-\(id)"].swipeLeft()
             app.buttons["Mark listened"].tap()
+            XCTAssertEqual(app.buttons["track-\(id)"].value as? String, "Listened")
         }
-        app.navigationBars.buttons.element(boundBy: 0).tap()
-        XCTAssertTrue(section.waitForExistence(timeout: 5))
-        XCTAssertEqual(section.value as? String, "Unlistened")
-        section.tap()
+        XCTAssertEqual(app.buttons["track-8"].value as? String, "Unlistened")
         app.buttons["track-8"].tap()
         let toggle = app.buttons["togglePlayback"]
         expectation(for: NSPredicate(format: "label == 'Pause' AND enabled == true"), evaluatedWith: toggle)
@@ -143,22 +143,24 @@ final class OnboardingTests: XCTestCase {
         app.sliders["playbackPosition"].adjust(toNormalizedSliderPosition: 0.95)
         expectation(for: NSPredicate(format: "label == 'Play' AND enabled == true"), evaluatedWith: toggle)
         waitForExpectations(timeout: 15)
-        app.navigationBars.buttons.element(boundBy: 0).tap()
-        XCTAssertTrue(section.waitForExistence(timeout: 5))
-        XCTAssertEqual(section.value as? String, "Listened")
+        XCTAssertTrue(app.navigationBars["Lesson 1"].exists)
+        XCTAssertEqual(app.buttons["track-8"].value as? String, "Listened")
 
         app.terminate()
         app.launch()
         XCTAssertTrue(app.buttons["lesson-1"].waitForExistence(timeout: 10))
         app.buttons["lesson-1"].tap()
-        XCTAssertTrue(section.waitForExistence(timeout: 5))
-        XCTAssertEqual(section.value as? String, "Listened")
-        section.tap()
+        XCTAssertTrue(app.buttons["track-8"].waitForExistence(timeout: 5))
+        for id in [6, 7, 8] {
+            XCTAssertEqual(app.buttons["track-\(id)"].value as? String, "Listened")
+        }
         app.buttons["track-8"].swipeLeft()
         app.buttons["Mark unlistened"].tap()
+        XCTAssertEqual(app.buttons["track-8"].value as? String, "Unlistened")
+        XCTAssertEqual(app.buttons["track-6"].value as? String, "Listened")
+        XCTAssertEqual(app.buttons["track-7"].value as? String, "Listened")
         app.navigationBars.buttons.element(boundBy: 0).tap()
-        XCTAssertTrue(section.waitForExistence(timeout: 5))
-        XCTAssertEqual(section.value as? String, "Unlistened")
+        XCTAssertTrue(app.buttons["lesson-1"].waitForExistence(timeout: 5))
     }
 
     /// Imported libraries omit the permanent banner and keep safe replacement available only from About.

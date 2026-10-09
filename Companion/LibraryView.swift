@@ -239,39 +239,8 @@ private struct GroupView: View {
     let library: LibraryModel
 
     var body: some View {
-        List {
-            ForEach(group.sections) { section in
-                if section.number == nil {
-                    Section {
-                        ForEach(section.tracks) { TrackRow(track: $0, library: library) }
-                    } header: {
-                        if group.id.hasPrefix("lesson-") { Text(section.title) }
-                    }
-                } else {
-                    let listened = library.progress.isListened(library.trackIDs(for: group, section: section.number))
-                    NavigationLink {
-                        SectionView(section: section, library: library)
-                    } label: {
-                        HStack {
-                            VStack(alignment: .leading, spacing: 4) {
-                                Text(section.title).font(.headline)
-                                if let main = section.tracks.first(where: { $0.mapping.subsection == nil }) {
-                                    Text(main.mapping.title).foregroundStyle(.secondary)
-                                } else {
-                                    Text("\(section.tracks.count) subsection recordings").foregroundStyle(.secondary)
-                                }
-                            }
-                            Spacer()
-                            if listened {
-                                Image(systemName: "checkmark.circle.fill")
-                                    .foregroundStyle(.teal).accessibilityHidden(true)
-                            }
-                        }
-                    }
-                    .accessibilityIdentifier(section.id)
-                    .accessibilityValue(listened ? "Listened" : "Unlistened")
-                }
-            }
+        List(group.tracks) { track in
+            TrackRow(track: track, library: library)
         }
         .accessibilityIdentifier("groupList")
         .navigationTitle(group.title)
@@ -287,17 +256,6 @@ private struct GroupView: View {
                 Label("Lesson actions", systemImage: "ellipsis.circle")
             }.accessibilityIdentifier("lessonActions")
         }
-    }
-}
-
-private struct SectionView: View {
-    let section: LibrarySection
-    let library: LibraryModel
-
-    var body: some View {
-        List(section.tracks) { TrackRow(track: $0, library: library) }
-            .accessibilityIdentifier("sectionList")
-            .navigationTitle(section.title)
     }
 }
 
@@ -331,6 +289,7 @@ private struct TrackRow: View {
         }
         .accessibilityLabel("Play \(track.mapping.label), \(track.mapping.title)")
         .accessibilityIdentifier("track-\(track.id)")
+        .accessibilityValue(library.progress.isListened([track.id]) ? "Listened" : "Unlistened")
         .swipeActions {
             let listened = library.progress.isListened([track.id])
             Button(listened ? "Mark unlistened" : "Mark listened") {
@@ -405,18 +364,10 @@ struct PlaybackView: View {
         .tint(.teal)
 }
 
-#Preview("Lesson") {
+#Preview("Lesson sections and subsections") {
     let library = LibraryModel.preview()
     NavigationStack {
         GroupView(group: library.groups[0], library: library)
-    }
-    .tint(.teal)
-}
-
-#Preview("Section and subsections") {
-    let library = LibraryModel.preview()
-    NavigationStack {
-        SectionView(section: library.groups[0].sections[3], library: library)
     }
     .tint(.teal)
 }

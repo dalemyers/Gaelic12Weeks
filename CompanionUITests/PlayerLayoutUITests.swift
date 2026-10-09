@@ -30,22 +30,18 @@ final class PlayerLayoutUITests: XCTestCase {
         let precedingLesson = app.buttons["lesson-5"]
         revealAbovePlayer(precedingLesson, scrolling: libraryList, in: app, upward: false)
         precedingLesson.tap()
-        let section = app.buttons["section-42"]
-        revealAbovePlayer(section, scrolling: groupList, in: app)
-        section.tap()
         XCUIDevice.shared.orientation = .landscapeLeft
-        let lastTrack = app.buttons["track-62"]
-        let sectionList = app.collectionViews["sectionList"]
-        revealAbovePlayer(lastTrack, scrolling: sectionList, in: app)
+        let lastTrack = app.buttons["track-66"]
+        revealAbovePlayer(lastTrack, scrolling: groupList, in: app)
         lastTrack.tap()
         let toggle = app.buttons["togglePlayback"]
         expectation(for: NSPredicate(format: "label == 'Pause' AND enabled == true"), evaluatedWith: toggle)
         waitForExpectations(timeout: 10)
         toggle.tap()
         XCTAssertEqual(toggle.label, "Play")
-        revealAbovePlayer(lastTrack, scrolling: sectionList, in: app)
+        XCTAssertTrue(app.navigationBars["Lesson 5"].exists)
+        revealAbovePlayer(lastTrack, scrolling: groupList, in: app)
 
-        goBack(in: app)
         goBack(in: app)
         XCUIDevice.shared.orientation = .portrait
         assertAboutBottomIsReachable(in: app)

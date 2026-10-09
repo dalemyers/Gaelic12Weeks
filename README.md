@@ -29,9 +29,9 @@ Choose an installed simulator name if different. Build settings are explicit in
 
 1. Use **Open publisher's download page** in the app and manually download the ZIP.
 2. Save the original ZIP in Files, return to the app, and choose **Import downloaded ZIP**.
-3. Browse **Lesson → Section → Recording**. Subsections share their numbered
-   parent section; a section can contain only subsection recordings when the
-   source has no main recording.
+3. Open a **Lesson**, then tap any section or subsection to play it directly.
+   All recordings appear in audio order in one list, with labels such as
+   **Section 4**, **Section 4a**, and **Section 4b**. There is no section drill-down.
 
 Conversation recordings are shown directly within their mapped lesson.
 Appendices and Reading Practice have separate top-level groups. Playback includes
@@ -50,11 +50,9 @@ off the UI thread; stopping or pausing invalidates pending playback requests.
 Successfully finishing a recording marks that recording listened. A lesson is
 listened only after **all recordings mapped to it** have finished, including its
 conversation. Missing, unimported recordings prevent automatic lesson completion.
-A section likewise shows a listened checkmark when all recordings mapped to that
-section are listened, including its main recording (if present) and every
-subsection. Marking any of them unlistened removes the section's checkmark.
-Section status is derived from saved recording progress, so already-completed
-sections appear correctly without replaying their audio.
+Each section or subsection recording has its own listened checkmark in the
+lesson list. Existing progress is preserved; flattening navigation does not
+change recording IDs or lesson-completion rules.
 Swipe a lesson/recording row, or use the lesson's **…** menu, to manually mark it
 listened or unlistened. Manual lesson toggles update all its mapped recordings.
 Status persists across launches and ZIP replacement; it is keyed by numeric track
@@ -203,7 +201,7 @@ resources. Do not add publisher recordings to the project, commits, or releases.
 ## Xcode previews
 
 Open the canvas in `LibraryView.swift` for onboarding, the imported library,
-lesson, section/subsections, recording-row, and player previews.
+lesson sections/subsections, recording-row, and player previews.
 `MappingReviewView.swift` includes a DEBUG mapping-review preview.
 Previews use the bundled mapping with metadata-only sample imports and unique
 temporary storage, never your saved library or listening progress. No recordings
@@ -239,22 +237,22 @@ ffmpeg -nostdin -v error -n -f lavfi -i anullsrc=r=44100:cl=mono -t 60 \
 cp TestSupport/MiniPlayerLibrary/Current.json "$LIBRARY/Current.json"
 ```
 
-The section-completion UI regression
-`GaelicCompanionUITests/OnboardingTests/testSectionListenedStatusFollowsChildren`
+The inline-recording progress UI regression
+`GaelicCompanionUITests/OnboardingTests/testInlineSectionAndSubsectionProgress`
 uses a separate fresh simulator fixture: set `GENERATION` to
 `84EF3E94-3346-4516-8BB4-5702C7D7F6B5`, generate the same one-minute silent MP3
 as `1_006.mp3`, copy it to `1_007.mp3` and `1_008.mp3` in that generation, and
 use `TestSupport/SectionLibrary/Current.json` as the manifest. Run only that UI
-test against the fixture. It checks partial completion, completion after the last
-subsection finishes playing, persistence across relaunch, and clearing the
-section's checkmark when a child is marked unlistened. Both seeded UI checks skip
+test against the fixture. It checks that the main recording and both subsections
+are directly playable from the lesson, manual marks, playback completion,
+persistence across relaunch, and independently marking a subsection unlistened. Both seeded UI checks skip
 when their required library is absent; onboarding needs a fresh installation.
 
 `OnboardingTests/testOnboardingBeforeImport` checks that the onboarding import
 action is reachable in portrait and landscape, the player and toolbar controls
 are absent, and cancelling the picker or relaunching preserves this state.
 `PlayerLayoutUITests/testBottomRowsStayAbovePlayer` checks the final library,
-lesson and section rows, landscape playback, and About. It requires a complete
+lesson recording rows, landscape playback, and About. It requires a complete
 synthetic library on a dedicated simulator. After creating the one-minute
 MiniPlayerLibrary fixture above, extend it to all mapped IDs:
 
