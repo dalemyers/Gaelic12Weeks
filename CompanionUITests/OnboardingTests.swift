@@ -1,6 +1,39 @@
 import XCTest
 
 final class OnboardingTests: XCTestCase {
+    /// A normal imported library exposes the preference, keeps it across launches, and can turn it off again.
+    @MainActor
+    func testSkipIntroductionsSettingPersists() throws {
+        continueAfterFailure = false
+        let app = XCUIApplication()
+        app.launch()
+        guard app.buttons["lesson-1"].waitForExistence(timeout: 10) else {
+            throw XCTSkip("Requires an imported lesson-1 fixture on an isolated test simulator.")
+        }
+        app.buttons["aboutAudio"].tap()
+        let toggle = app.switches["skipSpokenIntroductions"]
+        XCTAssertTrue(toggle.waitForExistence(timeout: 5))
+        XCTAssertEqual(toggle.value as? String, "0")
+        toggle.tap()
+        XCTAssertEqual(toggle.value as? String, "1")
+        app.buttons["Done"].tap()
+        app.terminate()
+        app.launch()
+        XCTAssertTrue(app.buttons["aboutAudio"].waitForExistence(timeout: 10))
+        app.buttons["aboutAudio"].tap()
+        XCTAssertTrue(toggle.waitForExistence(timeout: 5))
+        XCTAssertEqual(toggle.value as? String, "1")
+        toggle.tap()
+        XCTAssertEqual(toggle.value as? String, "0")
+        app.buttons["Done"].tap()
+        app.terminate()
+        app.launch()
+        XCTAssertTrue(app.buttons["aboutAudio"].waitForExistence(timeout: 10))
+        app.buttons["aboutAudio"].tap()
+        XCTAssertTrue(toggle.waitForExistence(timeout: 5))
+        XCTAssertEqual(toggle.value as? String, "0")
+    }
+
     /// Onboarding keeps only its primary import action, including after picker cancellation and relaunch.
     @MainActor
     func testOnboardingBeforeImport() {

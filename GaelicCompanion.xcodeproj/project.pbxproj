@@ -556,7 +556,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				GENERATE_INFOPLIST_FILE = YES;
-				PRODUCT_BUNDLE_IDENTIFIER = com.dalemyers.GaelicCompanionUITests;
+				PRODUCT_BUNDLE_IDENTIFIER = io.myers.GaelicCompanionUITests;
 				TEST_TARGET_NAME = GaelicCompanion;
 			};
 			name = Release;
@@ -566,7 +566,7 @@
 			buildSettings = {
 				GENERATE_INFOPLIST_FILE = YES;
 				MACOSX_DEPLOYMENT_TARGET = 14.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.dalemyers.GaelicIntroEditorUITests;
+				PRODUCT_BUNDLE_IDENTIFIER = io.myers.GaelicIntroEditorUITests;
 				SDKROOT = macosx;
 				TARGETED_DEVICE_FAMILY = "";
 				TEST_TARGET_NAME = GaelicIntroEditor;
@@ -578,7 +578,7 @@
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				GENERATE_INFOPLIST_FILE = YES;
-				PRODUCT_BUNDLE_IDENTIFIER = com.dalemyers.GaelicCompanionTests;
+				PRODUCT_BUNDLE_IDENTIFIER = io.myers.GaelicCompanionTests;
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/GaelicCompanion.app/GaelicCompanion";
 			};
 			name = Release;
@@ -588,7 +588,7 @@
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				GENERATE_INFOPLIST_FILE = YES;
-				PRODUCT_BUNDLE_IDENTIFIER = com.dalemyers.GaelicCompanionTests;
+				PRODUCT_BUNDLE_IDENTIFIER = io.myers.GaelicCompanionTests;
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/GaelicCompanion.app/GaelicCompanion";
 			};
 			name = Debug;
@@ -613,7 +613,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				GENERATE_INFOPLIST_FILE = YES;
-				PRODUCT_BUNDLE_IDENTIFIER = com.dalemyers.GaelicCompanionUITests;
+				PRODUCT_BUNDLE_IDENTIFIER = io.myers.GaelicCompanionUITests;
 				TEST_TARGET_NAME = GaelicCompanion;
 			};
 			name = Debug;
@@ -649,7 +649,7 @@
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.dalemyers.GaelicCompanion;
+				PRODUCT_BUNDLE_IDENTIFIER = io.myers.GaelicCompanion;
 			};
 			name = Release;
 		};
@@ -659,7 +659,7 @@
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				GENERATE_INFOPLIST_FILE = YES;
 				MACOSX_DEPLOYMENT_TARGET = 14.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.dalemyers.GaelicIntroEditorTests;
+				PRODUCT_BUNDLE_IDENTIFIER = io.myers.GaelicIntroEditorTests;
 				SDKROOT = macosx;
 				TARGETED_DEVICE_FAMILY = "";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/GaelicIntroEditor.app/Contents/MacOS/GaelicIntroEditor";
@@ -672,7 +672,7 @@
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				GENERATE_INFOPLIST_FILE = YES;
 				MACOSX_DEPLOYMENT_TARGET = 14.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.dalemyers.GaelicIntroEditorTests;
+				PRODUCT_BUNDLE_IDENTIFIER = io.myers.GaelicIntroEditorTests;
 				SDKROOT = macosx;
 				TARGETED_DEVICE_FAMILY = "";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/GaelicIntroEditor.app/Contents/MacOS/GaelicIntroEditor";
@@ -691,7 +691,7 @@
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.dalemyers.GaelicCompanion;
+				PRODUCT_BUNDLE_IDENTIFIER = io.myers.GaelicCompanion;
 			};
 			name = Debug;
 		};
@@ -705,7 +705,7 @@
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.music";
 				MACOSX_DEPLOYMENT_TARGET = 14.0;
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.dalemyers.GaelicIntroEditor;
+				PRODUCT_BUNDLE_IDENTIFIER = io.myers.GaelicIntroEditor;
 				SDKROOT = macosx;
 				TARGETED_DEVICE_FAMILY = "";
 			};
@@ -716,7 +716,7 @@
 			buildSettings = {
 				GENERATE_INFOPLIST_FILE = YES;
 				MACOSX_DEPLOYMENT_TARGET = 14.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.dalemyers.GaelicIntroEditorUITests;
+				PRODUCT_BUNDLE_IDENTIFIER = io.myers.GaelicIntroEditorUITests;
 				SDKROOT = macosx;
 				TARGETED_DEVICE_FAMILY = "";
 				TEST_TARGET_NAME = GaelicIntroEditor;
@@ -733,7 +733,7 @@
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.music";
 				MACOSX_DEPLOYMENT_TARGET = 14.0;
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.dalemyers.GaelicIntroEditor;
+				PRODUCT_BUNDLE_IDENTIFIER = io.myers.GaelicIntroEditor;
 				SDKROOT = macosx;
 				TARGETED_DEVICE_FAMILY = "";
 			};

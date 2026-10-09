@@ -16,7 +16,7 @@ actor LibraryRepository {
     private let maximumTrackBytes: UInt64
     private let maximumTotalBytes: UInt64
     private var importInProgress = false
-    private let logger = Logger(subsystem: "com.dalemyers.GaelicCompanion", category: "Library")
+    private let logger = Logger(subsystem: "io.myers.GaelicCompanion", category: "Library")
 
     /// Uses a private application-support directory; injectable limits/readers support deterministic tests.
     init(

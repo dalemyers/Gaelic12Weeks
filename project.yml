@@ -1,6 +1,6 @@
 name: GaelicCompanion
 options:
-  bundleIdPrefix: com.dalemyers
+  bundleIdPrefix: io.myers
   settingPresets: none
   deploymentTarget:
     iOS: "17.0"
@@ -37,7 +37,7 @@ targets:
       - path: Companion/Catalog.swift
     settings:
       base:
-        PRODUCT_BUNDLE_IDENTIFIER: com.dalemyers.GaelicIntroEditor
+        PRODUCT_BUNDLE_IDENTIFIER: io.myers.GaelicIntroEditor
         GENERATE_INFOPLIST_FILE: YES
         INFOPLIST_KEY_CFBundleDisplayName: Gaelic Intro Editor
         INFOPLIST_KEY_LSApplicationCategoryType: public.app-category.music
@@ -83,7 +83,7 @@ targets:
       - package: ZIPFoundation
     settings:
       base:
-        PRODUCT_BUNDLE_IDENTIFIER: com.dalemyers.GaelicCompanion
+        PRODUCT_BUNDLE_IDENTIFIER: io.myers.GaelicCompanion
         GENERATE_INFOPLIST_FILE: YES
         INFOPLIST_FILE: Companion/Info.plist
         INFOPLIST_KEY_CFBundleDisplayName: "Unofficial Companion to 'Scottish Gaelic In 12 Weeks'"

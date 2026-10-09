@@ -20,6 +20,7 @@ final class LibraryModel {
 
     @ObservationIgnored private let root: URL
     @ObservationIgnored private let repository: LibraryRepository
+    @ObservationIgnored private let userDefaults: UserDefaults
     @ObservationIgnored private var importTask: Task<Void, Never>?
 #if DEBUG
     private(set) var isReviewingMapping = false
@@ -30,8 +31,17 @@ final class LibraryModel {
     var expectedCount: Int { mapping?.tracks.count ?? 0 }
     var hasProvisionalMapping: Bool { groups.flatMap(\.tracks).contains { $0.mapping.needsReview } }
 
+    var skipSpokenIntroductions: Bool {
+        get { player.skipSpokenIntroductions }
+        set {
+            userDefaults.set(newValue, forKey: "skipSpokenIntroductions")
+            player.skipSpokenIntroductions = newValue
+        }
+    }
+
     /// Stores user-imported recordings privately; no audio is included in the application bundle.
-    init(applicationSupportURL: URL = .applicationSupportDirectory) {
+    init(applicationSupportURL: URL = .applicationSupportDirectory, userDefaults: UserDefaults = .standard) {
+        self.userDefaults = userDefaults
         root = applicationSupportURL.appendingPathComponent("ImportedLibrary", isDirectory: true)
         repository = LibraryRepository(root: root)
         progress = ListeningProgress(url: applicationSupportURL.appendingPathComponent("ListeningProgress.json"))
@@ -39,6 +49,7 @@ final class LibraryModel {
         mappingReviewURL = applicationSupportURL.appendingPathComponent("MappingReview.json")
 #endif
         player.onTrackFinished = { [weak self] id in self?.recordPlaybackCompletion(id) }
+        player.skipSpokenIntroductions = userDefaults.bool(forKey: "skipSpokenIntroductions")
     }
 
     /// Loads the editable catalog and previous import, surfacing corruption without hiding the import controls.
@@ -123,7 +134,10 @@ final class LibraryModel {
     static func preview(imported: Bool = true) -> LibraryModel {
         let directory = URL.temporaryDirectory
             .appendingPathComponent("GaelicCompanion-Preview-\(UUID().uuidString)", isDirectory: true)
-        let library = LibraryModel(applicationSupportURL: directory)
+        guard let defaults = UserDefaults(suiteName: directory.lastPathComponent) else {
+            fatalError("Unable to create isolated preview preferences.")
+        }
+        let library = LibraryModel(applicationSupportURL: directory, userDefaults: defaults)
         do {
             let mapping = try TrackMapping.load()
             library.mapping = mapping
@@ -168,7 +182,7 @@ final class LibraryModel {
             throw MappingReviewError.invalid("Import the audio for this track before playing it.")
         }
         let url = root.appendingPathComponent(saved.directory).appendingPathComponent(imported.filename)
-        await player.play(LibraryTrack(mapping: track, imported: imported), at: url)
+        await player.play(LibraryTrack(mapping: track, imported: imported), at: url, allowingIntroSkipping: false)
     }
 #endif
 

@@ -1,9 +1,178 @@
 import AVFoundation
+import MediaPlayer
 import XCTest
 @testable import GaelicCompanion
 
 @MainActor
 final class AudioPlayerTests: XCTestCase {
+    private func track(introEnd: Double? = nil) -> LibraryTrack {
+        LibraryTrack(
+            mapping: MappedTrack(
+                id: 2, lesson: 1, section: 1, subsection: nil, group: .lesson,
+                title: "Synthetic intro recording", needsReview: false, introEndSeconds: introEnd
+            ),
+            imported: ImportedTrack(id: 2, filename: "123_002.mp3", metadataTitle: "Synthetic intro recording")
+        )
+    }
+
+    func testIntroSkippingDefaultsOffAndPublishesOriginalTimeline() async throws {
+        let directory = FileManager.default.temporaryDirectory.appendingPathComponent(UUID().uuidString)
+        try FileManager.default.createDirectory(at: directory, withIntermediateDirectories: true)
+        defer { try? FileManager.default.removeItem(at: directory) }
+        let url = try makeAudio(in: directory, seconds: 20)
+        let player = AudioPlayer()
+        defer { player.stop() }
+        XCTAssertFalse(player.skipSpokenIntroductions)
+        await player.play(track(introEnd: 4.25), at: url)
+        XCTAssertEqual(player.position, 0, accuracy: 0.1)
+        player.skipSpokenIntroductions = true
+        await player.play(track(introEnd: 4.25), at: url)
+        XCTAssertEqual(player.position, 4.25, accuracy: 0.1)
+        XCTAssertEqual(player.duration, 20, accuracy: 0.001)
+        let info = try XCTUnwrap(MPNowPlayingInfoCenter.default().nowPlayingInfo)
+        XCTAssertEqual(try XCTUnwrap(info[MPNowPlayingInfoPropertyElapsedPlaybackTime] as? Double), 4.25, accuracy: 0.1)
+        XCTAssertEqual(info[MPMediaItemPropertyPlaybackDuration] as? Double, 20)
+        XCTAssertNil(player.errorMessage)
+    }
+
+    func testIntroSkippingLeavesResumeAndBackwardSeekingUnchanged() async throws {
+        let directory = FileManager.default.temporaryDirectory.appendingPathComponent(UUID().uuidString)
+        try FileManager.default.createDirectory(at: directory, withIntermediateDirectories: true)
+        defer { try? FileManager.default.removeItem(at: directory) }
+        let url = try makeAudio(in: directory, seconds: 20)
+        let player = AudioPlayer()
+        defer { player.stop() }
+        var completed = false
+        player.onTrackFinished = { _ in completed = true }
+        player.skipSpokenIntroductions = true
+        await player.play(track(introEnd: 6), at: url)
+        player.pause()
+        player.seek(to: 6)
+        player.skipBackward()
+        XCTAssertEqual(player.position, 1, accuracy: 0.001)
+        await player.toggle()
+        XCTAssertEqual(player.position, 1, accuracy: 0.1, "Resuming inside an intro must not jump forward.")
+        player.pause()
+        player.seek(to: 0)
+        await player.toggle()
+        XCTAssertEqual(player.position, 0, accuracy: 0.1)
+        player.pause()
+        player.seek(to: 10)
+        player.skipSpokenIntroductions = false
+        player.skipSpokenIntroductions = true
+        XCTAssertEqual(player.position, 10)
+        await player.toggle()
+        XCTAssertEqual(player.position, 10, accuracy: 0.1)
+        XCTAssertFalse(completed)
+    }
+
+    func testReplayUsesCurrentSettingAndReviewAlwaysStartsAtZero() async throws {
+        let directory = FileManager.default.temporaryDirectory.appendingPathComponent(UUID().uuidString)
+        try FileManager.default.createDirectory(at: directory, withIntermediateDirectories: true)
+        defer { try? FileManager.default.removeItem(at: directory) }
+        let url = try makeAudio(in: directory, seconds: 1)
+        let player = AudioPlayer()
+        defer { player.stop() }
+        player.skipSpokenIntroductions = true
+        let finished = expectation(description: "Content after intro completed")
+        player.onTrackFinished = { _ in finished.fulfill() }
+        await player.play(track(introEnd: 0.6), at: url)
+        await fulfillment(of: [finished], timeout: 5)
+        player.onTrackFinished = nil
+        XCTAssertEqual(player.position, player.duration)
+        player.pause()
+        XCTAssertEqual(player.position, player.duration, "Redundant remote pauses must not erase completed state.")
+        await player.toggle()
+        XCTAssertEqual(player.position, 0.6, accuracy: 0.1)
+        player.pause()
+        player.seek(to: player.duration)
+        player.skipSpokenIntroductions = false
+        await player.toggle()
+        XCTAssertEqual(player.position, 0, accuracy: 0.1)
+        player.skipSpokenIntroductions = true
+        await player.play(track(introEnd: 0.6), at: url, allowingIntroSkipping: false)
+        XCTAssertEqual(player.position, 0, accuracy: 0.1)
+        player.pause()
+        player.seek(to: player.duration)
+        await player.toggle()
+        XCTAssertEqual(player.position, 0, accuracy: 0.1, "Review replay must also include the intro.")
+        await player.play(track(introEnd: 0.6), at: url)
+        XCTAssertEqual(player.position, 0.6, accuracy: 0.1, "Normal listening after review restores skipping.")
+    }
+
+    func testAbsentZeroAndInvalidIntroMarksNeverSkipOrComplete() async throws {
+        let directory = FileManager.default.temporaryDirectory.appendingPathComponent(UUID().uuidString)
+        try FileManager.default.createDirectory(at: directory, withIntermediateDirectories: true)
+        defer { try? FileManager.default.removeItem(at: directory) }
+        let url = try makeAudio(in: directory, seconds: 20)
+        let player = AudioPlayer()
+        defer { player.stop() }
+        player.skipSpokenIntroductions = true
+        var completed = false
+        player.onTrackFinished = { _ in completed = true }
+        let marks: [Double?] = [nil, 0, -1, 20, 21, .infinity, .nan]
+        for mark in marks {
+            await player.play(track(introEnd: mark), at: url)
+            XCTAssertTrue(player.isPlaying)
+            XCTAssertEqual(player.position, 0, accuracy: 0.1)
+            XCTAssertFalse(completed)
+        }
+        XCTAssertNil(player.errorMessage)
+    }
+
+    func testSkipPreferencePersistsWithoutMovingCurrentPlayback() async throws {
+        let directory = FileManager.default.temporaryDirectory.appendingPathComponent(UUID().uuidString)
+        try FileManager.default.createDirectory(at: directory, withIntermediateDirectories: true)
+        defer { try? FileManager.default.removeItem(at: directory) }
+        let domain = "IntroPreferenceTests-\(UUID().uuidString)"
+        let defaults = try XCTUnwrap(UserDefaults(suiteName: domain))
+        defer { defaults.removePersistentDomain(forName: domain) }
+        let model = LibraryModel(applicationSupportURL: directory, userDefaults: defaults)
+        defer { model.player.stop() }
+        XCTAssertFalse(model.skipSpokenIntroductions)
+        let url = try makeAudio(in: directory, seconds: 20)
+        await model.player.play(track(introEnd: 6), at: url)
+        model.player.pause()
+        model.player.seek(to: 2)
+        model.skipSpokenIntroductions = true
+        XCTAssertEqual(model.player.position, 2)
+        XCTAssertFalse(model.player.isPlaying)
+        let restored = LibraryModel(applicationSupportURL: directory, userDefaults: defaults)
+        defer { restored.player.stop() }
+        XCTAssertTrue(restored.skipSpokenIntroductions)
+        XCTAssertTrue(restored.player.skipSpokenIntroductions)
+        restored.skipSpokenIntroductions = false
+        let disabled = LibraryModel(applicationSupportURL: directory, userDefaults: defaults)
+        defer { disabled.player.stop() }
+        XCTAssertFalse(disabled.skipSpokenIntroductions)
+    }
+
+    func testPreferenceChangeDuringPreparationAppliesWhenPlaybackStarts() async throws {
+        let directory = FileManager.default.temporaryDirectory.appendingPathComponent(UUID().uuidString)
+        try FileManager.default.createDirectory(at: directory, withIntermediateDirectories: true)
+        defer { try? FileManager.default.removeItem(at: directory) }
+        let url = try makeAudio(in: directory, seconds: 20)
+        let began = expectation(description: "Activation requested")
+        let (stream, continuation) = AsyncStream<Void>.makeStream()
+        let controller = AudioSessionController { active in
+            if active {
+                began.fulfill()
+                for await _ in stream { break }
+            }
+        }
+        let player = AudioPlayer(session: controller)
+        defer { player.stop() }
+        let entry = track(introEnd: 6)
+        let pending = Task { await player.play(entry, at: url) }
+        await fulfillment(of: [began], timeout: 5)
+        player.skipSpokenIntroductions = true
+        continuation.yield()
+        continuation.finish()
+        await pending.value
+        XCTAssertEqual(player.position, 6, accuracy: 0.1)
+        XCTAssertNil(player.errorMessage)
+    }
+
     /// Generates an original silent WAV fixture for deterministic playback tests.
     private func makeAudio(in directory: URL, seconds: UInt32 = 1) throws -> URL {
         let url = directory.appendingPathComponent("silence.wav")
@@ -69,6 +238,7 @@ final class AudioPlayerTests: XCTestCase {
     /// The built application must actually declare background audio, not merely a project setting.
     func testBackgroundAudioCapability() {
         XCTAssertEqual(Bundle.main.object(forInfoDictionaryKey: "UIBackgroundModes") as? [String], ["audio"])
+        XCTAssertEqual(Bundle.main.bundleIdentifier, "io.myers.GaelicCompanion")
     }
 
     /// Failed replacement and callbacks from an unrelated/old player cannot alter the active recording.

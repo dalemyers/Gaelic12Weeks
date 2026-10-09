@@ -71,6 +71,14 @@ struct LibraryView: View {
                 NavigationStack {
                     ScrollView {
                         VStack(alignment: .leading, spacing: 24) {
+                            VStack(alignment: .leading, spacing: 8) {
+                                Toggle("Skip spoken introductions", isOn: $library.skipSpokenIntroductions)
+                                    .accessibilityIdentifier("skipSpokenIntroductions")
+                                Text("Start recordings at their marked intro end. Recordings without a valid mark "
+                                     + "play from the beginning. Pausing and resuming keeps your place, and you can "
+                                     + "still seek back into an introduction.")
+                                    .font(.footnote).foregroundStyle(.secondary)
+                            }
                             instructions
                             if library.saved != nil {
                                 Button("Replace imported audio", systemImage: "square.and.arrow.down") {

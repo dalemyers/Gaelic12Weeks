@@ -458,6 +458,7 @@ final class MappingReviewTests: XCTestCase {
         defer { model.endMappingReview() }
         await model.load()
         XCTAssertNil(model.errorMessage)
+        model.player.skipSpokenIntroductions = true
         let completion = try XCTUnwrap(model.player.onTrackFinished)
         let finished = expectation(description: "Review audition completed")
         model.player.onTrackFinished = { id in
@@ -465,10 +466,12 @@ final class MappingReviewTests: XCTestCase {
             finished.fulfill()
         }
         try model.beginMappingReview()
-        let track = try XCTUnwrap(model.mapping?.tracks.first { $0.id == 2 })
+        var track = try XCTUnwrap(model.mapping?.tracks.first { $0.id == 2 })
+        track.introEndSeconds = 1
         try await model.playForMappingReview(track)
         XCTAssertNil(model.player.errorMessage)
         XCTAssertTrue(model.player.isPlaying)
+        XCTAssertLessThan(model.player.position, 0.2, "Mapping auditions must bypass the enabled skip preference.")
         model.player.seek(to: max(0, model.player.duration - 0.2))
         await fulfillment(of: [finished], timeout: 10)
         XCTAssertFalse(model.progress.isListened([2]))

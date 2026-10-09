@@ -92,7 +92,11 @@ final class CatalogTests: XCTestCase {
     }
 
     func testOptionalIntroOffsetsRemainBackwardCompatible() throws {
-        var track = try XCTUnwrap(TrackMapping.load().tracks.first)
+        var track = MappedTrack(
+            id: 2, lesson: 1, section: 1, subsection: nil, group: .lesson, title: "Synthetic", needsReview: false
+        )
+        let legacy = try JSONEncoder().encode(TrackMapping(schemaVersion: 1, tracks: [track]))
+        XCTAssertNil(try TrackMapping.decode(legacy).tracks.first?.introEndSeconds)
         XCTAssertNil(track.introEndSeconds)
         for seconds in [0.0, 2.375] {
             track.introEndSeconds = seconds

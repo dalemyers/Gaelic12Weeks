@@ -10,6 +10,8 @@ Open `GaelicCompanion.xcodeproj`, choose the `GaelicCompanion` scheme and an iOS
 simulator, then Run. For a physical device, select your own development team under
 Signing & Capabilities. The display name is the full requested title; iOS may
 truncate long names on the Home Screen.
+The app identifiers are `io.myers.GaelicCompanion` (iOS) and
+`io.myers.GaelicIntroEditor` (Mac); test bundles use the same `io.myers.` prefix.
 
 ZIPFoundation 0.9.20 is pinned through Swift Package Manager. Xcode resolves it on
 first build. The checked-in Xcode project is ready to use; XcodeGen is only needed
@@ -46,6 +48,16 @@ Navigation and the player/import footer occupy separate layout regions, so the
 last row can scroll fully above the player even when its height changes.
 Recordings do not automatically advance. Audio-session transitions are serialized
 off the UI thread; stopping or pausing invalidates pending playback requests.
+
+**About & download → Skip spoken introductions** is off by default and persists
+across launches and audio replacement. When enabled, starting or replaying a
+recording uses its `introEndSeconds` marker from the bundled mapping. Unreviewed,
+explicitly no-intro, and out-of-range markers play from the beginning.
+Changing the setting does not interrupt or reposition current playback.
+Pause/resume (including lock-screen controls and interruptions) keeps your place;
+you can still seek or skip backward into the introduction. The player and lock
+screen show the original recording's duration and elapsed time. DEBUG mapping
+review always plays the full recording, including on replay.
 
 Successfully finishing a recording marks that recording listened. A lesson is
 listened only after **all recordings mapped to it** have finished, including its
@@ -136,9 +148,11 @@ without overwriting it; use **Reload Metadata** to load those changes first.
 Write failures remain visible and **Mark & Next** does not advance on failure.
 The editor opens without files each launch; choose the same metadata to resume.
 
-These marks are preparation for intro skipping. **The iPhone app does not yet
-skip introductions**; playback is unchanged. Its metadata loader and DEBUG
-mapping reviewer preserve the optional timestamps.
+To use newly saved markers on iPhone, rebuild/reinstall the companion app and
+enable **About & download → Skip spoken introductions**. The existing imported
+audio does not need to be imported again. The companion uses its bundled metadata,
+so changes made on the Mac do not update an already installed app live. Its DEBUG
+mapping reviewer preserves the timestamps while always auditioning full recordings.
 
 Build and open from Terminal:
 
@@ -284,10 +298,14 @@ existing `ffmpeg` installation; no publisher recordings are used.
 The same fixture supports `OnboardingTests/testLibraryReplacementLivesInAbout`,
 which checks the removed banner/toolbar action and cancellation of replacement
 from About without losing the imported library.
+It also supports `OnboardingTests/testSkipIntroductionsSettingPersists`, which
+expects the preference initially off and checks enabling, relaunching, disabling,
+and relaunching again. Playback unit tests use independent synthetic recordings
+and explicit markers, so they do not depend on the ongoing manual intro review.
 
 ```sh
 # Set SIMULATOR_ID to your dedicated, booted test simulator with this app installed.
-CONTAINER=$(xcrun simctl get_app_container "$SIMULATOR_ID" com.dalemyers.GaelicCompanion data) &&
+CONTAINER=$(xcrun simctl get_app_container "$SIMULATOR_ID" io.myers.GaelicCompanion data) &&
 LIBRARY="$CONTAINER/Library/Application Support/ImportedLibrary" &&
 GENERATION=A1815CE7-4570-4B28-8A8D-7D347B45EE54 &&
 test ! -e "$LIBRARY/Current.json" &&

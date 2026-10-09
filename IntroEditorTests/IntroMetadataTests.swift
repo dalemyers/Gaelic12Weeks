@@ -3,6 +3,10 @@ import XCTest
 
 @MainActor
 final class IntroMetadataTests: XCTestCase {
+    func testAppBundleIdentifier() {
+        XCTAssertEqual(Bundle.main.bundleIdentifier, "io.myers.GaelicIntroEditor")
+    }
+
     private func fixture() throws -> (URL, URL, Data) {
         let folder = FileManager.default.temporaryDirectory.appendingPathComponent(UUID().uuidString)
         try FileManager.default.createDirectory(at: folder, withIntermediateDirectories: true)

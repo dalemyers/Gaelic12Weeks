@@ -2,6 +2,7 @@ import AVFoundation
 import Combine
 import MediaPlayer
 import Observation
+import OSLog
 
 @MainActor
 @Observable
@@ -11,6 +12,7 @@ final class AudioPlayer: NSObject, AVAudioPlayerDelegate {
     private(set) var position: TimeInterval = 0
     private(set) var duration: TimeInterval = 0
     private(set) var isPreparing = false
+    var skipSpokenIntroductions = false
     var errorMessage: String?
     @ObservationIgnored var onTrackFinished: ((Int) -> Void)?
 
@@ -21,6 +23,8 @@ final class AudioPlayer: NSObject, AVAudioPlayerDelegate {
     @ObservationIgnored private var resumeAfterInterruption = false
     @ObservationIgnored private var revision = 0
     @ObservationIgnored private let session: AudioSessionController
+    @ObservationIgnored private var allowsIntroSkipping = true
+    @ObservationIgnored private let logger = Logger(subsystem: "io.myers.GaelicCompanion", category: "Playback")
 
     /// Registers system playback controls and audio-session interruption handling.
     init(session: AudioSessionController = .shared) {
@@ -31,7 +35,7 @@ final class AudioPlayer: NSObject, AVAudioPlayerDelegate {
     }
 
     /// Starts an imported track; decoding/session failures are shown to the user.
-    func play(_ track: LibraryTrack, at url: URL) async {
+    func play(_ track: LibraryTrack, at url: URL, allowingIntroSkipping: Bool = true) async {
         revision += 1
         let request = revision
         isPreparing = true
@@ -45,12 +49,15 @@ final class AudioPlayer: NSObject, AVAudioPlayerDelegate {
                 return
             }
             next.delegate = self
+            let start = startPosition(for: track, duration: next.duration, allowingIntroSkipping: allowingIntroSkipping)
+            next.currentTime = start
             guard next.play() else { throw PlaybackError.cannotPlay }
             audio?.stop()
             audio = next
             currentTrack = track
+            allowsIntroSkipping = allowingIntroSkipping
             duration = next.duration
-            position = 0
+            position = start
             isPlaying = true
             startTicker()
             updateNowPlaying()
@@ -61,7 +68,7 @@ final class AudioPlayer: NSObject, AVAudioPlayerDelegate {
         }
     }
 
-    /// Pauses or resumes the selected recording, restarting a completed track from the beginning.
+    /// Resumes without skipping; only a completed recording restarts at its optional intro marker.
     func toggle() async {
         guard let audio else { return }
         if isPlaying {
@@ -75,7 +82,11 @@ final class AudioPlayer: NSObject, AVAudioPlayerDelegate {
         do {
             try await session.enqueue(active: true).value
             guard revision == request else { return }
-            if position >= duration { audio.currentTime = 0 }
+            if position >= duration {
+                audio.currentTime = startPosition(
+                    for: currentTrack, duration: duration, allowingIntroSkipping: allowsIntroSkipping
+                )
+            }
             guard audio.play() else { throw PlaybackError.cannotPlay }
             isPlaying = true
             position = audio.currentTime
@@ -93,9 +104,9 @@ final class AudioPlayer: NSObject, AVAudioPlayerDelegate {
         isPreparing = false
         resumeAfterInterruption = false
         audio?.pause()
+        if isPlaying { position = audio?.currentTime ?? position }
         isPlaying = false
         ticker?.cancel()
-        position = audio?.currentTime ?? position
         updateNowPlaying()
     }
 
@@ -127,6 +138,7 @@ final class AudioPlayer: NSObject, AVAudioPlayerDelegate {
         audio?.stop()
         audio = nil
         currentTrack = nil
+        allowsIntroSkipping = true
         isPlaying = false
         position = 0
         duration = 0
@@ -156,6 +168,19 @@ final class AudioPlayer: NSObject, AVAudioPlayerDelegate {
         let player = try AVAudioPlayer(contentsOf: url)
         guard player.prepareToPlay() else { throw PlaybackError.cannotPlay }
         return player
+    }
+
+    /// Missing/no-intro marks are ordinary starts; stale marks must never skip to the end or imply completion.
+    private func startPosition(
+        for track: LibraryTrack?, duration: TimeInterval, allowingIntroSkipping: Bool
+    ) -> TimeInterval {
+        guard skipSpokenIntroductions, allowingIntroSkipping,
+              let track, let start = track.mapping.introEndSeconds else { return 0 }
+        guard start.isFinite, start >= 0, start < duration else {
+            logger.warning("Ignoring invalid intro marker for track \(track.id); playing from the beginning.")
+            return 0
+        }
+        return start
     }
 
     /// Publishes track identity and elapsed time to the lock screen.
