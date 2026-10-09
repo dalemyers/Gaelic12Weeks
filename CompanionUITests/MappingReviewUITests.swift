@@ -7,7 +7,7 @@ final class MappingReviewUITests: XCTestCase {
         continueAfterFailure = false
         let app = XCUIApplication()
         app.launch()
-        openReview(in: app)
+        try openReview(in: app)
         let error = app.alerts["Mapping review"]
         guard error.waitForExistence(timeout: 5) else {
             throw XCTSkip("Requires the dedicated write-blocked MappingReview.json directory fixture.")
@@ -27,11 +27,11 @@ final class MappingReviewUITests: XCTestCase {
 
     /// DEBUG review supports corrections, explicit confirmation, persistence and safe unsaved-change handling.
     @MainActor
-    func testCorrectConfirmAndReloadMapping() {
+    func testCorrectConfirmAndReloadMapping() throws {
         let app = XCUIApplication()
         continueAfterFailure = false
         app.launch()
-        openReview(in: app)
+        try openReview(in: app)
         let reset = app.buttons["resetMappingReview"]
         reveal(reset, in: app)
         reset.tap()
@@ -104,7 +104,7 @@ final class MappingReviewUITests: XCTestCase {
 
         app.terminate()
         app.launch()
-        openReview(in: app)
+        try openReview(in: app)
         XCTAssertTrue(app.staticTexts["reviewProgress"].waitForExistence(timeout: 10))
         XCTAssertTrue(app.staticTexts["reviewProgress"].label.contains("1 of 150 confirmed; 0 incorrect"))
         reveal(lesson, in: app)
@@ -118,7 +118,10 @@ final class MappingReviewUITests: XCTestCase {
 
     /// Finds the DEBUG entry point in About without depending on a particular screen size.
     @MainActor
-    private func openReview(in app: XCUIApplication) {
+    private func openReview(in app: XCUIApplication) throws {
+        guard app.collectionViews["libraryList"].waitForExistence(timeout: 10) else {
+            throw XCTSkip("Requires an imported synthetic library on a dedicated simulator.")
+        }
         XCTAssertTrue(app.buttons["aboutAudio"].waitForExistence(timeout: 10))
         app.buttons["aboutAudio"].tap()
         let review = app.buttons["reviewMapping"]

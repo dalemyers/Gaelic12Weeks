@@ -51,22 +51,6 @@ final class PlayerLayoutUITests: XCTestCase {
         assertAboutBottomIsReachable(in: app)
     }
 
-    /// Fresh-install instructions and the About sheet must also scroll their last actions above the player.
-    @MainActor
-    func testWelcomeBottomActionStaysAbovePlayer() throws {
-        continueAfterFailure = false
-        XCUIDevice.shared.orientation = .portrait
-        let app = XCUIApplication()
-        app.launch()
-        XCTAssertTrue(app.buttons["importAudio"].waitForExistence(timeout: 10))
-        let importButton = app.buttons["welcomeImport"]
-        guard importButton.exists else {
-            throw XCTSkip("Requires an empty library on a dedicated simulator.")
-        }
-        revealAbovePlayer(importButton, scrolling: app.scrollViews["welcomeScroll"], in: app)
-        assertAboutBottomIsReachable(in: app)
-    }
-
     /// Checks actual geometry rather than isHittable alone, which can report controls hidden beneath overlays.
     @MainActor
     private func revealAbovePlayer(

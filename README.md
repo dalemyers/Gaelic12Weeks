@@ -28,7 +28,7 @@ Choose an installed simulator name if different. Build settings are explicit in
 ## Import and listen
 
 1. Use **Open publisher's download page** in the app and manually download the ZIP.
-2. Save the original ZIP in Files, return to the app, and choose **Import audio**.
+2. Save the original ZIP in Files, return to the app, and choose **Import downloaded ZIP**.
 3. Browse **Lesson → Section → Recording**. Subsections share their numbered
    parent section; a section can contain only subsection recordings when the
    source has no main recording.
@@ -36,9 +36,12 @@ Choose an installed simulator name if different. Build settings are explicit in
 Conversation recordings are shown directly within their mapped lesson.
 Appendices and Reading Practice have separate top-level groups. Playback includes
 pause/resume, seeking, 5-second skips, background audio and lock-screen controls.
-The compact bottom player stays visible while browsing lessons and sections,
-during imports, and in About & download. Before a recording is selected it shows
-"Select a recording" with disabled controls.
+Before the first successful import, onboarding shows the download instructions
+and its primary ZIP import action, without a player or import/info toolbar buttons.
+Import progress and cancellation remain available during extraction.
+Once audio is imported, the compact bottom player stays visible while browsing
+lessons and sections, during replacement imports, and in About & download.
+Before a recording is selected it shows "Select a recording" with disabled controls.
 Navigation and the player/import footer occupy separate layout regions, so the
 last row can scroll fully above the player even when its height changes.
 Recordings do not automatically advance. Audio-session transitions are serialized
@@ -165,7 +168,8 @@ to restart against the new source. Applying this tool's own exported correction
 is recognized and does not invalidate its matching saved decision. Reset affects
 only review edits, not imported audio or listened progress.
 
-Run `GaelicCompanionUITests/MappingReviewUITests` only on a dedicated test simulator:
+Run `GaelicCompanionUITests/MappingReviewUITests` only on a dedicated test simulator
+with an imported synthetic library (the MiniPlayerLibrary fixture below suffices):
 it resets that simulator's review draft, edits sample assignments, and saves a
 uniquely named JSON export in Files. It verifies persistence, unsaved-change
 protection, confirmation, and export without changing the bundled mapping.
@@ -205,7 +209,7 @@ Test archives and playback WAVs are generated from original synthetic data.
 
 `testPlayerAcrossLibraryNavigation` is an opt-in UI integration check using a
 one-minute synthetic recording. On a **dedicated simulator**, first run
-`testOnboardingAndAbout` with no imported library, then seed the fixture below
+`testOnboardingBeforeImport` with no imported library, then seed the fixture below
 and run only `GaelicCompanionUITests/OnboardingTests/testPlayerAcrossLibraryNavigation`.
 Do not seed a simulator containing a real user's library. This requires an
 existing `ffmpeg` installation; no publisher recordings are used.
@@ -236,8 +240,9 @@ subsection finishes playing, persistence across relaunch, and clearing the
 section's checkmark when a child is marked unlistened. Both seeded UI checks skip
 when their required library is absent; onboarding needs a fresh installation.
 
-`PlayerLayoutUITests/testWelcomeBottomActionStaysAbovePlayer` checks the final
-onboarding and About actions on an empty installation.
+`OnboardingTests/testOnboardingBeforeImport` checks that the onboarding import
+action is reachable in portrait and landscape, the player and toolbar controls
+are absent, and cancelling the picker or relaunching preserves this state.
 `PlayerLayoutUITests/testBottomRowsStayAbovePlayer` checks the final library,
 lesson and section rows, landscape playback, and About. It requires a complete
 synthetic library on a dedicated simulator. After creating the one-minute

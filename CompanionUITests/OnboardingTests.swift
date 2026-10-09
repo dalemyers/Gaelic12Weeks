@@ -1,27 +1,52 @@
 import XCTest
 
 final class OnboardingTests: XCTestCase {
-    /// A fresh installation instructs users to download and import, without bundling recordings.
+    /// Onboarding keeps only its primary import action, including after picker cancellation and relaunch.
     @MainActor
-    func testOnboardingAndAbout() {
+    func testOnboardingBeforeImport() {
+        continueAfterFailure = false
+        XCUIDevice.shared.orientation = .portrait
+        defer { XCUIDevice.shared.orientation = .portrait }
         let app = XCUIApplication()
         app.launch()
-        XCTAssertTrue(app.buttons["importAudio"].waitForExistence(timeout: 10))
-        XCTAssertTrue(app.buttons["welcomeImport"].exists)
+        XCTAssertTrue(app.buttons["welcomeImport"].waitForExistence(timeout: 10))
         XCTAssertTrue(app.links["publisherLink"].exists)
-        assertEmptyPlayer(in: app)
-        app.buttons["aboutAudio"].tap()
-        XCTAssertTrue(app.navigationBars["About & download"].waitForExistence(timeout: 5))
         XCTAssertTrue(app.staticTexts[
             "Unofficial Companion to 'Scottish Gaelic In 12 Weeks'"
         ].exists)
-        assertEmptyPlayer(in: app)
-        app.buttons["Done"].tap()
-        app.buttons["importAudio"].tap()
+        for orientation in [UIDeviceOrientation.portrait, .landscapeLeft] {
+            XCUIDevice.shared.orientation = orientation
+            assertOnboardingControls(in: app)
+        }
+        app.buttons["welcomeImport"].tap()
         XCTAssertTrue(app.buttons["Cancel"].waitForExistence(timeout: 20))
         app.buttons["Cancel"].tap()
-        XCTAssertTrue(app.buttons["welcomeImport"].exists)
-        assertEmptyPlayer(in: app)
+        assertOnboardingControls(in: app)
+        app.terminate()
+        app.launch()
+        assertOnboardingControls(in: app)
+    }
+
+    /// The import action must remain reachable without a player or redundant toolbar controls.
+    @MainActor
+    private func assertOnboardingControls(in app: XCUIApplication) {
+        let button = app.buttons["welcomeImport"]
+        XCTAssertTrue(button.waitForExistence(timeout: 10))
+        XCTAssertFalse(app.otherElements["miniPlayer"].exists)
+        XCTAssertFalse(app.buttons["togglePlayback"].exists)
+        XCTAssertFalse(app.buttons["importAudio"].exists)
+        XCTAssertFalse(app.buttons["aboutAudio"].exists)
+        let scroll = app.scrollViews["welcomeScroll"]
+        for _ in 0..<8 {
+            let top = max(scroll.frame.minY, app.navigationBars.firstMatch.frame.maxY)
+            let bottom = min(scroll.frame.maxY, app.frame.maxY)
+            if button.isHittable && button.frame.minY >= top && button.frame.maxY <= bottom {
+                XCTAssertTrue(button.isEnabled)
+                return
+            }
+            scroll.swipeUp(velocity: .slow)
+        }
+        XCTFail("The onboarding import action must scroll fully into view.")
     }
 
     /// The persistent player remains visible but cannot act until a recording has been selected.
@@ -48,6 +73,13 @@ final class OnboardingTests: XCTestCase {
             throw XCTSkip("Requires an imported lesson-1 fixture on an isolated test simulator.")
         }
         assertEmptyPlayer(in: app)
+        XCTAssertTrue(app.buttons["aboutAudio"].exists)
+        XCTAssertFalse(app.buttons["importAudio"].exists)
+        app.buttons["aboutAudio"].tap()
+        XCTAssertTrue(app.navigationBars["About & download"].waitForExistence(timeout: 5))
+        XCTAssertTrue(app.buttons["replaceAudio"].exists)
+        XCTAssertTrue(app.otherElements.matching(identifier: "miniPlayer").allElementsBoundByIndex.last?.exists == true)
+        app.buttons["Done"].tap()
         app.buttons["lesson-1"].tap()
         XCTAssertTrue(app.buttons["section-1"].waitForExistence(timeout: 5))
         assertEmptyPlayer(in: app)

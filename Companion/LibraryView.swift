@@ -26,25 +26,20 @@ struct LibraryView: View {
                 }
                 .navigationTitle("Gaelic Companion")
                 .toolbar {
-                    if library.saved == nil {
-                        ToolbarItem(placement: .topBarTrailing) {
-                            Button("Import audio", systemImage: "square.and.arrow.down") {
-                                showingImporter = true
-                            }
-                            .disabled(library.isLoading || library.isImporting || library.mapping == nil)
-                            .accessibilityIdentifier("importAudio")
+                    if library.saved != nil {
+                        ToolbarItem(placement: .topBarLeading) {
+                            Button("About & download", systemImage: "info.circle") { showingInstructions = true }
+                                .accessibilityIdentifier("aboutAudio")
                         }
-                    }
-                    ToolbarItem(placement: .topBarLeading) {
-                        Button("About & download", systemImage: "info.circle") { showingInstructions = true }
-                            .accessibilityIdentifier("aboutAudio")
                     }
                 }
             }
             .id(library.saved?.directory ?? "empty-library")
             VStack(spacing: 0) {
                 if library.isImporting { importProgress }
-                PlaybackView(player: library.player)
+                if library.saved != nil {
+                    PlaybackView(player: library.player)
+                }
             }
             .fixedSize(horizontal: false, vertical: true)
         }
@@ -171,7 +166,7 @@ struct LibraryView: View {
             }.accessibilityIdentifier("publisherLink")
             Text("2. Save the ZIP in Files. If your browser extracts it automatically, keep or download the original ZIP.")
             Text(library.saved == nil
-                 ? "3. Return here and choose Import audio, then select the ZIP."
+                 ? "3. Return here and choose Import downloaded ZIP, then select the ZIP."
                  : "3. Choose Replace imported audio in About & download, then select the new ZIP.")
             Text("No recordings are bundled or downloaded automatically. Import only audio you are entitled to use. "
                  + "Imported recordings stay on this device and are excluded from the app's cloud backup.")
