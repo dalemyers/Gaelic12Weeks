@@ -140,11 +140,6 @@ struct LibraryView: View {
     private var welcome: some View {
         ScrollView {
             VStack(alignment: .leading, spacing: 24) {
-                Image(systemName: "headphones")
-                    .font(.system(size: 52)).foregroundStyle(.teal)
-                    .accessibilityHidden(true)
-                Text("Your book.\nYour audio.\nAt your pace.")
-                    .font(.largeTitle.bold())
                 instructions
                 Button {
                     showingImporter = true
@@ -162,7 +157,12 @@ struct LibraryView: View {
 
     private var instructions: some View {
         VStack(alignment: .leading, spacing: 16) {
-            Text(LibraryModel.appName).font(.headline)
+            HStack(alignment: .center, spacing: 16) {
+                Image(systemName: "headphones")
+                    .font(.system(size: 52)).foregroundStyle(.teal)
+                    .accessibilityHidden(true)
+                Text(LibraryModel.appName).font(.headline)
+            }
             Text("An independent listening companion. Not affiliated with or endorsed by the book's authors or publisher.")
                 .foregroundStyle(.secondary)
             Text("1. Open the publisher's audio page and download the ZIP yourself.")
