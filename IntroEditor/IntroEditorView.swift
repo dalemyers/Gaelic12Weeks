@@ -226,6 +226,6 @@ struct IntroTransportView: View {
 
 #if DEBUG
 #Preview("Intro editor") { IntroEditorView(model: .preview()) }
-#Preview("Open files") { IntroEditorView(model: IntroEditorModel()) }
+#Preview("Open files") { IntroEditorView(model: .preview(empty: true)) }
 #Preview("Transport") { IntroTransportView(player: IntroAudioPlayer()).padding().frame(width: 650) }
 #endif

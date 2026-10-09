@@ -146,7 +146,11 @@ beside the file. Other metadata fields, including unknown fields, are preserved;
 JSON formatting is normalized. If the file changes externally, saving fails
 without overwriting it; use **Reload Metadata** to load those changes first.
 Write failures remain visible and **Mark & Next** does not advance on failure.
-The editor opens without files each launch; choose the same metadata to resume.
+The editor remembers the last successfully opened metadata file and audio folder,
+reopens both on launch without starting playback, and starts each picker in its
+last-used folder. If a location is missing or unreadable, it reports the problem;
+choose a replacement with **Open Metadata…** or **Open Audio Folder…**.
+Reopening does not modify metadata or create a backup until you save a mark.
 
 To use newly saved markers on iPhone, rebuild/reinstall the companion app and
 enable **About & download → Skip spoken introductions**. The existing imported

@@ -18,19 +18,56 @@ final class IntroEditorModel {
     @ObservationIgnored private var store: IntroMetadataStore?
     @ObservationIgnored private var waveformTask: Task<Void, Never>?
     @ObservationIgnored private var selectionRevision = UUID()
+    @ObservationIgnored private let userDefaults: UserDefaults
+    @ObservationIgnored private var hasRestoredLocations = false
 
     var selectedTrack: MappedTrack? { tracks.first { $0.id == selectedID } }
     var reviewedCount: Int { tracks.filter { $0.introEndSeconds != nil }.count }
     var backupURL: URL? { store?.backupURL }
     var canSave: Bool { store != nil && player.isLoaded }
+    var metadataPickerDirectory: URL? {
+        rememberedURL(forKey: "lastMetadataPath")?.deletingLastPathComponent()
+    }
+    var audioPickerDirectory: URL? { rememberedURL(forKey: "lastAudioFolderPath") }
+
+    init(userDefaults: UserDefaults = .standard) {
+        self.userDefaults = userDefaults
+    }
 
     deinit { waveformTask?.cancel() }
+
+    /// Reopen independently so one unavailable location does not prevent restoring the other.
+    func restoreLastLocations() {
+        guard !hasRestoredLocations else { return }
+        hasRestoredLocations = true
+        var errors: [String] = []
+        if let url = rememberedURL(forKey: "lastMetadataPath") {
+            openMetadata(url: url)
+            if let errorMessage {
+                errors.append("Could not reopen metadata at \(url.path): \(errorMessage)")
+            }
+        }
+        errorMessage = nil
+        if let url = rememberedURL(forKey: "lastAudioFolderPath") {
+            openAudioFolder(url: url)
+            if let errorMessage {
+                errors.append("Could not reopen audio at \(url.path): \(errorMessage)")
+            }
+        }
+        errorMessage = errors.isEmpty ? nil : errors.joined(separator: "\n\n")
+    }
+
+    private func rememberedURL(forKey key: String) -> URL? {
+        guard let path = userDefaults.string(forKey: key) else { return nil }
+        return URL(fileURLWithPath: path)
+    }
 
     func chooseMetadata() {
         let panel = NSOpenPanel()
         panel.title = "Choose the metadata file to edit directly"
         panel.allowedContentTypes = [.json]
         panel.allowsMultipleSelection = false
+        panel.directoryURL = metadataPickerDirectory
         if panel.runModal() == .OK, let url = panel.url { openMetadata(url: url) }
     }
 
@@ -40,6 +77,7 @@ final class IntroEditorModel {
         panel.canChooseDirectories = true
         panel.canChooseFiles = false
         panel.allowsMultipleSelection = false
+        panel.directoryURL = audioPickerDirectory
         if panel.runModal() == .OK, let url = panel.url { openAudioFolder(url: url) }
     }
 
@@ -48,6 +86,7 @@ final class IntroEditorModel {
             let store = try IntroMetadataStore(url: url)
             self.store = store
             metadataURL = url
+            userDefaults.set(url.path, forKey: "lastMetadataPath")
             tracks = store.mapping.tracks.sorted { $0.id < $1.id }
             select(id: tracks.first?.id)
             status = "Metadata loaded. Marks are saved directly to \(url.lastPathComponent)."
@@ -69,6 +108,7 @@ final class IntroEditorModel {
             let files = try IntroAudioFiles.index(folder: url)
             audioFiles = files
             audioFolderURL = url
+            userDefaults.set(url.path, forKey: "lastAudioFolderPath")
             select(id: selectedID)
             let missing = tracks.filter { files[$0.id] == nil }.count
             status = "\(files.count) audio files found. \(missing) mapped recordings missing."
@@ -160,8 +200,12 @@ final class IntroEditorModel {
     }
 
 #if DEBUG
-    static func preview() -> IntroEditorModel {
-        let model = IntroEditorModel()
+    static func preview(empty: Bool = false) -> IntroEditorModel {
+        guard let defaults = UserDefaults(suiteName: "IntroEditorPreview-\(UUID().uuidString)") else {
+            fatalError("Unable to create isolated preview preferences.")
+        }
+        let model = IntroEditorModel(userDefaults: defaults)
+        if empty { return model }
         model.tracks = [
             MappedTrack(
                 id: 2, lesson: 1, section: 1, subsection: nil, group: .lesson,

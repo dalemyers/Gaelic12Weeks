@@ -31,6 +31,9 @@ final class IntroEditorUITests: XCTestCase {
             )
         }
         let app = XCUIApplication()
+        let preferencesSuite = "IntroEditorUITests-\(UUID().uuidString)"
+        app.launchEnvironment["INTRO_EDITOR_TEST_PREFERENCES_SUITE"] = preferencesSuite
+        defer { UserDefaults(suiteName: preferencesSuite)?.removePersistentDomain(forName: preferencesSuite) }
         app.launch()
         defer { app.terminate() }
         XCTAssertTrue(app.buttons["openIntroMetadata"].waitForExistence(timeout: 10))
@@ -72,9 +75,11 @@ final class IntroEditorUITests: XCTestCase {
         app.buttons["markNoIntro"].click()
         app.terminate()
         app.launch()
-        choose(metadata.path, using: "openIntroMetadata", in: app)
         XCTAssertTrue(app.staticTexts["savedIntroMark"].waitForExistence(timeout: 5))
         XCTAssertTrue((app.staticTexts["savedIntroMark"].value as? String)?.contains("00:01.100") == true)
+        XCTAssertTrue(waveform.waitForExistence(timeout: 10))
+        XCTAssertTrue(play.isEnabled)
+        XCTAssertEqual(play.label, "Play", "Restoring locations must not start playback.")
         app.buttons["clearIntroMark"].click()
         let cleared = try XCTUnwrap(JSONSerialization.jsonObject(with: Data(contentsOf: metadata)) as? [String: Any])
         let clearedRows = try XCTUnwrap(cleared["tracks"] as? [[String: Any]])

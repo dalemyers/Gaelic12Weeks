@@ -4,6 +4,95 @@ import XCTest
 
 @MainActor
 final class IntroAudioTests: XCTestCase {
+    private func makeDefaults() throws -> UserDefaults {
+        let name = "IntroEditorTests-\(UUID().uuidString)"
+        let defaults = try XCTUnwrap(UserDefaults(suiteName: name))
+        addTeardownBlock { UserDefaults(suiteName: name)?.removePersistentDomain(forName: name) }
+        return defaults
+    }
+
+    private func makeLocationFixture(in folder: URL) throws -> (metadata: URL, audio: URL) {
+        let audioFolder = folder.appendingPathComponent("recordings")
+        try FileManager.default.createDirectory(at: audioFolder, withIntermediateDirectories: true)
+        let audio = try XCTUnwrap(Bundle(for: Self.self).url(forResource: "synthetic", withExtension: "mp3"))
+        try FileManager.default.copyItem(at: audio, to: audioFolder.appendingPathComponent("123_002.mp3"))
+        let metadata = folder.appendingPathComponent("TrackMapping.json")
+        let track = MappedTrack(
+            id: 2, lesson: 1, section: 1, subsection: nil, group: .lesson,
+            title: "Synthetic", needsReview: false, introEndSeconds: 1.25
+        )
+        try JSONEncoder().encode(TrackMapping(schemaVersion: 1, tracks: [track])).write(to: metadata)
+        return (metadata, audioFolder)
+    }
+
+    func testLocationsRestoreWithoutPlaybackOrMetadataWrites() throws {
+        let folder = try makeFolder()
+        defer { try? FileManager.default.removeItem(at: folder) }
+        let fixture = try makeLocationFixture(in: folder)
+        let original = try Data(contentsOf: fixture.metadata)
+        let defaults = try makeDefaults()
+        let model = IntroEditorModel(userDefaults: defaults)
+        defer { model.select(id: nil) }
+        model.restoreLastLocations()
+        XCTAssertNil(model.metadataURL)
+        XCTAssertNil(model.audioFolderURL)
+        XCTAssertNil(model.errorMessage)
+        model.openMetadata(url: fixture.metadata)
+        model.openAudioFolder(url: fixture.audio)
+        XCTAssertEqual(model.metadataPickerDirectory?.path, folder.path)
+        XCTAssertEqual(model.audioPickerDirectory?.path, fixture.audio.path)
+        let restored = IntroEditorModel(userDefaults: defaults)
+        defer { restored.select(id: nil) }
+        restored.restoreLastLocations()
+        XCTAssertEqual(restored.metadataURL, fixture.metadata)
+        XCTAssertEqual(restored.audioFolderURL?.path, fixture.audio.path)
+        XCTAssertEqual(restored.selectedTrack?.introEndSeconds, 1.25)
+        XCTAssertTrue(restored.player.isLoaded)
+        XCTAssertFalse(restored.player.isPlaying)
+        XCTAssertNil(restored.errorMessage)
+        XCTAssertNil(restored.backupURL)
+        XCTAssertEqual(try Data(contentsOf: fixture.metadata), original)
+        restored.player.seek(to: 2)
+        restored.restoreLastLocations()
+        XCTAssertEqual(restored.player.position, 2, "A repeated window task must not reset the current recording.")
+        XCTAssertEqual(try FileManager.default.contentsOfDirectory(atPath: folder.path).count, 2)
+    }
+
+    func testUnavailableLocationsReportErrorsAndKeepLastSuccessfulChoices() throws {
+        let folder = try makeFolder()
+        defer { try? FileManager.default.removeItem(at: folder) }
+        let fixture = try makeLocationFixture(in: folder)
+        let defaults = try makeDefaults()
+        let model = IntroEditorModel(userDefaults: defaults)
+        model.openMetadata(url: fixture.metadata)
+        model.openAudioFolder(url: fixture.audio)
+        model.select(id: nil)
+        model.openMetadata(url: folder.appendingPathComponent("missing.json"))
+        XCTAssertNotNil(model.errorMessage)
+        model.errorMessage = nil
+        model.openAudioFolder(url: folder.appendingPathComponent("missing-audio"))
+        XCTAssertNotNil(model.errorMessage)
+        XCTAssertEqual(model.metadataPickerDirectory?.path, folder.path)
+        XCTAssertEqual(model.audioPickerDirectory?.path, fixture.audio.path)
+
+        try FileManager.default.removeItem(at: fixture.metadata)
+        let partial = IntroEditorModel(userDefaults: defaults)
+        defer { partial.select(id: nil) }
+        partial.restoreLastLocations()
+        XCTAssertNil(partial.metadataURL)
+        XCTAssertEqual(partial.audioFolderURL?.path, fixture.audio.path)
+        XCTAssertTrue(try XCTUnwrap(partial.errorMessage).contains("Could not reopen metadata"))
+        try FileManager.default.removeItem(at: fixture.audio)
+        let missing = IntroEditorModel(userDefaults: defaults)
+        missing.restoreLastLocations()
+        let message = try XCTUnwrap(missing.errorMessage)
+        XCTAssertTrue(message.contains("Could not reopen metadata"))
+        XCTAssertTrue(message.contains("Could not reopen audio"))
+        XCTAssertEqual(missing.metadataPickerDirectory?.path, folder.path)
+        XCTAssertEqual(missing.audioPickerDirectory?.path, fixture.audio.path)
+        XCTAssertFalse(FileManager.default.fileExists(atPath: fixture.metadata.path))
+    }
+
     func testTimeFormattingHandlesLongManuallyEditedOffsets() {
         XCTAssertEqual(IntroEditorModel.time(65.5), "01:05.500")
         XCTAssertFalse(IntroEditorModel.time(1e100).isEmpty)
@@ -116,7 +205,7 @@ final class IntroAudioTests: XCTestCase {
         }
         let metadata = folder.appendingPathComponent("TrackMapping.json")
         try JSONEncoder().encode(TrackMapping(schemaVersion: 1, tracks: tracks)).write(to: metadata)
-        let model = IntroEditorModel()
+        let model = IntroEditorModel(userDefaults: try makeDefaults())
         defer { model.select(id: nil) }
         model.openMetadata(url: metadata)
         XCTAssertFalse(model.canSave)
@@ -165,7 +254,7 @@ final class IntroAudioTests: XCTestCase {
         }
         let url = folder.appendingPathComponent("TrackMapping.json")
         try JSONEncoder().encode(TrackMapping(schemaVersion: 1, tracks: tracks)).write(to: url)
-        let model = IntroEditorModel()
+        let model = IntroEditorModel(userDefaults: try makeDefaults())
         model.openMetadata(url: url)
         model.mark(advance: true)
         XCTAssertEqual(model.selectedID, 2)
