@@ -1,1374 +1,1374 @@
 {
-  "schemaVersion" : 1,
-  "tracks" : [
-    {
-      "group" : "lesson",
-      "id" : 2,
-      "introEndSeconds" : 5.0219534537349491,
-      "lesson" : 1,
-      "needsReview" : false,
-      "section" : 1,
-      "subsection" : null,
-      "title" : "Pronouns"
-    },
-    {
-      "group" : "lesson",
-      "id" : 3,
-      "introEndSeconds" : 6.12469387755102,
-      "lesson" : 1,
-      "needsReview" : false,
-      "section" : 2,
-      "subsection" : null,
-      "title" : "The Verb 'tha' To Be"
-    },
-    {
-      "group" : "lesson",
-      "id" : 4,
-      "introEndSeconds" : 6.380544217687075,
-      "lesson" : 1,
-      "needsReview" : false,
-      "section" : 3,
-      "subsection" : null,
-      "title" : "Indefinite Nouns"
-    },
-    {
-      "group" : "lesson",
-      "id" : 5,
-      "introEndSeconds" : 8.1136054421768709,
-      "lesson" : 1,
-      "needsReview" : false,
-      "section" : 3,
-      "subsection" : "a",
-      "title" : "3a 'There Is/Are'"
-    },
-    {
-      "group" : "lesson",
-      "id" : 6,
-      "introEndSeconds" : 5.6619954648526081,
-      "lesson" : 1,
-      "needsReview" : false,
-      "section" : 4,
-      "subsection" : null,
-      "title" : "'To Have'"
-    },
-    {
-      "group" : "lesson",
-      "id" : 7,
-      "introEndSeconds" : 8.1120634920634913,
-      "lesson" : 1,
-      "needsReview" : false,
-      "section" : 4,
-      "subsection" : "a",
-      "title" : "4a Prepositional Pronouns"
-    },
-    {
-      "group" : "lesson",
-      "id" : 8,
-      "introEndSeconds" : 6.5758503401360544,
-      "lesson" : 1,
-      "needsReview" : false,
-      "section" : 4,
-      "subsection" : "b",
-      "title" : "4b 'To Know'"
-    },
-    {
-      "group" : "lesson",
-      "id" : 9,
-      "introEndSeconds" : 9.6893964258931931,
-      "lesson" : 1,
-      "needsReview" : false,
-      "section" : 5,
-      "subsection" : null,
-      "title" : "Negative And Interrogative Forms Of 'tha'"
-    },
-    {
-      "group" : "lesson",
-      "id" : 10,
-      "introEndSeconds" : 7.0522675736961453,
-      "lesson" : 1,
-      "needsReview" : false,
-      "section" : 6,
-      "subsection" : null,
-      "title" : "Answering Questions"
-    },
-    {
-      "group" : "lesson",
-      "id" : 11,
-      "introEndSeconds" : 8.4823582766439909,
-      "lesson" : 1,
-      "needsReview" : false,
-      "section" : 7,
-      "subsection" : null,
-      "title" : "'i Have Only'"
-    },
-    {
-      "group" : "lesson",
-      "id" : 12,
-      "introEndSeconds" : 6.0609297052154192,
-      "lesson" : 1,
-      "needsReview" : false,
-      "section" : 8,
-      "subsection" : null,
-      "title" : "Adverbs"
-    },
-    {
-      "group" : "lesson",
-      "id" : 13,
-      "introEndSeconds" : 9.6795238095238094,
-      "lesson" : 1,
-      "needsReview" : false,
-      "section" : 8,
-      "subsection" : "a",
-      "title" : "8a 'How Are You?'"
-    },
-    {
-      "group" : "lesson",
-      "id" : 14,
-      "introEndSeconds" : 5.437732426303854,
-      "lesson" : 1,
-      "needsReview" : false,
-      "section" : null,
-      "subsection" : null,
-      "title" : "Conversation 1"
-    },
-    {
-      "group" : "lesson",
-      "id" : 15,
-      "introEndSeconds" : 7.706009070294785,
-      "lesson" : 2,
-      "needsReview" : false,
-      "section" : 9,
-      "subsection" : null,
-      "title" : "Emphatic Pronouns"
-    },
-    {
-      "group" : "lesson",
-      "id" : 16,
-      "introEndSeconds" : 7.4497278911564626,
-      "lesson" : 2,
-      "needsReview" : false,
-      "section" : 9,
-      "subsection" : "a",
-      "title" : "9a 'Who Re You?'"
-    },
-    {
-      "group" : "lesson",
-      "id" : 17,
-      "introEndSeconds" : 7.6744444444444442,
-      "lesson" : 2,
-      "needsReview" : false,
-      "section" : 10,
-      "subsection" : null,
-      "title" : "The Verb 'is' ('to Be')"
-    },
-    {
-      "group" : "lesson",
-      "id" : 18,
-      "introEndSeconds" : 8.6880498866213145,
-      "lesson" : 2,
-      "needsReview" : false,
-      "section" : 10,
-      "subsection" : "b",
-      "title" : "10b Negative And Interrogative Forms Of 'is'"
-    },
-    {
-      "group" : "lesson",
-      "id" : 19,
-      "introEndSeconds" : 5.8034467120181406,
-      "lesson" : 2,
-      "needsReview" : false,
-      "section" : 11,
-      "subsection" : null,
-      "title" : "Gender"
-    },
-    {
-      "group" : "lesson",
-      "id" : 20,
-      "introEndSeconds" : 8.2013576344251611,
-      "lesson" : 2,
-      "needsReview" : false,
-      "section" : 12,
-      "subsection" : null,
-      "title" : "The Pronouns 'fear' And 'tè'"
-    },
-    {
-      "group" : "lesson",
-      "id" : 21,
-      "lesson" : 2,
-      "needsReview" : false,
-      "section" : 14,
-      "subsection" : null,
-      "title" : "Definte Article ('the')"
-    },
-    {
-      "group" : "lesson",
-      "id" : 22,
-      "lesson" : 2,
-      "needsReview" : false,
-      "section" : 14,
-      "subsection" : "a",
-      "title" : "14a Use Of Article"
-    },
-    {
-      "group" : "lesson",
-      "id" : 23,
-      "lesson" : 2,
-      "needsReview" : false,
-      "section" : 15,
-      "subsection" : null,
-      "title" : "Possesive Constructions"
-    },
-    {
-      "group" : "lesson",
-      "id" : 24,
-      "lesson" : 2,
-      "needsReview" : false,
-      "section" : 16,
-      "subsection" : null,
-      "title" : "Position And Status Of ADJectives"
-    },
-    {
-      "group" : "lesson",
-      "id" : 25,
-      "lesson" : 2,
-      "needsReview" : false,
-      "section" : null,
-      "subsection" : null,
-      "title" : "Conversation"
-    },
-    {
-      "group" : "lesson",
-      "id" : 26,
-      "lesson" : 3,
-      "needsReview" : false,
-      "section" : 17,
-      "subsection" : null,
-      "title" : "Verbal Nouns"
-    },
-    {
-      "group" : "lesson",
-      "id" : 27,
-      "lesson" : 3,
-      "needsReview" : false,
-      "section" : 18,
-      "subsection" : null,
-      "title" : "The Present Tense"
-    },
-    {
-      "group" : "lesson",
-      "id" : 28,
-      "lesson" : 3,
-      "needsReview" : false,
-      "section" : 19,
-      "subsection" : null,
-      "title" : "'What Do You Want?' Etc."
-    },
-    {
-      "group" : "lesson",
-      "id" : 29,
-      "lesson" : 3,
-      "needsReview" : false,
-      "section" : 22,
-      "subsection" : "a",
-      "title" : "22a 'Càite A bheil…?('Where Is…?')"
-    },
-    {
-      "group" : "lesson",
-      "id" : 30,
-      "lesson" : 3,
-      "needsReview" : false,
-      "section" : 25,
-      "subsection" : null,
-      "title" : "Days, Months And Seasons"
-    },
-    {
-      "group" : "lesson",
-      "id" : 31,
-      "lesson" : 3,
-      "needsReview" : false,
-      "section" : 26,
-      "subsection" : null,
-      "title" : "Emphatic Suffixes"
-    },
-    {
-      "group" : "lesson",
-      "id" : 32,
-      "lesson" : 3,
-      "needsReview" : false,
-      "section" : null,
-      "subsection" : null,
-      "title" : "Conversation"
-    },
-    {
-      "group" : "lesson",
-      "id" : 33,
-      "lesson" : 4,
-      "needsReview" : false,
-      "section" : 27,
-      "subsection" : null,
-      "title" : "Past Tense Of 'tha'"
-    },
-    {
-      "group" : "lesson",
-      "id" : 34,
-      "lesson" : 4,
-      "needsReview" : false,
-      "section" : 27,
-      "subsection" : "a",
-      "title" : "27a Independant And Dependant Verbal Forms"
-    },
-    {
-      "group" : "lesson",
-      "id" : 35,
-      "lesson" : 4,
-      "needsReview" : false,
-      "section" : 27,
-      "subsection" : "b",
-      "title" : "27b Past Tense Of 'tha' With Verbal Noun"
-    },
-    {
-      "group" : "lesson",
-      "id" : 36,
-      "lesson" : 4,
-      "needsReview" : false,
-      "section" : 28,
-      "subsection" : null,
-      "title" : "Irregular Verbs: Simple Past Tense"
-    },
-    {
-      "group" : "lesson",
-      "id" : 37,
-      "lesson" : 4,
-      "needsReview" : false,
-      "section" : 29,
-      "subsection" : null,
-      "title" : "Answering Questions (Past Tense)"
-    },
-    {
-      "group" : "lesson",
-      "id" : 38,
-      "lesson" : 4,
-      "needsReview" : false,
-      "section" : 30,
-      "subsection" : null,
-      "title" : "Imperative"
-    },
-    {
-      "group" : "lesson",
-      "id" : 39,
-      "lesson" : 4,
-      "needsReview" : false,
-      "section" : 30,
-      "subsection" : "a",
-      "title" : "30a Negative Imperative"
-    },
-    {
-      "group" : "lesson",
-      "id" : 40,
-      "lesson" : 4,
-      "needsReview" : false,
-      "section" : 30,
-      "subsection" : "b",
-      "title" : "30b Other Imperative Forms"
-    },
-    {
-      "group" : "lesson",
-      "id" : 41,
-      "lesson" : 4,
-      "needsReview" : false,
-      "section" : 31,
-      "subsection" : null,
-      "title" : "Past Tense Of 'is'"
-    },
-    {
-      "group" : "lesson",
-      "id" : 42,
-      "lesson" : 4,
-      "needsReview" : false,
-      "section" : 31,
-      "subsection" : "a",
-      "title" : "31a Idioms With 'is'"
-    },
-    {
-      "group" : "lesson",
-      "id" : 43,
-      "lesson" : 4,
-      "needsReview" : false,
-      "section" : 32,
-      "subsection" : null,
-      "title" : "Prepositional Pronouns: 'do' ('to, For')"
-    },
-    {
-      "group" : "lesson",
-      "id" : 44,
-      "lesson" : 4,
-      "needsReview" : false,
-      "section" : 32,
-      "subsection" : "a",
-      "title" : "32a Idioms Involving 'do'"
-    },
-    {
-      "group" : "lesson",
-      "id" : 45,
-      "lesson" : 4,
-      "needsReview" : false,
-      "section" : 33,
-      "subsection" : null,
-      "title" : "Vocative (Or Address Form)"
-    },
-    {
-      "group" : "lesson",
-      "id" : 46,
-      "lesson" : 4,
-      "needsReview" : false,
-      "section" : 34,
-      "subsection" : null,
-      "title" : "The Reflexive Pronoun 'fhèin' ('self')"
-    },
-    {
-      "group" : "lesson",
-      "id" : 47,
-      "lesson" : 4,
-      "needsReview" : false,
-      "section" : 34,
-      "subsection" : "a",
-      "title" : "34a Adverbial Use Of 'fhèin'"
-    },
-    {
-      "group" : "lesson",
-      "id" : 48,
-      "lesson" : 4,
-      "needsReview" : false,
-      "section" : null,
-      "subsection" : null,
-      "title" : "Conversation"
-    },
-    {
-      "group" : "lesson",
-      "id" : 49,
-      "lesson" : 5,
-      "needsReview" : false,
-      "section" : 35,
-      "subsection" : null,
-      "title" : "Preposition 'ann An' ('in')"
-    },
-    {
-      "group" : "lesson",
-      "id" : 50,
-      "lesson" : 5,
-      "needsReview" : false,
-      "section" : 35,
-      "subsection" : "a",
-      "title" : "35a Idiomatic Use Of 'ann An' ('in')"
-    },
-    {
-      "group" : "lesson",
-      "id" : 51,
-      "lesson" : 5,
-      "needsReview" : false,
-      "section" : 36,
-      "subsection" : "a",
-      "title" : "36a Negative And Question Forms (Interrogative) Of 'is E'"
-    },
-    {
-      "group" : "lesson",
-      "id" : 52,
-      "lesson" : 5,
-      "needsReview" : false,
-      "section" : 36,
-      "subsection" : "b",
-      "title" : "36b Using 'tha' Instead Of 'is'"
-    },
-    {
-      "group" : "lesson",
-      "id" : 53,
-      "lesson" : 5,
-      "needsReview" : false,
-      "section" : 36,
-      "subsection" : "c",
-      "title" : "36c 'It Is…'"
-    },
-    {
-      "group" : "lesson",
-      "id" : 54,
-      "lesson" : 5,
-      "needsReview" : false,
-      "section" : 37,
-      "subsection" : null,
-      "title" : "Past Tense"
-    },
-    {
-      "group" : "lesson",
-      "id" : 55,
-      "lesson" : 5,
-      "needsReview" : false,
-      "section" : 38,
-      "subsection" : null,
-      "title" : "'This Is', 'that Is'"
-    },
-    {
-      "group" : "lesson",
-      "id" : 56,
-      "lesson" : 5,
-      "needsReview" : false,
-      "section" : 39,
-      "subsection" : null,
-      "title" : "Asking 'What Is…?'"
-    },
-    {
-      "group" : "lesson",
-      "id" : 57,
-      "lesson" : 5,
-      "needsReview" : false,
-      "section" : 40,
-      "subsection" : null,
-      "title" : "Word Order: Fronting"
-    },
-    {
-      "group" : "lesson",
-      "id" : 58,
-      "lesson" : 5,
-      "needsReview" : false,
-      "section" : 41,
-      "subsection" : null,
-      "title" : "Answering Questions"
-    },
-    {
-      "group" : "lesson",
-      "id" : 59,
-      "lesson" : 5,
-      "needsReview" : false,
-      "section" : 42,
-      "subsection" : null,
-      "title" : "Ownership"
-    },
-    {
-      "group" : "lesson",
-      "id" : 60,
-      "lesson" : 5,
-      "needsReview" : false,
-      "section" : 42,
-      "subsection" : "a",
-      "title" : "42a 'Who Owns?'"
-    },
-    {
-      "group" : "lesson",
-      "id" : 61,
-      "lesson" : 5,
-      "needsReview" : false,
-      "section" : 42,
-      "subsection" : "b",
-      "title" : "42b Prepositional Pronoun 'le' ('with')"
-    },
-    {
-      "group" : "lesson",
-      "id" : 62,
-      "lesson" : 5,
-      "needsReview" : false,
-      "section" : 42,
-      "subsection" : "c",
-      "title" : "42c Idioms Involving 'le'"
-    },
-    {
-      "group" : "lesson",
-      "id" : 63,
-      "lesson" : 5,
-      "needsReview" : false,
-      "section" : 43,
-      "subsection" : null,
-      "title" : "The Weather"
-    },
-    {
-      "group" : "lesson",
-      "id" : 64,
-      "lesson" : 5,
-      "needsReview" : false,
-      "section" : 44,
-      "subsection" : null,
-      "title" : "Prepositions"
-    },
-    {
-      "group" : "lesson",
-      "id" : 65,
-      "lesson" : 5,
-      "needsReview" : false,
-      "section" : 45,
-      "subsection" : null,
-      "title" : "Prepositional Pronoun 'air' ('on')"
-    },
-    {
-      "group" : "lesson",
-      "id" : 66,
-      "lesson" : 5,
-      "needsReview" : false,
-      "section" : null,
-      "subsection" : null,
-      "title" : "Conversation"
-    },
-    {
-      "group" : "lesson",
-      "id" : 67,
-      "lesson" : 6,
-      "needsReview" : false,
-      "section" : 46,
-      "subsection" : null,
-      "title" : "The Prepositional (P) Case"
-    },
-    {
-      "group" : "lesson",
-      "id" : 68,
-      "lesson" : 6,
-      "needsReview" : false,
-      "section" : 46,
-      "subsection" : "a",
-      "title" : "46a Irregular Nouns"
-    },
-    {
-      "group" : "lesson",
-      "id" : 69,
-      "lesson" : 6,
-      "needsReview" : false,
-      "section" : 46,
-      "subsection" : "b",
-      "title" : "46b Prepositions And Possesive Pronouns"
-    },
-    {
-      "group" : "lesson",
-      "id" : 70,
-      "lesson" : 6,
-      "needsReview" : false,
-      "section" : 47,
-      "subsection" : null,
-      "title" : "Prepositions Followed By The Nominative"
-    },
-    {
-      "group" : "lesson",
-      "id" : 71,
-      "lesson" : 6,
-      "needsReview" : false,
-      "section" : 48,
-      "subsection" : null,
-      "title" : "The Past Tense Of Regular Verbs: Independant Forms"
-    },
-    {
-      "group" : "lesson",
-      "id" : 72,
-      "lesson" : 6,
-      "needsReview" : false,
-      "section" : 49,
-      "subsection" : null,
-      "title" : "Prepositional Pronouns 'rí' ('to', Etc.), 'do' ('to, For')"
-    },
-    {
-      "group" : "lesson",
-      "id" : 73,
-      "lesson" : 6,
-      "needsReview" : false,
-      "section" : 50,
-      "subsection" : null,
-      "title" : "Verbs And Prepositions"
-    },
-    {
-      "group" : "lesson",
-      "id" : 74,
-      "lesson" : 6,
-      "needsReview" : false,
-      "section" : 51,
-      "subsection" : null,
-      "title" : "Regular Past Tense: Dependant Forms"
-    },
-    {
-      "group" : "lesson",
-      "id" : 75,
-      "lesson" : 6,
-      "needsReview" : false,
-      "section" : 51,
-      "subsection" : "a",
-      "title" : "51a 'Never', 'ever'"
-    },
-    {
-      "group" : "lesson",
-      "id" : 76,
-      "lesson" : 6,
-      "needsReview" : false,
-      "section" : 51,
-      "subsection" : "b",
-      "title" : "51b 'Only'"
-    },
-    {
-      "group" : "lesson",
-      "id" : 77,
-      "lesson" : 6,
-      "needsReview" : false,
-      "section" : 52,
-      "subsection" : null,
-      "title" : "Independant And Dependant Verbal Particles"
-    },
-    {
-      "group" : "lesson",
-      "id" : 78,
-      "lesson" : 6,
-      "needsReview" : false,
-      "section" : 53,
-      "subsection" : null,
-      "title" : "'Who?' V. 'who', 'when?' V. 'when', 'where?' V. 'where', What?' V. 'what', 'how?' V. 'how'"
-    },
-    {
-      "group" : "lesson",
-      "id" : 79,
-      "lesson" : 6,
-      "needsReview" : false,
-      "section" : 54,
-      "subsection" : null,
-      "title" : "Time"
-    },
-    {
-      "group" : "lesson",
-      "id" : 80,
-      "lesson" : 6,
-      "needsReview" : false,
-      "section" : 54,
-      "subsection" : "a",
-      "title" : "54a Other Times Of Year"
-    },
-    {
-      "group" : "lesson",
-      "id" : 81,
-      "lesson" : 6,
-      "needsReview" : false,
-      "section" : 54,
-      "subsection" : "b",
-      "title" : "54b 'Last', 'next'"
-    },
-    {
-      "group" : "lesson",
-      "id" : 82,
-      "lesson" : 6,
-      "needsReview" : false,
-      "section" : 55,
-      "subsection" : null,
-      "title" : "'Some'"
-    },
-    {
-      "group" : "lesson",
-      "id" : 83,
-      "lesson" : 6,
-      "needsReview" : false,
-      "section" : 55,
-      "subsection" : "a",
-      "title" : "55a 'Feadhainn' ('some People/Things')"
-    },
-    {
-      "group" : "lesson",
-      "id" : 84,
-      "lesson" : 6,
-      "needsReview" : false,
-      "section" : 56,
-      "subsection" : null,
-      "title" : "'Every'"
-    },
-    {
-      "group" : "lesson",
-      "id" : 85,
-      "lesson" : 6,
-      "needsReview" : false,
-      "section" : null,
-      "subsection" : null,
-      "title" : "Conversation"
-    },
-    {
-      "group" : "lesson",
-      "id" : 86,
-      "lesson" : 7,
-      "needsReview" : false,
-      "section" : 57,
-      "subsection" : null,
-      "title" : "57 - The genitive case"
-    },
-    {
-      "group" : "lesson",
-      "id" : 87,
-      "lesson" : 7,
-      "needsReview" : false,
-      "section" : 57,
-      "subsection" : "a",
-      "title" : "57a - Forming the genitive case"
-    },
-    {
-      "group" : "lesson",
-      "id" : 88,
-      "lesson" : 7,
-      "needsReview" : false,
-      "section" : 58,
-      "subsection" : null,
-      "title" : "58 - Double definite article"
-    },
-    {
-      "group" : "lesson",
-      "id" : 89,
-      "lesson" : 7,
-      "needsReview" : false,
-      "section" : 58,
-      "subsection" : "a",
-      "title" : "58a - Genitive of irregular nouns"
-    },
-    {
-      "group" : "lesson",
-      "id" : 90,
-      "lesson" : 7,
-      "needsReview" : false,
-      "section" : 59,
-      "subsection" : null,
-      "title" : "59 - Surnames"
-    },
-    {
-      "group" : "lesson",
-      "id" : 91,
-      "lesson" : 7,
-      "needsReview" : false,
-      "section" : 60,
-      "subsection" : null,
-      "title" : "60 - Adverbs of quantity"
-    },
-    {
-      "group" : "lesson",
-      "id" : 92,
-      "lesson" : 7,
-      "needsReview" : false,
-      "section" : 61,
-      "subsection" : null,
-      "title" : "61 - The verbal noun and the genitive case"
-    },
-    {
-      "group" : "lesson",
-      "id" : 93,
-      "lesson" : 7,
-      "needsReview" : false,
-      "section" : 62,
-      "subsection" : null,
-      "title" : "62 - Composite prepositions"
-    },
-    {
-      "group" : "lesson",
-      "id" : 94,
-      "lesson" : 7,
-      "needsReview" : false,
-      "section" : 62,
-      "subsection" : "a",
-      "title" : "62a - Prepositions followed by the genitive"
-    },
-    {
-      "group" : "lesson",
-      "id" : 95,
-      "lesson" : 7,
-      "needsReview" : false,
-      "section" : 63,
-      "subsection" : null,
-      "title" : "63 - More on time"
-    },
-    {
-      "group" : "lesson",
-      "id" : 96,
-      "lesson" : 7,
-      "needsReview" : false,
-      "section" : null,
-      "subsection" : null,
-      "title" : "Conversation"
-    },
-    {
-      "group" : "lesson",
-      "id" : 97,
-      "lesson" : 8,
-      "needsReview" : false,
-      "section" : 64,
-      "subsection" : null,
-      "title" : "64 - 'Tha': future"
-    },
-    {
-      "group" : "lesson",
-      "id" : 98,
-      "lesson" : 8,
-      "needsReview" : false,
-      "section" : 64,
-      "subsection" : "a",
-      "title" : "64a - Regular verbs: future"
-    },
-    {
-      "group" : "lesson",
-      "id" : 99,
-      "lesson" : 8,
-      "needsReview" : false,
-      "section" : 67,
-      "subsection" : "a",
-      "title" : "67a - 'Because', 'since'"
-    },
-    {
-      "group" : "lesson",
-      "id" : 100,
-      "lesson" : 8,
-      "needsReview" : false,
-      "section" : 68,
-      "subsection" : null,
-      "title" : "68 - The nominative plural"
-    },
-    {
-      "group" : "lesson",
-      "id" : 101,
-      "lesson" : 8,
-      "needsReview" : false,
-      "section" : 68,
-      "subsection" : "c",
-      "title" : "68c - The indefinite genitive plural"
-    },
-    {
-      "group" : "lesson",
-      "id" : 102,
-      "lesson" : 8,
-      "needsReview" : false,
-      "section" : 69,
-      "subsection" : null,
-      "title" : "69 - Prepositions before the article"
-    },
-    {
-      "group" : "lesson",
-      "id" : 103,
-      "lesson" : 8,
-      "needsReview" : false,
-      "section" : 70,
-      "subsection" : null,
-      "title" : "70 - Irregular nouns: plural"
-    },
-    {
-      "group" : "lesson",
-      "id" : 104,
-      "lesson" : 8,
-      "needsReview" : false,
-      "section" : 71,
-      "subsection" : null,
-      "title" : "71 - Numerals with nouns"
-    },
-    {
-      "group" : "lesson",
-      "id" : 105,
-      "lesson" : 8,
-      "needsReview" : false,
-      "section" : 71,
-      "subsection" : "a",
-      "title" : "71a - Dual number"
-    },
-    {
-      "group" : "lesson",
-      "id" : 106,
-      "lesson" : 8,
-      "needsReview" : false,
-      "section" : 72,
-      "subsection" : null,
-      "title" : "72 - Verbals nouns with pronoun objects"
-    },
-    {
-      "group" : "lesson",
-      "id" : 107,
-      "lesson" : 8,
-      "needsReview" : false,
-      "section" : 73,
-      "subsection" : null,
-      "title" : "73 - 'Duine' ('man', 'husband', 'person')"
-    },
-    {
-      "group" : "lesson",
-      "id" : 108,
-      "lesson" : 8,
-      "needsReview" : false,
-      "section" : null,
-      "subsection" : null,
-      "title" : "Conversation"
-    },
-    {
-      "group" : "lesson",
-      "id" : 109,
-      "lesson" : 9,
-      "needsReview" : false,
-      "section" : 74,
-      "subsection" : null,
-      "title" : "74 - Irregular verbs: future"
-    },
-    {
-      "group" : "lesson",
-      "id" : 110,
-      "lesson" : 9,
-      "needsReview" : false,
-      "section" : 75,
-      "subsection" : null,
-      "title" : "75 - Answering questions"
-    },
-    {
-      "group" : "lesson",
-      "id" : 111,
-      "lesson" : 9,
-      "needsReview" : false,
-      "section" : 78,
-      "subsection" : null,
-      "title" : "78 - Negative relative clauses"
-    },
-    {
-      "group" : "lesson",
-      "id" : 112,
-      "lesson" : 9,
-      "needsReview" : false,
-      "section" : 79,
-      "subsection" : null,
-      "title" : "79 - Interrogatives involving prepositions"
-    },
-    {
-      "group" : "lesson",
-      "id" : 113,
-      "lesson" : 9,
-      "needsReview" : false,
-      "section" : 81,
-      "subsection" : null,
-      "title" : "81 - Adjectives: singular (nominative, prepositional, genitive)"
-    },
-    {
-      "group" : "lesson",
-      "id" : 114,
-      "lesson" : 9,
-      "needsReview" : false,
-      "section" : 82,
-      "subsection" : null,
-      "title" : "82 - More on numerals (20-99)"
-    },
-    {
-      "group" : "lesson",
-      "id" : 115,
-      "lesson" : 9,
-      "needsReview" : false,
-      "section" : 84,
-      "subsection" : null,
-      "title" : "84 - Countries"
-    },
-    {
-      "group" : "lesson",
-      "id" : 116,
-      "lesson" : 9,
-      "needsReview" : false,
-      "section" : null,
-      "subsection" : null,
-      "title" : "Conversation"
-    },
-    {
-      "group" : "lesson",
-      "id" : 117,
-      "lesson" : 10,
-      "needsReview" : false,
-      "section" : 85,
-      "subsection" : null,
-      "title" : "85 - Regulars verbs: conditional/past habitual: independent forms"
-    },
-    {
-      "group" : "lesson",
-      "id" : 118,
-      "lesson" : 10,
-      "needsReview" : false,
-      "section" : 85,
-      "subsection" : "b",
-      "title" : "85b - 'Tha': conditional/past habitual"
-    },
-    {
-      "group" : "lesson",
-      "id" : 119,
-      "lesson" : 10,
-      "needsReview" : false,
-      "section" : 85,
-      "subsection" : "c",
-      "title" : "85c - Answering questions"
-    },
-    {
-      "group" : "lesson",
-      "id" : 120,
-      "lesson" : 10,
-      "needsReview" : false,
-      "section" : 88,
-      "subsection" : null,
-      "title" : "88 - 'If' meaning 'whether'"
-    },
-    {
-      "group" : "lesson",
-      "id" : 121,
-      "lesson" : 10,
-      "needsReview" : false,
-      "section" : 89,
-      "subsection" : null,
-      "title" : "89 - Adjectives: equitive, comparative and superlative"
-    },
-    {
-      "group" : "lesson",
-      "id" : 122,
-      "lesson" : 10,
-      "needsReview" : false,
-      "section" : 90,
-      "subsection" : null,
-      "title" : "90 - Irregular adjectives: comparative and superlative"
-    },
-    {
-      "group" : "lesson",
-      "id" : 123,
-      "lesson" : 10,
-      "needsReview" : false,
-      "section" : 93,
-      "subsection" : null,
-      "title" : "93 - Personal numerals"
-    },
-    {
-      "group" : "lesson",
-      "id" : 124,
-      "lesson" : 10,
-      "needsReview" : false,
-      "section" : null,
-      "subsection" : null,
-      "title" : "Conversation"
-    },
-    {
-      "group" : "lesson",
-      "id" : 125,
-      "lesson" : 11,
-      "needsReview" : false,
-      "section" : 94,
-      "subsection" : null,
-      "title" : "94 - Modal verbs 'feum' and 'faod'"
-    },
-    {
-      "group" : "lesson",
-      "id" : 126,
-      "lesson" : 11,
-      "needsReview" : false,
-      "section" : 95,
-      "subsection" : "a",
-      "title" : "95a - Indirect objects of infinitives"
-    },
-    {
-      "group" : "lesson",
-      "id" : 127,
-      "lesson" : 11,
-      "needsReview" : false,
-      "section" : 95,
-      "subsection" : "c",
-      "title" : "95c - Inversion"
-    },
-    {
-      "group" : "lesson",
-      "id" : 128,
-      "lesson" : 11,
-      "needsReview" : false,
-      "section" : 97,
-      "subsection" : null,
-      "title" : "97 - 'A bhith' ('to be')"
-    },
-    {
-      "group" : "lesson",
-      "id" : 129,
-      "lesson" : 11,
-      "needsReview" : false,
-      "section" : 98,
-      "subsection" : null,
-      "title" : "98 - The perfect"
-    },
-    {
-      "group" : "lesson",
-      "id" : 130,
-      "lesson" : 11,
-      "needsReview" : false,
-      "section" : 98,
-      "subsection" : "d",
-      "title" : "98d -The immediate perfect"
-    },
-    {
-      "group" : "lesson",
-      "id" : 131,
-      "lesson" : 11,
-      "needsReview" : false,
-      "section" : 100,
-      "subsection" : "a",
-      "title" : "100a - Colours"
-    },
-    {
-      "group" : "lesson",
-      "id" : 132,
-      "lesson" : 11,
-      "needsReview" : false,
-      "section" : 101,
-      "subsection" : null,
-      "title" : "101 - Ordinal numbers"
-    },
-    {
-      "group" : "lesson",
-      "id" : 133,
-      "lesson" : 11,
-      "needsReview" : false,
-      "section" : null,
-      "subsection" : null,
-      "title" : "Conversation"
-    },
-    {
-      "group" : "lesson",
-      "id" : 134,
-      "lesson" : 12,
-      "needsReview" : false,
-      "section" : 102,
-      "subsection" : null,
-      "title" : "102 - Irregular verbs: conditional/past habitual"
-    },
-    {
-      "group" : "lesson",
-      "id" : 135,
-      "lesson" : 12,
-      "needsReview" : false,
-      "section" : 102,
-      "subsection" : "a",
-      "title" : "102a - Answering questions"
-    },
-    {
-      "group" : "lesson",
-      "id" : 136,
-      "lesson" : 12,
-      "needsReview" : false,
-      "section" : 104,
-      "subsection" : null,
-      "title" : "104 - 'Used to' ('b' àbhaist do')"
-    },
-    {
-      "group" : "lesson",
-      "id" : 137,
-      "lesson" : 12,
-      "needsReview" : false,
-      "section" : 105,
-      "subsection" : null,
-      "title" : "105 - Past participles and the perfective"
-    },
-    {
-      "group" : "lesson",
-      "id" : 138,
-      "lesson" : 12,
-      "needsReview" : false,
-      "section" : 106,
-      "subsection" : null,
-      "title" : "106 - The passive"
-    },
-    {
-      "group" : "lesson",
-      "id" : 139,
-      "lesson" : 12,
-      "needsReview" : false,
-      "section" : 107,
-      "subsection" : null,
-      "title" : "107 - Impersonal verbal forms"
-    },
-    {
-      "group" : "lesson",
-      "id" : 140,
-      "lesson" : 12,
-      "needsReview" : false,
-      "section" : 109,
-      "subsection" : null,
-      "title" : "109 - Passive construction 'tha... ag...' ('is being')"
-    },
-    {
-      "group" : "lesson",
-      "id" : 141,
-      "lesson" : 12,
-      "needsReview" : false,
-      "section" : 111,
-      "subsection" : null,
-      "title" : "111 - Defective verbs"
-    },
-    {
-      "group" : "lesson",
-      "id" : 142,
-      "lesson" : 12,
-      "needsReview" : false,
-      "section" : 112,
-      "subsection" : null,
-      "title" : "112 - Interjections"
-    },
-    {
-      "group" : "lesson",
-      "id" : 143,
-      "lesson" : 12,
-      "needsReview" : false,
-      "section" : 113,
-      "subsection" : null,
-      "title" : "113 - Remaining prepositional pronouns"
-    },
-    {
-      "group" : "lesson",
-      "id" : 144,
-      "lesson" : 12,
-      "needsReview" : false,
-      "section" : null,
-      "subsection" : null,
-      "title" : "Conversation"
-    },
-    {
-      "group" : "appendices",
-      "id" : 145,
-      "lesson" : null,
-      "needsReview" : false,
-      "section" : null,
-      "subsection" : null,
-      "title" : "Appendix 2: Prepositions and prepositional pronouns"
-    },
-    {
-      "group" : "appendices",
-      "id" : 146,
-      "lesson" : null,
-      "needsReview" : false,
-      "section" : null,
-      "subsection" : null,
-      "title" : "Appendix 4: Nasalisation (eclipsis)"
-    },
-    {
-      "group" : "appendices",
-      "id" : 147,
-      "lesson" : null,
-      "needsReview" : false,
-      "section" : null,
-      "subsection" : null,
-      "title" : "Appendix 6: Grave and acute accents"
-    },
-    {
-      "group" : "readingPractice",
-      "id" : 148,
-      "lesson" : null,
-      "needsReview" : false,
-      "section" : null,
-      "subsection" : null,
-      "title" : "Reading Practice 1: Iolaire Loch Trèig (The Eagle of Loch Trèig)"
-    },
-    {
-      "group" : "readingPractice",
-      "id" : 149,
-      "lesson" : null,
-      "needsReview" : false,
-      "section" : null,
-      "subsection" : null,
-      "title" : "Reading Practice 2: Alasdair Mac Mhaighstir Alasdair agus Donnchadh Bàn Mac an t-Saoir: dithis(t) bhàrd ainmeil (Alexander MacDonald (c 1695-1770) and Duncan Bàn MacIntyre (c 1724-1812): two famous bards)"
-    },
-    {
-      "group" : "readingPractice",
-      "id" : 150,
-      "lesson" : null,
-      "needsReview" : false,
-      "section" : null,
-      "subsection" : null,
-      "title" : "Reading Practice 3: Donnchadh Bàn agus 'Moladh Beinn Dòbhrain' (Duncan Bàn and 'The Praise Of Ben Doran')"
-    },
-    {
-      "group" : "readingPractice",
-      "id" : 151,
-      "lesson" : null,
-      "needsReview" : false,
-      "section" : null,
-      "subsection" : null,
-      "title" : "Reading Practice 4: Foghlam anns a' Ghàidhlig (Education in Gaelic)"
+  "schemaVersion": 1,
+  "tracks": [
+    {
+      "group": "lesson",
+      "id": 2,
+      "introEndSeconds": 5.0219534537349491,
+      "lesson": 1,
+      "needsReview": false,
+      "section": 1,
+      "subsection": null,
+      "title": "Pronouns"
+    },
+    {
+      "group": "lesson",
+      "id": 3,
+      "introEndSeconds": 6.12469387755102,
+      "lesson": 1,
+      "needsReview": false,
+      "section": 2,
+      "subsection": null,
+      "title": "The Verb 'tha' To Be"
+    },
+    {
+      "group": "lesson",
+      "id": 4,
+      "introEndSeconds": 6.380544217687075,
+      "lesson": 1,
+      "needsReview": false,
+      "section": 3,
+      "subsection": null,
+      "title": "Indefinite Nouns"
+    },
+    {
+      "group": "lesson",
+      "id": 5,
+      "introEndSeconds": 8.1136054421768709,
+      "lesson": 1,
+      "needsReview": false,
+      "section": 3,
+      "subsection": "a",
+      "title": "3a 'There Is/Are'"
+    },
+    {
+      "group": "lesson",
+      "id": 6,
+      "introEndSeconds": 5.6619954648526081,
+      "lesson": 1,
+      "needsReview": false,
+      "section": 4,
+      "subsection": null,
+      "title": "'To Have'"
+    },
+    {
+      "group": "lesson",
+      "id": 7,
+      "introEndSeconds": 8.1120634920634913,
+      "lesson": 1,
+      "needsReview": false,
+      "section": 4,
+      "subsection": "a",
+      "title": "4a Prepositional Pronouns"
+    },
+    {
+      "group": "lesson",
+      "id": 8,
+      "introEndSeconds": 6.5758503401360544,
+      "lesson": 1,
+      "needsReview": false,
+      "section": 4,
+      "subsection": "b",
+      "title": "4b 'To Know'"
+    },
+    {
+      "group": "lesson",
+      "id": 9,
+      "introEndSeconds": 9.6893964258931931,
+      "lesson": 1,
+      "needsReview": false,
+      "section": 5,
+      "subsection": null,
+      "title": "Negative And Interrogative Forms Of 'tha'"
+    },
+    {
+      "group": "lesson",
+      "id": 10,
+      "introEndSeconds": 7.0522675736961453,
+      "lesson": 1,
+      "needsReview": false,
+      "section": 6,
+      "subsection": null,
+      "title": "Answering Questions"
+    },
+    {
+      "group": "lesson",
+      "id": 11,
+      "introEndSeconds": 8.4823582766439909,
+      "lesson": 1,
+      "needsReview": false,
+      "section": 7,
+      "subsection": null,
+      "title": "'i Have Only'"
+    },
+    {
+      "group": "lesson",
+      "id": 12,
+      "introEndSeconds": 6.0609297052154192,
+      "lesson": 1,
+      "needsReview": false,
+      "section": 8,
+      "subsection": null,
+      "title": "Adverbs"
+    },
+    {
+      "group": "lesson",
+      "id": 13,
+      "introEndSeconds": 9.6795238095238094,
+      "lesson": 1,
+      "needsReview": false,
+      "section": 8,
+      "subsection": "a",
+      "title": "8a 'How Are You?'"
+    },
+    {
+      "group": "lesson",
+      "id": 14,
+      "introEndSeconds": 5.437732426303854,
+      "lesson": 1,
+      "needsReview": false,
+      "section": null,
+      "subsection": null,
+      "title": "Conversation 1"
+    },
+    {
+      "group": "lesson",
+      "id": 15,
+      "introEndSeconds": 7.706009070294785,
+      "lesson": 2,
+      "needsReview": false,
+      "section": 9,
+      "subsection": null,
+      "title": "Emphatic Pronouns"
+    },
+    {
+      "group": "lesson",
+      "id": 16,
+      "introEndSeconds": 7.4497278911564626,
+      "lesson": 2,
+      "needsReview": false,
+      "section": 9,
+      "subsection": "a",
+      "title": "9a 'Who Re You?'"
+    },
+    {
+      "group": "lesson",
+      "id": 17,
+      "introEndSeconds": 7.6744444444444442,
+      "lesson": 2,
+      "needsReview": false,
+      "section": 10,
+      "subsection": null,
+      "title": "The Verb 'is' ('to Be')"
+    },
+    {
+      "group": "lesson",
+      "id": 18,
+      "introEndSeconds": 8.6880498866213145,
+      "lesson": 2,
+      "needsReview": false,
+      "section": 10,
+      "subsection": "b",
+      "title": "10b Negative And Interrogative Forms Of 'is'"
+    },
+    {
+      "group": "lesson",
+      "id": 19,
+      "introEndSeconds": 5.8034467120181406,
+      "lesson": 2,
+      "needsReview": false,
+      "section": 11,
+      "subsection": null,
+      "title": "Gender"
+    },
+    {
+      "group": "lesson",
+      "id": 20,
+      "introEndSeconds": 8.2013576344251611,
+      "lesson": 2,
+      "needsReview": false,
+      "section": 12,
+      "subsection": null,
+      "title": "The Pronouns 'fear' And 'tè'"
+    },
+    {
+      "group": "lesson",
+      "id": 21,
+      "lesson": 2,
+      "needsReview": false,
+      "section": 14,
+      "subsection": null,
+      "title": "Definte Article ('the')"
+    },
+    {
+      "group": "lesson",
+      "id": 22,
+      "lesson": 2,
+      "needsReview": false,
+      "section": 14,
+      "subsection": "a",
+      "title": "14a Use Of Article"
+    },
+    {
+      "group": "lesson",
+      "id": 23,
+      "lesson": 2,
+      "needsReview": false,
+      "section": 15,
+      "subsection": null,
+      "title": "Possesive Constructions"
+    },
+    {
+      "group": "lesson",
+      "id": 24,
+      "lesson": 2,
+      "needsReview": false,
+      "section": 16,
+      "subsection": null,
+      "title": "Position And Status Of ADJectives"
+    },
+    {
+      "group": "lesson",
+      "id": 25,
+      "lesson": 2,
+      "needsReview": false,
+      "section": null,
+      "subsection": null,
+      "title": "Conversation"
+    },
+    {
+      "group": "lesson",
+      "id": 26,
+      "lesson": 3,
+      "needsReview": false,
+      "section": 17,
+      "subsection": null,
+      "title": "Verbal Nouns"
+    },
+    {
+      "group": "lesson",
+      "id": 27,
+      "lesson": 3,
+      "needsReview": false,
+      "section": 18,
+      "subsection": null,
+      "title": "The Present Tense"
+    },
+    {
+      "group": "lesson",
+      "id": 28,
+      "lesson": 3,
+      "needsReview": false,
+      "section": 19,
+      "subsection": null,
+      "title": "'What Do You Want?' Etc."
+    },
+    {
+      "group": "lesson",
+      "id": 29,
+      "lesson": 3,
+      "needsReview": false,
+      "section": 22,
+      "subsection": "a",
+      "title": "22a 'Càite A bheil…?('Where Is…?')"
+    },
+    {
+      "group": "lesson",
+      "id": 30,
+      "lesson": 3,
+      "needsReview": false,
+      "section": 25,
+      "subsection": null,
+      "title": "Days, Months And Seasons"
+    },
+    {
+      "group": "lesson",
+      "id": 31,
+      "lesson": 3,
+      "needsReview": false,
+      "section": 26,
+      "subsection": null,
+      "title": "Emphatic Suffixes"
+    },
+    {
+      "group": "lesson",
+      "id": 32,
+      "lesson": 3,
+      "needsReview": false,
+      "section": null,
+      "subsection": null,
+      "title": "Conversation"
+    },
+    {
+      "group": "lesson",
+      "id": 33,
+      "lesson": 4,
+      "needsReview": false,
+      "section": 27,
+      "subsection": null,
+      "title": "Past Tense Of 'tha'"
+    },
+    {
+      "group": "lesson",
+      "id": 34,
+      "lesson": 4,
+      "needsReview": false,
+      "section": 27,
+      "subsection": "a",
+      "title": "27a Independant And Dependant Verbal Forms"
+    },
+    {
+      "group": "lesson",
+      "id": 35,
+      "lesson": 4,
+      "needsReview": false,
+      "section": 27,
+      "subsection": "b",
+      "title": "27b Past Tense Of 'tha' With Verbal Noun"
+    },
+    {
+      "group": "lesson",
+      "id": 36,
+      "lesson": 4,
+      "needsReview": false,
+      "section": 28,
+      "subsection": null,
+      "title": "Irregular Verbs: Simple Past Tense"
+    },
+    {
+      "group": "lesson",
+      "id": 37,
+      "lesson": 4,
+      "needsReview": false,
+      "section": 29,
+      "subsection": null,
+      "title": "Answering Questions (Past Tense)"
+    },
+    {
+      "group": "lesson",
+      "id": 38,
+      "lesson": 4,
+      "needsReview": false,
+      "section": 30,
+      "subsection": null,
+      "title": "Imperative"
+    },
+    {
+      "group": "lesson",
+      "id": 39,
+      "lesson": 4,
+      "needsReview": false,
+      "section": 30,
+      "subsection": "a",
+      "title": "30a Negative Imperative"
+    },
+    {
+      "group": "lesson",
+      "id": 40,
+      "lesson": 4,
+      "needsReview": false,
+      "section": 30,
+      "subsection": "b",
+      "title": "30b Other Imperative Forms"
+    },
+    {
+      "group": "lesson",
+      "id": 41,
+      "lesson": 4,
+      "needsReview": false,
+      "section": 31,
+      "subsection": null,
+      "title": "Past Tense Of 'is'"
+    },
+    {
+      "group": "lesson",
+      "id": 42,
+      "lesson": 4,
+      "needsReview": false,
+      "section": 31,
+      "subsection": "a",
+      "title": "31a Idioms With 'is'"
+    },
+    {
+      "group": "lesson",
+      "id": 43,
+      "lesson": 4,
+      "needsReview": false,
+      "section": 32,
+      "subsection": null,
+      "title": "Prepositional Pronouns: 'do' ('to, For')"
+    },
+    {
+      "group": "lesson",
+      "id": 44,
+      "lesson": 4,
+      "needsReview": false,
+      "section": 32,
+      "subsection": "a",
+      "title": "32a Idioms Involving 'do'"
+    },
+    {
+      "group": "lesson",
+      "id": 45,
+      "lesson": 4,
+      "needsReview": false,
+      "section": 33,
+      "subsection": null,
+      "title": "Vocative (Or Address Form)"
+    },
+    {
+      "group": "lesson",
+      "id": 46,
+      "lesson": 4,
+      "needsReview": false,
+      "section": 34,
+      "subsection": null,
+      "title": "The Reflexive Pronoun 'fhèin' ('self')"
+    },
+    {
+      "group": "lesson",
+      "id": 47,
+      "lesson": 4,
+      "needsReview": false,
+      "section": 34,
+      "subsection": "a",
+      "title": "34a Adverbial Use Of 'fhèin'"
+    },
+    {
+      "group": "lesson",
+      "id": 48,
+      "lesson": 4,
+      "needsReview": false,
+      "section": null,
+      "subsection": null,
+      "title": "Conversation"
+    },
+    {
+      "group": "lesson",
+      "id": 49,
+      "lesson": 5,
+      "needsReview": false,
+      "section": 35,
+      "subsection": null,
+      "title": "Preposition 'ann An' ('in')"
+    },
+    {
+      "group": "lesson",
+      "id": 50,
+      "lesson": 5,
+      "needsReview": false,
+      "section": 35,
+      "subsection": "a",
+      "title": "35a Idiomatic Use Of 'ann An' ('in')"
+    },
+    {
+      "group": "lesson",
+      "id": 51,
+      "lesson": 5,
+      "needsReview": false,
+      "section": 36,
+      "subsection": "a",
+      "title": "36a Negative And Question Forms (Interrogative) Of 'is E'"
+    },
+    {
+      "group": "lesson",
+      "id": 52,
+      "lesson": 5,
+      "needsReview": false,
+      "section": 36,
+      "subsection": "b",
+      "title": "36b Using 'tha' Instead Of 'is'"
+    },
+    {
+      "group": "lesson",
+      "id": 53,
+      "lesson": 5,
+      "needsReview": false,
+      "section": 36,
+      "subsection": "c",
+      "title": "36c 'It Is…'"
+    },
+    {
+      "group": "lesson",
+      "id": 54,
+      "lesson": 5,
+      "needsReview": false,
+      "section": 37,
+      "subsection": null,
+      "title": "Past Tense"
+    },
+    {
+      "group": "lesson",
+      "id": 55,
+      "lesson": 5,
+      "needsReview": false,
+      "section": 38,
+      "subsection": null,
+      "title": "'This Is', 'that Is'"
+    },
+    {
+      "group": "lesson",
+      "id": 56,
+      "lesson": 5,
+      "needsReview": false,
+      "section": 39,
+      "subsection": null,
+      "title": "Asking 'What Is…?'"
+    },
+    {
+      "group": "lesson",
+      "id": 57,
+      "lesson": 5,
+      "needsReview": false,
+      "section": 40,
+      "subsection": null,
+      "title": "Word Order: Fronting"
+    },
+    {
+      "group": "lesson",
+      "id": 58,
+      "lesson": 5,
+      "needsReview": false,
+      "section": 41,
+      "subsection": null,
+      "title": "Answering Questions"
+    },
+    {
+      "group": "lesson",
+      "id": 59,
+      "lesson": 5,
+      "needsReview": false,
+      "section": 42,
+      "subsection": null,
+      "title": "Ownership"
+    },
+    {
+      "group": "lesson",
+      "id": 60,
+      "lesson": 5,
+      "needsReview": false,
+      "section": 42,
+      "subsection": "a",
+      "title": "42a 'Who Owns?'"
+    },
+    {
+      "group": "lesson",
+      "id": 61,
+      "lesson": 5,
+      "needsReview": false,
+      "section": 42,
+      "subsection": "b",
+      "title": "42b Prepositional Pronoun 'le' ('with')"
+    },
+    {
+      "group": "lesson",
+      "id": 62,
+      "lesson": 5,
+      "needsReview": false,
+      "section": 42,
+      "subsection": "c",
+      "title": "42c Idioms Involving 'le'"
+    },
+    {
+      "group": "lesson",
+      "id": 63,
+      "lesson": 5,
+      "needsReview": false,
+      "section": 43,
+      "subsection": null,
+      "title": "The Weather"
+    },
+    {
+      "group": "lesson",
+      "id": 64,
+      "lesson": 5,
+      "needsReview": false,
+      "section": 44,
+      "subsection": null,
+      "title": "Prepositions"
+    },
+    {
+      "group": "lesson",
+      "id": 65,
+      "lesson": 5,
+      "needsReview": false,
+      "section": 45,
+      "subsection": null,
+      "title": "Prepositional Pronoun 'air' ('on')"
+    },
+    {
+      "group": "lesson",
+      "id": 66,
+      "lesson": 5,
+      "needsReview": false,
+      "section": null,
+      "subsection": null,
+      "title": "Conversation"
+    },
+    {
+      "group": "lesson",
+      "id": 67,
+      "lesson": 6,
+      "needsReview": false,
+      "section": 46,
+      "subsection": null,
+      "title": "The Prepositional (P) Case"
+    },
+    {
+      "group": "lesson",
+      "id": 68,
+      "lesson": 6,
+      "needsReview": false,
+      "section": 46,
+      "subsection": "a",
+      "title": "46a Irregular Nouns"
+    },
+    {
+      "group": "lesson",
+      "id": 69,
+      "lesson": 6,
+      "needsReview": false,
+      "section": 46,
+      "subsection": "b",
+      "title": "46b Prepositions And Possesive Pronouns"
+    },
+    {
+      "group": "lesson",
+      "id": 70,
+      "lesson": 6,
+      "needsReview": false,
+      "section": 47,
+      "subsection": null,
+      "title": "Prepositions Followed By The Nominative"
+    },
+    {
+      "group": "lesson",
+      "id": 71,
+      "lesson": 6,
+      "needsReview": false,
+      "section": 48,
+      "subsection": null,
+      "title": "The Past Tense Of Regular Verbs: Independant Forms"
+    },
+    {
+      "group": "lesson",
+      "id": 72,
+      "lesson": 6,
+      "needsReview": false,
+      "section": 49,
+      "subsection": null,
+      "title": "Prepositional Pronouns 'rí' ('to', Etc.), 'do' ('to, For')"
+    },
+    {
+      "group": "lesson",
+      "id": 73,
+      "lesson": 6,
+      "needsReview": false,
+      "section": 50,
+      "subsection": null,
+      "title": "Verbs And Prepositions"
+    },
+    {
+      "group": "lesson",
+      "id": 74,
+      "lesson": 6,
+      "needsReview": false,
+      "section": 51,
+      "subsection": null,
+      "title": "Regular Past Tense: Dependant Forms"
+    },
+    {
+      "group": "lesson",
+      "id": 75,
+      "lesson": 6,
+      "needsReview": false,
+      "section": 51,
+      "subsection": "a",
+      "title": "51a 'Never', 'ever'"
+    },
+    {
+      "group": "lesson",
+      "id": 76,
+      "lesson": 6,
+      "needsReview": false,
+      "section": 51,
+      "subsection": "b",
+      "title": "51b 'Only'"
+    },
+    {
+      "group": "lesson",
+      "id": 77,
+      "lesson": 6,
+      "needsReview": false,
+      "section": 52,
+      "subsection": null,
+      "title": "Independant And Dependant Verbal Particles"
+    },
+    {
+      "group": "lesson",
+      "id": 78,
+      "lesson": 6,
+      "needsReview": false,
+      "section": 53,
+      "subsection": null,
+      "title": "'Who?' V. 'who', 'when?' V. 'when', 'where?' V. 'where', What?' V. 'what', 'how?' V. 'how'"
+    },
+    {
+      "group": "lesson",
+      "id": 79,
+      "lesson": 6,
+      "needsReview": false,
+      "section": 54,
+      "subsection": null,
+      "title": "Time"
+    },
+    {
+      "group": "lesson",
+      "id": 80,
+      "lesson": 6,
+      "needsReview": false,
+      "section": 54,
+      "subsection": "a",
+      "title": "54a Other Times Of Year"
+    },
+    {
+      "group": "lesson",
+      "id": 81,
+      "lesson": 6,
+      "needsReview": false,
+      "section": 54,
+      "subsection": "b",
+      "title": "54b 'Last', 'next'"
+    },
+    {
+      "group": "lesson",
+      "id": 82,
+      "lesson": 6,
+      "needsReview": false,
+      "section": 55,
+      "subsection": null,
+      "title": "'Some'"
+    },
+    {
+      "group": "lesson",
+      "id": 83,
+      "lesson": 6,
+      "needsReview": false,
+      "section": 55,
+      "subsection": "a",
+      "title": "55a 'Feadhainn' ('some People/Things')"
+    },
+    {
+      "group": "lesson",
+      "id": 84,
+      "lesson": 6,
+      "needsReview": false,
+      "section": 56,
+      "subsection": null,
+      "title": "'Every'"
+    },
+    {
+      "group": "lesson",
+      "id": 85,
+      "lesson": 6,
+      "needsReview": false,
+      "section": null,
+      "subsection": null,
+      "title": "Conversation"
+    },
+    {
+      "group": "lesson",
+      "id": 86,
+      "lesson": 7,
+      "needsReview": false,
+      "section": 57,
+      "subsection": null,
+      "title": "57 - The genitive case"
+    },
+    {
+      "group": "lesson",
+      "id": 87,
+      "lesson": 7,
+      "needsReview": false,
+      "section": 57,
+      "subsection": "a",
+      "title": "57a - Forming the genitive case"
+    },
+    {
+      "group": "lesson",
+      "id": 88,
+      "lesson": 7,
+      "needsReview": false,
+      "section": 58,
+      "subsection": null,
+      "title": "58 - Double definite article"
+    },
+    {
+      "group": "lesson",
+      "id": 89,
+      "lesson": 7,
+      "needsReview": false,
+      "section": 58,
+      "subsection": "a",
+      "title": "58a - Genitive of irregular nouns"
+    },
+    {
+      "group": "lesson",
+      "id": 90,
+      "lesson": 7,
+      "needsReview": false,
+      "section": 59,
+      "subsection": null,
+      "title": "59 - Surnames"
+    },
+    {
+      "group": "lesson",
+      "id": 91,
+      "lesson": 7,
+      "needsReview": false,
+      "section": 60,
+      "subsection": null,
+      "title": "60 - Adverbs of quantity"
+    },
+    {
+      "group": "lesson",
+      "id": 92,
+      "lesson": 7,
+      "needsReview": false,
+      "section": 61,
+      "subsection": null,
+      "title": "61 - The verbal noun and the genitive case"
+    },
+    {
+      "group": "lesson",
+      "id": 93,
+      "lesson": 7,
+      "needsReview": false,
+      "section": 62,
+      "subsection": null,
+      "title": "62 - Composite prepositions"
+    },
+    {
+      "group": "lesson",
+      "id": 94,
+      "lesson": 7,
+      "needsReview": false,
+      "section": 62,
+      "subsection": "a",
+      "title": "62a - Prepositions followed by the genitive"
+    },
+    {
+      "group": "lesson",
+      "id": 95,
+      "lesson": 7,
+      "needsReview": false,
+      "section": 63,
+      "subsection": null,
+      "title": "63 - More on time"
+    },
+    {
+      "group": "lesson",
+      "id": 96,
+      "lesson": 7,
+      "needsReview": false,
+      "section": null,
+      "subsection": null,
+      "title": "Conversation"
+    },
+    {
+      "group": "lesson",
+      "id": 97,
+      "lesson": 8,
+      "needsReview": false,
+      "section": 64,
+      "subsection": null,
+      "title": "64 - 'Tha': future"
+    },
+    {
+      "group": "lesson",
+      "id": 98,
+      "lesson": 8,
+      "needsReview": false,
+      "section": 64,
+      "subsection": "a",
+      "title": "64a - Regular verbs: future"
+    },
+    {
+      "group": "lesson",
+      "id": 99,
+      "lesson": 8,
+      "needsReview": false,
+      "section": 67,
+      "subsection": "a",
+      "title": "67a - 'Because', 'since'"
+    },
+    {
+      "group": "lesson",
+      "id": 100,
+      "lesson": 8,
+      "needsReview": false,
+      "section": 68,
+      "subsection": null,
+      "title": "68 - The nominative plural"
+    },
+    {
+      "group": "lesson",
+      "id": 101,
+      "lesson": 8,
+      "needsReview": false,
+      "section": 68,
+      "subsection": "c",
+      "title": "68c - The indefinite genitive plural"
+    },
+    {
+      "group": "lesson",
+      "id": 102,
+      "lesson": 8,
+      "needsReview": false,
+      "section": 69,
+      "subsection": null,
+      "title": "69 - Prepositions before the article"
+    },
+    {
+      "group": "lesson",
+      "id": 103,
+      "lesson": 8,
+      "needsReview": false,
+      "section": 70,
+      "subsection": null,
+      "title": "70 - Irregular nouns: plural"
+    },
+    {
+      "group": "lesson",
+      "id": 104,
+      "lesson": 8,
+      "needsReview": false,
+      "section": 71,
+      "subsection": null,
+      "title": "71 - Numerals with nouns"
+    },
+    {
+      "group": "lesson",
+      "id": 105,
+      "lesson": 8,
+      "needsReview": false,
+      "section": 71,
+      "subsection": "a",
+      "title": "71a - Dual number"
+    },
+    {
+      "group": "lesson",
+      "id": 106,
+      "lesson": 8,
+      "needsReview": false,
+      "section": 72,
+      "subsection": null,
+      "title": "72 - Verbals nouns with pronoun objects"
+    },
+    {
+      "group": "lesson",
+      "id": 107,
+      "lesson": 8,
+      "needsReview": false,
+      "section": 73,
+      "subsection": null,
+      "title": "73 - 'Duine' ('man', 'husband', 'person')"
+    },
+    {
+      "group": "lesson",
+      "id": 108,
+      "lesson": 8,
+      "needsReview": false,
+      "section": null,
+      "subsection": null,
+      "title": "Conversation"
+    },
+    {
+      "group": "lesson",
+      "id": 109,
+      "lesson": 9,
+      "needsReview": false,
+      "section": 74,
+      "subsection": null,
+      "title": "74 - Irregular verbs: future"
+    },
+    {
+      "group": "lesson",
+      "id": 110,
+      "lesson": 9,
+      "needsReview": false,
+      "section": 75,
+      "subsection": null,
+      "title": "75 - Answering questions"
+    },
+    {
+      "group": "lesson",
+      "id": 111,
+      "lesson": 9,
+      "needsReview": false,
+      "section": 78,
+      "subsection": null,
+      "title": "78 - Negative relative clauses"
+    },
+    {
+      "group": "lesson",
+      "id": 112,
+      "lesson": 9,
+      "needsReview": false,
+      "section": 79,
+      "subsection": null,
+      "title": "79 - Interrogatives involving prepositions"
+    },
+    {
+      "group": "lesson",
+      "id": 113,
+      "lesson": 9,
+      "needsReview": false,
+      "section": 81,
+      "subsection": null,
+      "title": "81 - Adjectives: singular (nominative, prepositional, genitive)"
+    },
+    {
+      "group": "lesson",
+      "id": 114,
+      "lesson": 9,
+      "needsReview": false,
+      "section": 82,
+      "subsection": null,
+      "title": "82 - More on numerals (20-99)"
+    },
+    {
+      "group": "lesson",
+      "id": 115,
+      "lesson": 9,
+      "needsReview": false,
+      "section": 84,
+      "subsection": null,
+      "title": "84 - Countries"
+    },
+    {
+      "group": "lesson",
+      "id": 116,
+      "lesson": 9,
+      "needsReview": false,
+      "section": null,
+      "subsection": null,
+      "title": "Conversation"
+    },
+    {
+      "group": "lesson",
+      "id": 117,
+      "lesson": 10,
+      "needsReview": false,
+      "section": 85,
+      "subsection": null,
+      "title": "85 - Regulars verbs: conditional/past habitual: independent forms"
+    },
+    {
+      "group": "lesson",
+      "id": 118,
+      "lesson": 10,
+      "needsReview": false,
+      "section": 85,
+      "subsection": "b",
+      "title": "85b - 'Tha': conditional/past habitual"
+    },
+    {
+      "group": "lesson",
+      "id": 119,
+      "lesson": 10,
+      "needsReview": false,
+      "section": 85,
+      "subsection": "c",
+      "title": "85c - Answering questions"
+    },
+    {
+      "group": "lesson",
+      "id": 120,
+      "lesson": 10,
+      "needsReview": false,
+      "section": 88,
+      "subsection": null,
+      "title": "88 - 'If' meaning 'whether'"
+    },
+    {
+      "group": "lesson",
+      "id": 121,
+      "lesson": 10,
+      "needsReview": false,
+      "section": 89,
+      "subsection": null,
+      "title": "89 - Adjectives: equitive, comparative and superlative"
+    },
+    {
+      "group": "lesson",
+      "id": 122,
+      "lesson": 10,
+      "needsReview": false,
+      "section": 90,
+      "subsection": null,
+      "title": "90 - Irregular adjectives: comparative and superlative"
+    },
+    {
+      "group": "lesson",
+      "id": 123,
+      "lesson": 10,
+      "needsReview": false,
+      "section": 93,
+      "subsection": null,
+      "title": "93 - Personal numerals"
+    },
+    {
+      "group": "lesson",
+      "id": 124,
+      "lesson": 10,
+      "needsReview": false,
+      "section": null,
+      "subsection": null,
+      "title": "Conversation"
+    },
+    {
+      "group": "lesson",
+      "id": 125,
+      "lesson": 11,
+      "needsReview": false,
+      "section": 94,
+      "subsection": null,
+      "title": "94 - Modal verbs 'feum' and 'faod'"
+    },
+    {
+      "group": "lesson",
+      "id": 126,
+      "lesson": 11,
+      "needsReview": false,
+      "section": 95,
+      "subsection": "a",
+      "title": "95a - Indirect objects of infinitives"
+    },
+    {
+      "group": "lesson",
+      "id": 127,
+      "lesson": 11,
+      "needsReview": false,
+      "section": 95,
+      "subsection": "c",
+      "title": "95c - Inversion"
+    },
+    {
+      "group": "lesson",
+      "id": 128,
+      "lesson": 11,
+      "needsReview": false,
+      "section": 97,
+      "subsection": null,
+      "title": "97 - 'A bhith' ('to be')"
+    },
+    {
+      "group": "lesson",
+      "id": 129,
+      "lesson": 11,
+      "needsReview": false,
+      "section": 98,
+      "subsection": null,
+      "title": "98 - The perfect"
+    },
+    {
+      "group": "lesson",
+      "id": 130,
+      "lesson": 11,
+      "needsReview": false,
+      "section": 98,
+      "subsection": "d",
+      "title": "98d -The immediate perfect"
+    },
+    {
+      "group": "lesson",
+      "id": 131,
+      "lesson": 11,
+      "needsReview": false,
+      "section": 100,
+      "subsection": "a",
+      "title": "100a - Colours"
+    },
+    {
+      "group": "lesson",
+      "id": 132,
+      "lesson": 11,
+      "needsReview": false,
+      "section": 101,
+      "subsection": null,
+      "title": "101 - Ordinal numbers"
+    },
+    {
+      "group": "lesson",
+      "id": 133,
+      "lesson": 11,
+      "needsReview": false,
+      "section": null,
+      "subsection": null,
+      "title": "Conversation"
+    },
+    {
+      "group": "lesson",
+      "id": 134,
+      "lesson": 12,
+      "needsReview": false,
+      "section": 102,
+      "subsection": null,
+      "title": "102 - Irregular verbs: conditional/past habitual"
+    },
+    {
+      "group": "lesson",
+      "id": 135,
+      "lesson": 12,
+      "needsReview": false,
+      "section": 102,
+      "subsection": "a",
+      "title": "102a - Answering questions"
+    },
+    {
+      "group": "lesson",
+      "id": 136,
+      "lesson": 12,
+      "needsReview": false,
+      "section": 104,
+      "subsection": null,
+      "title": "104 - 'Used to' ('b' àbhaist do')"
+    },
+    {
+      "group": "lesson",
+      "id": 137,
+      "lesson": 12,
+      "needsReview": false,
+      "section": 105,
+      "subsection": null,
+      "title": "105 - Past participles and the perfective"
+    },
+    {
+      "group": "lesson",
+      "id": 138,
+      "lesson": 12,
+      "needsReview": false,
+      "section": 106,
+      "subsection": null,
+      "title": "106 - The passive"
+    },
+    {
+      "group": "lesson",
+      "id": 139,
+      "lesson": 12,
+      "needsReview": false,
+      "section": 107,
+      "subsection": null,
+      "title": "107 - Impersonal verbal forms"
+    },
+    {
+      "group": "lesson",
+      "id": 140,
+      "lesson": 12,
+      "needsReview": false,
+      "section": 109,
+      "subsection": null,
+      "title": "109 - Passive construction 'tha... ag...' ('is being')"
+    },
+    {
+      "group": "lesson",
+      "id": 141,
+      "lesson": 12,
+      "needsReview": false,
+      "section": 111,
+      "subsection": null,
+      "title": "111 - Defective verbs"
+    },
+    {
+      "group": "lesson",
+      "id": 142,
+      "lesson": 12,
+      "needsReview": false,
+      "section": 112,
+      "subsection": null,
+      "title": "112 - Interjections"
+    },
+    {
+      "group": "lesson",
+      "id": 143,
+      "lesson": 12,
+      "needsReview": false,
+      "section": 113,
+      "subsection": null,
+      "title": "113 - Remaining prepositional pronouns"
+    },
+    {
+      "group": "lesson",
+      "id": 144,
+      "lesson": 12,
+      "needsReview": false,
+      "section": null,
+      "subsection": null,
+      "title": "Conversation"
+    },
+    {
+      "group": "appendices",
+      "id": 145,
+      "lesson": null,
+      "needsReview": false,
+      "section": null,
+      "subsection": null,
+      "title": "Appendix 2: Prepositions and prepositional pronouns"
+    },
+    {
+      "group": "appendices",
+      "id": 146,
+      "lesson": null,
+      "needsReview": false,
+      "section": null,
+      "subsection": null,
+      "title": "Appendix 4: Nasalisation (eclipsis)"
+    },
+    {
+      "group": "appendices",
+      "id": 147,
+      "lesson": null,
+      "needsReview": false,
+      "section": null,
+      "subsection": null,
+      "title": "Appendix 6: Grave and acute accents"
+    },
+    {
+      "group": "readingPractice",
+      "id": 148,
+      "lesson": null,
+      "needsReview": false,
+      "section": null,
+      "subsection": null,
+      "title": "Reading Practice 1: Iolaire Loch Trèig (The Eagle of Loch Trèig)"
+    },
+    {
+      "group": "readingPractice",
+      "id": 149,
+      "lesson": null,
+      "needsReview": false,
+      "section": null,
+      "subsection": null,
+      "title": "Reading Practice 2: Alasdair Mac Mhaighstir Alasdair agus Donnchadh Bàn Mac an t-Saoir: dithis(t) bhàrd ainmeil (Alexander MacDonald (c 1695-1770) and Duncan Bàn MacIntyre (c 1724-1812): two famous bards)"
+    },
+    {
+      "group": "readingPractice",
+      "id": 150,
+      "lesson": null,
+      "needsReview": false,
+      "section": null,
+      "subsection": null,
+      "title": "Reading Practice 3: Donnchadh Bàn agus 'Moladh Beinn Dòbhrain' (Duncan Bàn and 'The Praise Of Ben Doran')"
+    },
+    {
+      "group": "readingPractice",
+      "id": 151,
+      "lesson": null,
+      "needsReview": false,
+      "section": null,
+      "subsection": null,
+      "title": "Reading Practice 4: Foghlam anns a' Ghàidhlig (Education in Gaelic)"
     }
   ]
 }
