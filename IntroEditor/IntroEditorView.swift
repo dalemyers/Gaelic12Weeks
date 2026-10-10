@@ -3,6 +3,7 @@ import SwiftUI
 struct IntroEditorView: View {
     @Bindable var model: IntroEditorModel
     @State private var search = ""
+    @State private var waveformAmplitudeScale: WaveformAmplitudeScale = .linear
 
     private var filteredTracks: [MappedTrack] {
         guard !search.isEmpty else { return model.tracks }
@@ -117,6 +118,7 @@ struct IntroEditorView: View {
                 WaveformView(
                     waveform: waveform, position: model.player.position,
                     introEnd: track.introEndSeconds, isPlaying: model.player.isPlaying,
+                    amplitudeScale: $waveformAmplitudeScale,
                     seek: { model.player.seek(to: $0) }
                 )
                 .id(track.id)

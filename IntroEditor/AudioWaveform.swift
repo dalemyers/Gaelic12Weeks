@@ -1,5 +1,21 @@
 import AVFoundation
 
+enum WaveformAmplitudeScale: String, CaseIterable {
+    case linear = "Linear"
+    case logarithmic = "Logarithmic"
+
+    func displayAmplitude(for peak: Float) -> Float {
+        switch self {
+        case .linear:
+            return peak
+        case .logarithmic:
+            // Map -60...0 dBFS to the available height, keeping silence at the baseline.
+            let decibels = 20 * log10(max(0.001, peak))
+            return min(1, max(0, (decibels + 60) / 60))
+        }
+    }
+}
+
 struct AudioWaveform: Sendable {
     let peaks: [Float]
     let secondsPerPeak: Double

@@ -5,6 +5,7 @@ struct WaveformView: View {
     let position: Double
     let introEnd: Double?
     let isPlaying: Bool
+    @Binding var amplitudeScale: WaveformAmplitudeScale
     let seek: (Double) -> Void
     @State private var windowSeconds: Double = 15
     @State private var start: Double = 0
@@ -17,6 +18,17 @@ struct WaveformView: View {
             HStack {
                 Label("Waveform", systemImage: "waveform").font(.headline)
                 Spacer()
+                Picker("Amplitude", selection: $amplitudeScale) {
+                    ForEach(WaveformAmplitudeScale.allCases, id: \.self) { scale in
+                        Text(scale.rawValue).tag(scale)
+                    }
+                }
+                .pickerStyle(.segmented)
+                .frame(width: 260)
+                .accessibilityIdentifier("waveformAmplitudeScale")
+                .help("Linear amplitude or logarithmic amplitude from -60 to 0 dBFS. Audio playback is unchanged.")
+            }
+            HStack {
                 Picker("Visible range", selection: $windowSeconds) {
                     Text("5 sec").tag(5.0)
                     Text("15 sec").tag(15.0)
@@ -49,7 +61,7 @@ struct WaveformView: View {
                     )
                     guard lower < upper else { continue }
                     let peak = waveform.peaks[lower..<upper].max() ?? 0
-                    let height = max(1, CGFloat(peak) * (middle - 16))
+                    let height = max(1, CGFloat(amplitudeScale.displayAmplitude(for: peak)) * (middle - 16))
                     path.move(to: CGPoint(x: CGFloat(pixel), y: middle - height))
                     path.addLine(to: CGPoint(x: CGFloat(pixel), y: middle + height))
                 }
@@ -75,7 +87,7 @@ struct WaveformView: View {
             }
             .accessibilityElement()
             .accessibilityLabel("Audio waveform")
-            .accessibilityValue("Playhead \(IntroEditorModel.time(position))")
+            .accessibilityValue("\(amplitudeScale.rawValue) amplitude. Playhead \(IntroEditorModel.time(position))")
             .accessibilityHint("Use the playback position slider to seek precisely.")
             .accessibilityIdentifier("audioWaveform")
             HStack {
@@ -120,7 +132,7 @@ struct WaveformView: View {
             peaks: (0..<1_500).map { Float(abs(sin(Double($0) * 0.17)) * 0.7) },
             secondsPerPeak: 0.01, duration: 15
         ),
-        position: 4, introEnd: 3.25, isPlaying: false, seek: { _ in }
+        position: 4, introEnd: 3.25, isPlaying: false, amplitudeScale: .constant(.linear), seek: { _ in }
     )
     .padding()
     .frame(width: 750)

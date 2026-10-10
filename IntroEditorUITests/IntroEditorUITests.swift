@@ -46,6 +46,21 @@ final class IntroEditorUITests: XCTestCase {
         let play = app.buttons["introPlayPause"]
         XCTAssertTrue(play.isEnabled)
         XCTAssertLessThan(waveform.frame.maxY, play.frame.minY)
+        let linear = app.radioButtons["Linear"]
+        let logarithmic = app.radioButtons["Logarithmic"]
+        XCTAssertTrue(linear.exists, app.debugDescription)
+        XCTAssertEqual(linear.value as? String, "1")
+        let originalMetadata = try Data(contentsOf: metadata)
+        let originalPosition = app.staticTexts["introPlayheadTime"].value as? String
+        logarithmic.click()
+        XCTAssertEqual(logarithmic.value as? String, "1")
+        XCTAssertTrue((waveform.value as? String)?.contains("Logarithmic amplitude") == true)
+        XCTAssertEqual(app.staticTexts["introPlayheadTime"].value as? String, originalPosition)
+        XCTAssertEqual(play.label, "Play")
+        XCTAssertEqual(try Data(contentsOf: metadata), originalMetadata)
+        linear.click()
+        XCTAssertTrue((waveform.value as? String)?.contains("Linear amplitude") == true)
+        logarithmic.click()
         app.buttons["introForwardSecond"].click()
         app.buttons["introForwardFine"].click()
         XCTAssertEqual(app.staticTexts["introPlayheadTime"].value as? String, "00:01.100")
@@ -72,6 +87,8 @@ final class IntroEditorUITests: XCTestCase {
         XCTAssertNotEqual(position.value as? String, before)
         app.buttons["nextIntroRecording"].click()
         XCTAssertEqual(app.staticTexts["introTrackTitle"].value as? String, "Synthetic conversation")
+        XCTAssertTrue(waveform.waitForExistence(timeout: 10))
+        XCTAssertEqual(logarithmic.value as? String, "1", "Keep the amplitude scale when changing recordings.")
         app.buttons["markNoIntro"].click()
         app.terminate()
         app.launch()

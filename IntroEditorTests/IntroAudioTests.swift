@@ -120,6 +120,24 @@ final class IntroAudioTests: XCTestCase {
         return folder
     }
 
+    func testWaveformAmplitudeScales() {
+        for peak: Float in [0, 0.0001, 0.001, 0.01, 0.1, 0.5, 1] {
+            XCTAssertEqual(WaveformAmplitudeScale.linear.displayAmplitude(for: peak), peak)
+        }
+        let logarithmic = WaveformAmplitudeScale.logarithmic
+        XCTAssertEqual(logarithmic.displayAmplitude(for: 0), 0)
+        XCTAssertEqual(logarithmic.displayAmplitude(for: 0.0001), 0)
+        XCTAssertEqual(logarithmic.displayAmplitude(for: 0.001), 0, accuracy: 0.00001)
+        XCTAssertEqual(logarithmic.displayAmplitude(for: 0.01), 1.0 / 3, accuracy: 0.00001)
+        XCTAssertEqual(logarithmic.displayAmplitude(for: 0.1), 2.0 / 3, accuracy: 0.00001)
+        XCTAssertEqual(logarithmic.displayAmplitude(for: 1), 1)
+        XCTAssertEqual(logarithmic.displayAmplitude(for: 2), 1)
+        let peaks: [Float] = (0...1_000).map { Float($0) / 1_000 }
+        let heights = peaks.map { logarithmic.displayAmplitude(for: $0) }
+        XCTAssertTrue(heights.allSatisfy { $0.isFinite && (0...1).contains($0) })
+        XCTAssertEqual(heights, heights.sorted())
+    }
+
     func testWaveformIncludesSilenceAndBothChannels() throws {
         let folder = try makeFolder()
         defer { try? FileManager.default.removeItem(at: folder) }
