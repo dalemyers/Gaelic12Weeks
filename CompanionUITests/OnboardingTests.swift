@@ -45,7 +45,7 @@ final class OnboardingTests: XCTestCase {
         XCTAssertTrue(app.buttons["welcomeImport"].waitForExistence(timeout: 10))
         XCTAssertTrue(app.links["publisherLink"].exists)
         XCTAssertTrue(app.staticTexts[
-            "Unofficial Companion to 'Scottish Gaelic In 12 Weeks'"
+            "Unofficial Companion to \"Scottish Gaelic in Twelve Weeks\""
         ].exists)
         for orientation in [UIDeviceOrientation.portrait, .landscapeLeft] {
             XCUIDevice.shared.orientation = orientation
@@ -58,6 +58,33 @@ final class OnboardingTests: XCTestCase {
         app.terminate()
         app.launch()
         assertOnboardingControls(in: app)
+    }
+
+    @MainActor
+    func testPrivacyAndAcknowledgementsBeforeImport() {
+        continueAfterFailure = false
+        let app = XCUIApplication()
+        app.launch()
+        XCTAssertTrue(app.buttons["welcomeImport"].waitForExistence(timeout: 10))
+        let scroll = app.scrollViews["welcomeScroll"]
+        for (identifier, title, expectedText) in [
+            ("appPrivacy", "Privacy policy", "The app does not send your recordings"),
+            ("appAcknowledgements", "Acknowledgements", "Thomas Zoechling")
+        ] {
+            let button = app.buttons[identifier]
+            for _ in 0..<8 {
+                if button.isHittable { break }
+                scroll.swipeUp()
+            }
+            XCTAssertTrue(button.isHittable)
+            button.tap()
+            XCTAssertTrue(app.navigationBars[title].waitForExistence(timeout: 5))
+            let contents = app.staticTexts["appDocumentContents"]
+            XCTAssertTrue(contents.waitForExistence(timeout: 5))
+            XCTAssertTrue(contents.label.contains(expectedText))
+            app.buttons["Done"].tap()
+        }
+        XCTAssertTrue(app.links["appSupport"].exists)
     }
 
     /// The import action must remain reachable without a player or redundant toolbar controls.

@@ -1,0 +1,29 @@
+Privacy policy
+Unofficial Gaelic Companion
+Effective October 10, 2026
+
+Overview
+
+Unofficial Gaelic Companion is developed by Dale Myers. The app is a free, independent listening companion. It has no accounts, advertisements, analytics, tracking, or third-party crash-reporting service. The app does not send your recordings, listening progress, or preferences to the developer.
+
+Information on your device
+
+When you select a ZIP in the system file picker, the app reads its audio files and title metadata and copies supported recordings into its private storage. Listening progress and preferences are stored separately on your device. ZIPFoundation processes archives locally; it does not upload them.
+
+The app has no cloud-sync feature. Imported audio is excluded from the app's device backup. Preferences and listening progress may be included in backups managed by your operating system. A source ZIP you keep in iCloud Drive or another file provider remains subject to that provider's settings and policies.
+
+During playback, the app supplies the current recording's title, duration, and playback position to iOS so it can display system media and lock-screen controls.
+
+Retention and deletion
+
+Imported recordings remain until you replace the library successfully or delete the app. Replacing a library preserves listening progress. You can clear listening progress using "Reset all listening progress" in "About & download". Deleting the app, rather than offloading it, removes its local data; it does not delete your original ZIP or recordings in Files. Manage any device backups and source files separately through their respective services.
+
+External websites and support
+
+The app opens the publisher's download page, the support site, and the online privacy policy only when you choose those links. Those websites receive normal web requests and handle them under their own privacy policies. Downloading the publisher's ZIP is a separate action outside the app.
+
+You can obtain support and contact the developer at https://app.myers.io/gaelic_companion. Do not send book recordings or sensitive personal information with a support request. Any information you choose to provide through an external support channel is handled under that channel's privacy policy.
+
+Changes
+
+If the app's data practices change, this policy and the App Store privacy disclosures will be updated before those changes are released.

@@ -4,7 +4,7 @@ import Observation
 @MainActor
 @Observable
 final class LibraryModel {
-    static let appName = "Unofficial Companion to 'Scottish Gaelic In 12 Weeks'"
+    static let appName = AppInformation.fullName
     static let downloadURL = URL(string: "https://birlinn.co.uk/scottish-gaelic-in-12-weeks-audio-download/")!
 
     private(set) var mapping: TrackMapping?

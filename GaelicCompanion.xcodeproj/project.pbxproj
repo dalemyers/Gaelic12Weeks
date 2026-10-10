@@ -7,11 +7,15 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		16D59E22EE2C82CEF02399F3 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BADB3AD01CD832C9035774B8 /* Assets.xcassets */; };
 		20E3477A564CBDF6CCFC1EE2 /* IntroAudioTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC7908DECBF19A2B136D97D0 /* IntroAudioTests.swift */; };
 		2685FA68531E34AD3E1B9A6A /* ZIPFoundation in Frameworks */ = {isa = PBXBuildFile; productRef = 8B90DB296671ADF38B9F71A8 /* ZIPFoundation */; };
 		2D2628CCB326305CF2FF6579 /* IntroEditorUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC27AFC85DE1BC0AE6A0F8AB /* IntroEditorUITests.swift */; };
+		311549CD54CC1E7ED7B769B4 /* Acknowledgements.txt in Resources */ = {isa = PBXBuildFile; fileRef = 07E32EE1DD27F494DDDE4396 /* Acknowledgements.txt */; };
 		342A33D76BAA95A11DC1F511 /* IntroAudioPlayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70959AE1864E970EB753E1BF /* IntroAudioPlayer.swift */; };
 		34B77BE4C8ADA5BB3D4A14E2 /* LibraryRepositoryTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DED95A71351906DE4843467C /* LibraryRepositoryTests.swift */; };
+		350538E02E918D2D728C85BB /* AppInformationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7F25857E6869B8B548CA76C /* AppInformationTests.swift */; };
+		358E368585CDC88670508AF0 /* AppInformation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B7500365A86148739A56E64 /* AppInformation.swift */; };
 		48030B40E4FA13E63EFA7DD0 /* AudioSessionController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3476B6BC1CD64591F6964720 /* AudioSessionController.swift */; };
 		5077FCD48EB363B18C5DACA8 /* synthetic.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = C2163EE967703B120BEC5CE5 /* synthetic.mp3 */; };
 		5447F0B237599D2BE53A712E /* ZIPFoundation in Frameworks */ = {isa = PBXBuildFile; productRef = CC15E5FD08ADC9ED86643CFF /* ZIPFoundation */; };
@@ -33,9 +37,11 @@
 		A1A4EBF1B5B80E74585E9437 /* CompanionApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A32AF569EC613949562ADEA /* CompanionApp.swift */; };
 		AA03F9EF57278E75BC717F2A /* AudioPlayerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 840C93E64877717CC742DA3D /* AudioPlayerTests.swift */; };
 		AA3556546E461AE063F54FAC /* MappingReviewStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = F120C43E5AACF181B30C59FF /* MappingReviewStore.swift */; };
+		ABB7C6A2D0171645BAF8483B /* PrivacyPolicy.txt in Resources */ = {isa = PBXBuildFile; fileRef = 0BA0A70885F18546E72A7367 /* PrivacyPolicy.txt */; };
 		B1DD742D57ECA7947AB179E7 /* MappingReviewTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D37D6BC99BD7540836CAD7B7 /* MappingReviewTests.swift */; };
 		C21C45816FC341658ACDDE5D /* MappingReviewUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AE4CD4D7D22A21C77C40034 /* MappingReviewUITests.swift */; };
 		D6B05E1655C734B78F78BC21 /* Catalog.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1421A66E0589AF0B2FAC03B7 /* Catalog.swift */; };
+		D87A7A4E8CEAC0EFA09338EE /* PrivacyInfo.xcprivacy in Resources */ = {isa = PBXBuildFile; fileRef = 7AA27C26D087C68E67C623BE /* PrivacyInfo.xcprivacy */; };
 		DCC7C320CD8A8D07A84B75AA /* TrackMapping.json in Resources */ = {isa = PBXBuildFile; fileRef = B0B47C275B1E56A189D30AB0 /* TrackMapping.json */; };
 		DE9FF506B7BBE7EFC802D2AA /* LibraryModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B74618D018F3F2E4C579C2E8 /* LibraryModel.swift */; };
 		E7BD868DC2D6AC58E9BCDB8E /* WaveformView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD3CA9D256B19DE0A910DDB1 /* WaveformView.swift */; };
@@ -76,7 +82,9 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		07E32EE1DD27F494DDDE4396 /* Acknowledgements.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = Acknowledgements.txt; sourceTree = "<group>"; };
 		0A32AF569EC613949562ADEA /* CompanionApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompanionApp.swift; sourceTree = "<group>"; };
+		0BA0A70885F18546E72A7367 /* PrivacyPolicy.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = PrivacyPolicy.txt; sourceTree = "<group>"; };
 		100498F5321095EED75BD44A /* AudioWaveform.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioWaveform.swift; sourceTree = "<group>"; };
 		1011C3E4B42E3DFDA39B909B /* OnboardingTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingTests.swift; sourceTree = "<group>"; };
 		1421A66E0589AF0B2FAC03B7 /* Catalog.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Catalog.swift; sourceTree = "<group>"; };
@@ -89,6 +97,8 @@
 		67F4121489AA4B5456DD2FEC /* LibraryRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LibraryRepository.swift; sourceTree = "<group>"; };
 		70959AE1864E970EB753E1BF /* IntroAudioPlayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IntroAudioPlayer.swift; sourceTree = "<group>"; };
 		7A79532F57F631C9BBA0E306 /* GaelicIntroEditorTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = GaelicIntroEditorTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		7AA27C26D087C68E67C623BE /* PrivacyInfo.xcprivacy */ = {isa = PBXFileReference; path = PrivacyInfo.xcprivacy; sourceTree = "<group>"; };
+		7B7500365A86148739A56E64 /* AppInformation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppInformation.swift; sourceTree = "<group>"; };
 		7E18BC4BEE952E0395C179A0 /* GaelicIntroEditor.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = GaelicIntroEditor.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		81EBA3B9F1E6252B63812747 /* IntroMetadataStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IntroMetadataStore.swift; sourceTree = "<group>"; };
 		840C93E64877717CC742DA3D /* AudioPlayerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioPlayerTests.swift; sourceTree = "<group>"; };
@@ -100,6 +110,7 @@
 		B0B47C275B1E56A189D30AB0 /* TrackMapping.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = TrackMapping.json; sourceTree = "<group>"; };
 		B3EEFC72829A74C73D6567BF /* GaelicCompanion.app */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.application; path = GaelicCompanion.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B74618D018F3F2E4C579C2E8 /* LibraryModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LibraryModel.swift; sourceTree = "<group>"; };
+		BADB3AD01CD832C9035774B8 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		C2163EE967703B120BEC5CE5 /* synthetic.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = synthetic.mp3; sourceTree = "<group>"; };
 		D37D6BC99BD7540836CAD7B7 /* MappingReviewTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MappingReviewTests.swift; sourceTree = "<group>"; };
 		D8E1C64837B3C7B51F5F9595 /* GaelicIntroEditorUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = GaelicIntroEditorUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -108,6 +119,7 @@
 		DD33A26B6091289F87F1E56A /* GaelicCompanionTests.xctest */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.cfbundle; path = GaelicCompanionTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		DED95A71351906DE4843467C /* LibraryRepositoryTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LibraryRepositoryTests.swift; sourceTree = "<group>"; };
 		E1C7032399EE0AF93C30D0AE /* ListeningProgressTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListeningProgressTests.swift; sourceTree = "<group>"; };
+		E7F25857E6869B8B548CA76C /* AppInformationTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppInformationTests.swift; sourceTree = "<group>"; };
 		EA0A840E1B1768CA51963707 /* IntroEditorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IntroEditorView.swift; sourceTree = "<group>"; };
 		EFDB00E618759BF4625BA31D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		F120C43E5AACF181B30C59FF /* MappingReviewStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MappingReviewStore.swift; sourceTree = "<group>"; };
@@ -152,6 +164,7 @@
 		30C8F0872D1E7E558A194DB9 /* CompanionTests */ = {
 			isa = PBXGroup;
 			children = (
+				E7F25857E6869B8B548CA76C /* AppInformationTests.swift */,
 				840C93E64877717CC742DA3D /* AudioPlayerTests.swift */,
 				F7D129EB429F5516AA80B2C3 /* CatalogTests.swift */,
 				DED95A71351906DE4843467C /* LibraryRepositoryTests.swift */,
@@ -188,6 +201,8 @@
 		9E930292550E5E0B410957A5 /* Companion */ = {
 			isa = PBXGroup;
 			children = (
+				7B7500365A86148739A56E64 /* AppInformation.swift */,
+				BADB3AD01CD832C9035774B8 /* Assets.xcassets */,
 				DA860D1E163D33424C46364F /* AudioPlayer.swift */,
 				3476B6BC1CD64591F6964720 /* AudioSessionController.swift */,
 				1421A66E0589AF0B2FAC03B7 /* Catalog.swift */,
@@ -247,6 +262,9 @@
 		EF54C5BE9E8DD4CA9F013287 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				07E32EE1DD27F494DDDE4396 /* Acknowledgements.txt */,
+				7AA27C26D087C68E67C623BE /* PrivacyInfo.xcprivacy */,
+				0BA0A70885F18546E72A7367 /* PrivacyPolicy.txt */,
 				B0B47C275B1E56A189D30AB0 /* TrackMapping.json */,
 			);
 			path = Resources;
@@ -431,6 +449,10 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				311549CD54CC1E7ED7B769B4 /* Acknowledgements.txt in Resources */,
+				16D59E22EE2C82CEF02399F3 /* Assets.xcassets in Resources */,
+				D87A7A4E8CEAC0EFA09338EE /* PrivacyInfo.xcprivacy in Resources */,
+				ABB7C6A2D0171645BAF8483B /* PrivacyPolicy.txt in Resources */,
 				DCC7C320CD8A8D07A84B75AA /* TrackMapping.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -459,6 +481,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				350538E02E918D2D728C85BB /* AppInformationTests.swift in Sources */,
 				AA03F9EF57278E75BC717F2A /* AudioPlayerTests.swift in Sources */,
 				9E2F0005399BF81BD6037195 /* CatalogTests.swift in Sources */,
 				34B77BE4C8ADA5BB3D4A14E2 /* LibraryRepositoryTests.swift in Sources */,
@@ -471,6 +494,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				358E368585CDC88670508AF0 /* AppInformation.swift in Sources */,
 				6CA10B3129775676853D820F /* AudioPlayer.swift in Sources */,
 				48030B40E4FA13E63EFA7DD0 /* AudioSessionController.swift in Sources */,
 				D6B05E1655C734B78F78BC21 /* Catalog.swift in Sources */,
@@ -640,10 +664,11 @@
 		85595CC53291CA1D7F6E27AE /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CURRENT_PROJECT_VERSION = 1;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Companion/Info.plist;
-				INFOPLIST_KEY_CFBundleDisplayName = "Unofficial Companion to 'Scottish Gaelic In 12 Weeks'";
+				INFOPLIST_KEY_CFBundleDisplayName = "Unofficial Gaelic Companion";
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.education";
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
@@ -682,10 +707,11 @@
 		CB0C07255102EF22DA790356 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CURRENT_PROJECT_VERSION = 1;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Companion/Info.plist;
-				INFOPLIST_KEY_CFBundleDisplayName = "Unofficial Companion to 'Scottish Gaelic In 12 Weeks'";
+				INFOPLIST_KEY_CFBundleDisplayName = "Unofficial Gaelic Companion";
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.education";
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";

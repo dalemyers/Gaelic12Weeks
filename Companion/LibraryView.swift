@@ -107,6 +107,8 @@ struct LibraryView: View {
                             Button("Reset all listening progress", role: .destructive) {
                                 confirmingProgressReset = true
                             }
+                            Divider()
+                            AppInformationLinks()
                         }.padding(24)
                     }
                     .accessibilityIdentifier("aboutScroll")
@@ -152,6 +154,8 @@ struct LibraryView: View {
                 .buttonStyle(.borderedProminent)
                 .disabled(library.isImporting || library.mapping == nil)
                 .accessibilityIdentifier("welcomeImport")
+                Divider()
+                AppInformationLinks()
             }.padding(24).frame(maxWidth: 650, alignment: .leading).frame(maxWidth: .infinity)
         }
         .accessibilityIdentifier("welcomeScroll")
