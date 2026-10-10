@@ -1,4 +1,6 @@
-# Unofficial Companion to 'Scottish Gaelic In 12 Weeks'
+# Unofficial Gaelic Companion
+
+Unofficial Companion to "Scottish Gaelic in Twelve Weeks".
 
 A native SwiftUI iPhone/iPad app (iOS 17+) for listening to user-imported book audio.
 The app contains **no recordings**, does not fetch audio, and is not affiliated with
@@ -8,8 +10,8 @@ the book's authors or publisher.
 
 Open `GaelicCompanion.xcodeproj`, choose the `GaelicCompanion` scheme and an iOS
 simulator, then Run. For a physical device, select your own development team under
-Signing & Capabilities. The display name is the full requested title; iOS may
-truncate long names on the Home Screen.
+Signing & Capabilities. The short display name is "Unofficial Gaelic Companion";
+the full title appears inside the app.
 The app identifiers are `io.myers.GaelicCompanion` (iOS) and
 `io.myers.GaelicIntroEditor` (Mac); test bundles use the same `io.myers.` prefix.
 
@@ -26,6 +28,24 @@ xcodebuild -project GaelicCompanion.xcodeproj -scheme GaelicCompanion \
 
 Choose an installed simulator name if different. Build settings are explicit in
 `project.yml`, rather than relying on an XcodeGen installation's preset files.
+
+## Privacy, licensing, and releases
+
+Privacy policy and acknowledgements are available offline before import and in
+**About & download**. The app does not collect or upload user data. It has no
+accounts, analytics, ads, or app-operated cloud sync; the policy distinguishes
+local storage from operating-system backups and external websites.
+
+The app's code and original artwork use the [MIT license](LICENSE).
+ZIPFoundation's notice is included in
+[Acknowledgements](Companion/Resources/Acknowledgements.txt). The software
+license does not grant rights to the book, publisher artwork, or imported audio.
+
+See [contributing](CONTRIBUTING.md), [security reporting](SECURITY.md), and the
+[release checklist](docs/RELEASE.md). Support-page copy is in
+[docs/SUPPORT.md](docs/SUPPORT.md); hosting and App Store submission are separate
+steps. The GitHub workflow compiles both apps, runs iOS unit tests and clean-install
+UI checks, and generates a review ZIP containing only original synthetic tones.
 
 ## Import and listen
 
