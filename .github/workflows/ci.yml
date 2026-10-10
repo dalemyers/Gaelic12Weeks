@@ -1,0 +1,67 @@
+name: Build and test
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ci-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  ios:
+    runs-on: macos-26
+    timeout-minutes: 40
+    env:
+      DEVELOPER_DIR: /Applications/Xcode_26.6.app/Contents/Developer
+    steps:
+      - uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09 # v5
+        with:
+          persist-credentials: false
+      - name: Choose an available iPhone simulator
+        run: |
+          xcodebuild -version
+          device=$(xcrun simctl list devices available --json | python3 -c '
+          import json, sys
+          devices = json.load(sys.stdin)["devices"]
+          runtimes = sorted((r for r in devices if ".iOS-" in r), reverse=True)
+          print(next(d["udid"] for r in runtimes for d in devices[r] if d["name"].startswith("iPhone")))
+          ')
+          echo "TEST_DEVICE=$device" >> "$GITHUB_ENV"
+      - name: Unit tests and clean-install UI
+        run: |
+          xcodebuild -project GaelicCompanion.xcodeproj -scheme GaelicCompanion \
+            -destination "platform=iOS Simulator,id=$TEST_DEVICE" \
+            -derivedDataPath build/CI -resultBundlePath build/iOS-tests.xcresult \
+            -parallel-testing-enabled NO \
+            -only-testing:GaelicCompanionTests \
+            -only-testing:GaelicCompanionUITests/OnboardingTests/testOnboardingBeforeImport \
+            -only-testing:GaelicCompanionUITests/OnboardingTests/testPrivacyAndAcknowledgementsBeforeImport \
+            CODE_SIGNING_ALLOWED=NO test
+      - name: Compile the iOS release
+        run: |
+          xcodebuild -project GaelicCompanion.xcodeproj -scheme GaelicCompanion \
+            -configuration Release -destination 'generic/platform=iOS' \
+            -derivedDataPath build/CI CODE_SIGNING_ALLOWED=NO build
+      - name: Build the developer editor
+        run: |
+          xcodebuild -project GaelicCompanion.xcodeproj -scheme GaelicIntroEditor \
+            -configuration Release -destination 'platform=macOS' \
+            -derivedDataPath build/CI CODE_SIGNING_ALLOWED=NO build
+      - name: Create the review sample
+        run: python3 scripts/create_review_sample.py
+      - name: Save results
+        if: always()
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
+        with:
+          name: review-and-test-results
+          path: |
+            build/iOS-tests.xcresult
+            build/ReviewSample.zip
+          if-no-files-found: warn
+          retention-days: 14
