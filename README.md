@@ -44,8 +44,12 @@ license does not grant rights to the book, publisher artwork, or imported audio.
 See [contributing](CONTRIBUTING.md), [security reporting](SECURITY.md), and the
 [release checklist](docs/RELEASE.md). Support-page copy is in
 [docs/SUPPORT.md](docs/SUPPORT.md); hosting and App Store submission are separate
-steps. The GitHub workflow compiles both apps, runs iOS unit tests and clean-install
-UI checks, and generates a review ZIP containing only original synthetic tones.
+steps. The GitHub workflow builds both apps, runs iOS and Mac unit tests plus
+clean-install iOS UI checks, and generates a review ZIP containing only original
+synthetic tones. Pushing a `vMAJOR.MINOR.PATCH` tag publishes a GitHub Release
+after those checks pass, containing unsigned developer builds and the sample.
+It does not upload anything to Apple. See the release checklist for activation,
+asset limitations, and recovery from an interrupted publication.
 
 ## Import and listen
 

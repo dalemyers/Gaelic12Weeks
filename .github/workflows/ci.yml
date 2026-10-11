@@ -1,8 +1,9 @@
-name: Build and test
+name: Build, test, and release
 
 on:
   push:
     branches: [main]
+    tags: ['v*']
   pull_request:
   workflow_dispatch:
 
@@ -11,18 +12,39 @@ permissions:
 
 concurrency:
   group: ci-${{ github.workflow }}-${{ github.ref }}
-  cancel-in-progress: true
+  cancel-in-progress: ${{ !startsWith(github.ref, 'refs/tags/') }}
 
 jobs:
   ios:
     runs-on: macos-26
-    timeout-minutes: 40
+    timeout-minutes: 60
+    outputs:
+      version: ${{ steps.metadata.outputs.version }}
+      source_sha: ${{ steps.metadata.outputs.source_sha }}
     env:
       DEVELOPER_DIR: /Applications/Xcode_26.6.app/Contents/Developer
     steps:
       - uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09 # v5
         with:
           persist-credentials: false
+      - name: Prepare build metadata
+        id: metadata
+        env:
+          BUILD_REF: ${{ github.ref }}
+          TAG_NAME: ${{ github.ref_name }}
+        run: |
+          : > "$RUNNER_TEMP/BuildVersion.xcconfig"
+          echo "source_sha=$(git rev-parse HEAD)" >> "$GITHUB_OUTPUT"
+          if [[ "$BUILD_REF" == refs/tags/* ]]; then
+            if [[ ! "$TAG_NAME" =~ ^v(0|[1-9][0-9]*)\.(0|[1-9][0-9]*)\.(0|[1-9][0-9]*)$ ]]; then
+              echo "::error::Release tags must be vMAJOR.MINOR.PATCH without leading zeros or suffixes."
+              exit 1
+            fi
+            version="${TAG_NAME#v}"
+            printf 'MARKETING_VERSION = %s\nCURRENT_PROJECT_VERSION = %s\n' \
+              "$version" "$GITHUB_RUN_NUMBER" > "$RUNNER_TEMP/BuildVersion.xcconfig"
+            echo "version=$version" >> "$GITHUB_OUTPUT"
+          fi
       - name: Choose an available iPhone simulator
         run: |
           xcodebuild -version
@@ -36,25 +58,96 @@ jobs:
       - name: Unit tests and clean-install UI
         run: |
           xcodebuild -project GaelicCompanion.xcodeproj -scheme GaelicCompanion \
+            -xcconfig "$RUNNER_TEMP/BuildVersion.xcconfig" \
             -destination "platform=iOS Simulator,id=$TEST_DEVICE" \
             -derivedDataPath build/CI -resultBundlePath build/iOS-tests.xcresult \
-            -parallel-testing-enabled NO \
+            -parallel-testing-enabled NO -enableCodeCoverage NO \
             -only-testing:GaelicCompanionTests \
             -only-testing:GaelicCompanionUITests/OnboardingTests/testOnboardingBeforeImport \
             -only-testing:GaelicCompanionUITests/OnboardingTests/testPrivacyAndAcknowledgementsBeforeImport \
             CODE_SIGNING_ALLOWED=NO test
-      - name: Compile the iOS release
+      - name: Archive the unsigned iOS release
         run: |
           xcodebuild -project GaelicCompanion.xcodeproj -scheme GaelicCompanion \
+            -xcconfig "$RUNNER_TEMP/BuildVersion.xcconfig" \
             -configuration Release -destination 'generic/platform=iOS' \
-            -derivedDataPath build/CI CODE_SIGNING_ALLOWED=NO build
-      - name: Build the developer editor
+            -derivedDataPath build/CI -archivePath build/GaelicCompanion.xcarchive \
+            CODE_SIGNING_ALLOWED=NO archive
+      - name: Test the developer editor
         run: |
           xcodebuild -project GaelicCompanion.xcodeproj -scheme GaelicIntroEditor \
+            -xcconfig "$RUNNER_TEMP/BuildVersion.xcconfig" \
+            -destination 'platform=macOS' -derivedDataPath build/CI \
+            -resultBundlePath build/Mac-tests.xcresult -parallel-testing-enabled NO \
+            -only-testing:GaelicIntroEditorTests CODE_SIGN_IDENTITY=- test
+      - name: Build the unsigned universal Mac editor
+        run: |
+          xcodebuild -project GaelicCompanion.xcodeproj -scheme GaelicIntroEditor \
+            -xcconfig "$RUNNER_TEMP/BuildVersion.xcconfig" \
             -configuration Release -destination 'platform=macOS' \
-            -derivedDataPath build/CI CODE_SIGNING_ALLOWED=NO build
+            -derivedDataPath build/CI ARCHS='arm64 x86_64' ONLY_ACTIVE_ARCH=NO \
+            CODE_SIGNING_ALLOWED=NO build
       - name: Create the review sample
         run: python3 scripts/create_review_sample.py
+      - name: Package tag release
+        if: startsWith(github.ref, 'refs/tags/')
+        env:
+          VERSION: ${{ steps.metadata.outputs.version }}
+          SOURCE_SHA: ${{ steps.metadata.outputs.source_sha }}
+        run: |
+          ios="build/packages/GaelicCompanion-$VERSION-unsigned-ios"
+          mac="build/packages/GaelicIntroEditor-$VERSION-unsigned-macos"
+          assets="build/release-assets"
+          mkdir -p "$ios" "$mac" "$assets"
+          ditto build/GaelicCompanion.xcarchive "$ios/GaelicCompanion.xcarchive"
+          ditto build/CI/Build/Products/Release/GaelicIntroEditor.app "$mac/GaelicIntroEditor.app"
+          cp LICENSE "$ios/LICENSE.txt"
+          cp LICENSE "$mac/LICENSE.txt"
+          for plist in \
+            "$ios/GaelicCompanion.xcarchive/Products/Applications/GaelicCompanion.app/Info.plist" \
+            "$mac/GaelicIntroEditor.app/Contents/Info.plist"; do
+            test "$(plutil -extract CFBundleShortVersionString raw -o - "$plist")" = "$VERSION"
+            test "$(plutil -extract CFBundleVersion raw -o - "$plist")" = "$GITHUB_RUN_NUMBER"
+          done
+          architectures=$(lipo "$mac/GaelicIntroEditor.app/Contents/MacOS/GaelicIntroEditor" -archs)
+          for architecture in arm64 x86_64; do
+            if [[ " $architectures " != *" $architecture "* ]]; then
+              echo "::error::Mac release is missing architecture $architecture."
+              exit 1
+            fi
+          done
+          ditto -c -k --keepParent "$ios" "$assets/GaelicCompanion-$VERSION-unsigned-ios.zip"
+          ditto -c -k --keepParent "$mac" "$assets/GaelicIntroEditor-$VERSION-unsigned-macos.zip"
+          cp build/ReviewSample.zip "$assets/ReviewSample.zip"
+          (
+            cd "$assets"
+            shasum -a 256 -- *.zip > SHA256SUMS
+          )
+          cat > "$assets/RELEASE_NOTES.md" <<EOF
+          ## Unofficial Gaelic Companion $VERSION
+
+          Built from commit $SOURCE_SHA after the workflow's tests passed.
+
+          - **iOS:** unsigned Release xcarchive and MIT license. This is a developer artifact,
+            not an installable IPA, TestFlight build, or App Store submission.
+          - **Mac editor:** unsigned, unnotarized universal app for Apple silicon and Intel,
+            with its MIT license. macOS may prevent it from opening; build and sign the source
+            locally if needed. This is a developer tool, not a Mac App Store release.
+          - **ReviewSample.zip:** original synthetic tones with importable filenames and title
+            metadata. It contains no book recordings. Import only into a test installation:
+            it replaces that installation's current audio library.
+          - **SHA256SUMS:** checksums for the three ZIP assets.
+
+          No Apple signing, App Store upload, or publisher audio is included.
+          EOF
+      - name: Save release assets
+        if: startsWith(github.ref, 'refs/tags/')
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
+        with:
+          name: release-assets
+          path: build/release-assets/
+          if-no-files-found: error
+          retention-days: 14
       - name: Save results
         if: always()
         uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
@@ -62,6 +155,44 @@ jobs:
           name: review-and-test-results
           path: |
             build/iOS-tests.xcresult
+            build/Mac-tests.xcresult
             build/ReviewSample.zip
           if-no-files-found: warn
           retention-days: 14
+
+  publish:
+    name: Publish GitHub Release
+    if: github.event_name == 'push' && startsWith(github.ref, 'refs/tags/v')
+    needs: ios
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/download-artifact@d3f86a106a0bac45b974a628896c90dbdf5c8093 # v4
+        with:
+          name: release-assets
+          path: release-assets
+      - name: Verify and publish tested artifacts
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GH_REPO: ${{ github.repository }}
+          TAG_NAME: ${{ github.ref_name }}
+          SOURCE_SHA: ${{ needs.ios.outputs.source_sha }}
+          VERSION: ${{ needs.ios.outputs.version }}
+        run: |
+          test "$TAG_NAME" = "v$VERSION"
+          remote_sha=$(gh api "repos/$GH_REPO/commits/$TAG_NAME" --jq .sha)
+          if [[ "$remote_sha" != "$SOURCE_SHA" ]]; then
+            echo "::error::The tag no longer points to the tested commit. Refusing to publish."
+            exit 1
+          fi
+          cd release-assets
+          sha256sum --check SHA256SUMS
+          gh release create "$TAG_NAME" --verify-tag --draft \
+            --title "$TAG_NAME" --notes-file RELEASE_NOTES.md
+          gh release upload "$TAG_NAME" \
+            "GaelicCompanion-$VERSION-unsigned-ios.zip" \
+            "GaelicIntroEditor-$VERSION-unsigned-macos.zip" \
+            ReviewSample.zip SHA256SUMS
+          gh release edit "$TAG_NAME" --draft=false

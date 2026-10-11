@@ -78,10 +78,64 @@ in App Review notes. Draft notes:
 Do not submit with the placeholder or rely solely on the publisher's website.
 Use a fresh installation for the sample: importing replaces the current library.
 
+## GitHub Actions and tag publication
+
+The `Build, test, and release` workflow runs on pull requests, pushes to `main`,
+manual dispatch, and tags starting with `v`. Publication is **GitHub Releases
+only**: no Apple secrets, signing, TestFlight upload, or App Store submission.
+
+Every run executes iOS unit tests and clean-install onboarding/privacy UI tests,
+archives the unsigned iOS app, runs Mac editor unit tests, builds a universal
+unsigned Mac editor, and generates the original review sample. Imported-library
+UI tests and Mac UI automation are not part of this workflow.
+
+Tag builds require exactly `vMAJOR.MINOR.PATCH`, such as `v1.0.0`. Leading zeros,
+prerelease suffixes, and build-metadata suffixes are rejected. The tag supplies
+`MARKETING_VERSION`; the Actions run number supplies `CURRENT_PROJECT_VERSION`
+without changing the checked-in project. The workflow checks both packaged apps'
+versions and the Mac app's arm64/x86_64 architectures.
+
+After all checks pass, a separate job with `contents: write` verifies that the
+remote tag still points to the tested commit, checks the ZIP checksums, creates
+a draft release, uploads its assets, then publishes it. Pull requests, branch
+pushes, and manual runs cannot publish. Tag runs are not cancelled by a newer run
+for the same tag.
+
+Release assets:
+
+- `GaelicCompanion-VERSION-unsigned-ios.zip`: a Release `.xcarchive` and MIT
+  license, **not an installable IPA**.
+- `GaelicIntroEditor-VERSION-unsigned-macos.zip`: unsigned, unnotarized universal
+  `.app` and MIT license. macOS may prevent it from opening; build and sign the
+  source locally if needed.
+- `ReviewSample.zip`: original synthetic review tones, never publisher audio.
+- `SHA256SUMS`: checksums of the three ZIPs.
+
+To activate the workflow, commit and push it to GitHub. No personal access token
+or Apple credentials are needed; it uses the run's scoped `GITHUB_TOKEN`. A
+release has the repository's visibility, so it is not publicly accessible while
+the repository is private. Do not use a private asset URL for external App Review.
+
+When ready to intentionally publish a version:
+
+```sh
+git switch main
+git pull --ff-only
+git tag -a v1.0.0 -m "Release 1.0.0"
+git push origin v1.0.0
+```
+
+Do not reuse or move a published tag. If upload/publishing fails, the release
+remains a draft; inspect it and delete **only that incomplete draft, not the tag**
+before rerunning the failed publication job. The workflow deliberately refuses
+to overwrite an existing release or replace assets. If its retained build
+artifact has expired, rerun the full workflow for the original tag.
+
 ## Validation gates
 
 - [ ] CI passes on the proposed release commit. CI covers unit tests, clean
-  onboarding/privacy UI, iOS Release compilation, and Mac editor compilation.
+  onboarding/privacy UI, iOS Release archiving, Mac editor unit tests, and Mac
+  editor compilation.
   Imported-library UI tests require separately prepared fixtures and are not
   implied by a green clean-install CI run.
 - [ ] Review a signed Release archive: icon, display name, privacy and license
