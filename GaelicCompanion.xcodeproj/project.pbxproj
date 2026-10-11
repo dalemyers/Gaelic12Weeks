@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 77;
+	objectVersion = 63;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -97,7 +97,7 @@
 		67F4121489AA4B5456DD2FEC /* LibraryRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LibraryRepository.swift; sourceTree = "<group>"; };
 		70959AE1864E970EB753E1BF /* IntroAudioPlayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IntroAudioPlayer.swift; sourceTree = "<group>"; };
 		7A79532F57F631C9BBA0E306 /* GaelicIntroEditorTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = GaelicIntroEditorTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		7AA27C26D087C68E67C623BE /* PrivacyInfo.xcprivacy */ = {isa = PBXFileReference; path = PrivacyInfo.xcprivacy; sourceTree = "<group>"; };
+		7AA27C26D087C68E67C623BE /* PrivacyInfo.xcprivacy */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = PrivacyInfo.xcprivacy; sourceTree = "<group>"; };
 		7B7500365A86148739A56E64 /* AppInformation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppInformation.swift; sourceTree = "<group>"; };
 		7E18BC4BEE952E0395C179A0 /* GaelicIntroEditor.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = GaelicIntroEditor.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		81EBA3B9F1E6252B63812747 /* IntroMetadataStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IntroMetadataStore.swift; sourceTree = "<group>"; };
@@ -108,7 +108,7 @@
 		A7FB5F03662FCDDD8176C28B /* MappingReviewView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MappingReviewView.swift; sourceTree = "<group>"; };
 		AC7908DECBF19A2B136D97D0 /* IntroAudioTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IntroAudioTests.swift; sourceTree = "<group>"; };
 		B0B47C275B1E56A189D30AB0 /* TrackMapping.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = TrackMapping.json; sourceTree = "<group>"; };
-		B3EEFC72829A74C73D6567BF /* GaelicCompanion.app */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.application; path = GaelicCompanion.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		B3EEFC72829A74C73D6567BF /* GaelicCompanion.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = GaelicCompanion.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B74618D018F3F2E4C579C2E8 /* LibraryModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LibraryModel.swift; sourceTree = "<group>"; };
 		BADB3AD01CD832C9035774B8 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		C2163EE967703B120BEC5CE5 /* synthetic.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = synthetic.mp3; sourceTree = "<group>"; };
@@ -395,9 +395,6 @@
 				BuildIndependentTargetsInParallel = YES;
 				LastUpgradeCheck = 1430;
 				TargetAttributes = {
-					176FD5C8CFA2C7A24C025486 = {
-						ProvisioningStyle = Automatic;
-					};
 					3573A50C6047F2EF3F2A2082 = {
 						ProvisioningStyle = Automatic;
 					};
@@ -430,7 +427,6 @@
 			packageReferences = (
 				2C47ED479D0B8D1C7622D3C8 /* XCRemoteSwiftPackageReference "ZIPFoundation" */,
 			);
-			preferredProjectObjectVersion = 77;
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
@@ -665,7 +661,11 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_STYLE = Manual;
 				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = "";
+				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = CK6MR26P44;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Companion/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = "Unofficial Gaelic Companion";
@@ -674,7 +674,12 @@
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = io.myers.GaelicCompanion;
+				PRODUCT_BUNDLE_IDENTIFIER = io.myers.gaeliccompanion;
+				PROVISIONING_PROFILE_SPECIFIER = "";
+				"PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]" = "Gaelic Companion iOS - Development";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
+				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;
 		};
@@ -708,7 +713,11 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_STYLE = Manual;
 				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = "";
+				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = CK6MR26P44;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Companion/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = "Unofficial Gaelic Companion";
@@ -717,7 +726,12 @@
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = io.myers.GaelicCompanion;
+				PRODUCT_BUNDLE_IDENTIFIER = io.myers.gaeliccompanion;
+				PROVISIONING_PROFILE_SPECIFIER = "";
+				"PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]" = "Gaelic Companion iOS - Development";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
+				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
 		};
