@@ -8,3 +8,6 @@
 - Routine mapping-review imports use JSON consistency and diff checks; do not rerun the test suites for every data update.
 - Section cascades track pending manual deltas separately from shifted proposals, so confirmation applies an offset once and leaves already-confirmed rows unchanged.
 - Re-import lives in About; defer its root confirmation until the About sheet's onDismiss to avoid overlapping modal presentations.
+- A standalone iOS 27.1 Duo probe confirmed that ignoring horizontal container safe areas on the footer expands it to full width while sibling NavigationStack toolbar actions remain above it; keep the bottom safe area intact.
+- Gate toolbarVerticalEdge with SwiftUI module version 8.0.85 as well as runtime iOS 27.1 availability; Xcode 27 and 27.1 share Swift 6.4, and CI uses an older SDK.
+- About & download has no player on any device; scope its UI assertions to aboutContent because the library's player remains behind the sheet.

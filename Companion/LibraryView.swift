@@ -42,6 +42,7 @@ struct LibraryView: View {
                 }
             }
             .fixedSize(horizontal: false, vertical: true)
+            .modifier(PlayerFooterSafeArea())
         }
         .fileImporter(
             isPresented: $showingImporter, allowedContentTypes: [.zip], allowsMultipleSelection: false
@@ -120,9 +121,9 @@ struct LibraryView: View {
                         Text("All lessons and recordings will be marked unlistened. Your audio will not be removed.")
                     }
                 }
-                PlaybackView(player: library.player)
-                    .fixedSize(horizontal: false, vertical: true)
             }
+            .accessibilityElement(children: .contain)
+            .accessibilityIdentifier("aboutContent")
 #if DEBUG
             .sheet(isPresented: $showingMappingReview, onDismiss: library.endMappingReview) {
                 if let mapping = library.mapping {
@@ -242,6 +243,25 @@ struct LibraryView: View {
             }
             Button("Cancel import", role: .cancel) { library.cancelImport() }
         }.padding().frame(maxWidth: .infinity).background(.regularMaterial)
+    }
+}
+
+private struct PlayerFooterSafeArea: ViewModifier {
+    @Environment(\.self) private var environment
+
+    /// Reclaims the vertical bar's side inset without removing ordinary landscape camera insets.
+    func body(content: Content) -> some View {
+        content.ignoresSafeArea(.container, edges: expandedEdges)
+    }
+
+    private var expandedEdges: Edge.Set {
+        // SwiftUI 8.0.85 ships with iOS 27.1; runtime availability alone cannot protect older SDK builds.
+#if canImport(SwiftUI, _version: 8.0.85)
+        guard #available(iOS 27.1, *) else { return [] }
+        return environment.toolbarVerticalEdge == nil ? [] : .horizontal
+#else
+        return []
+#endif
     }
 }
 

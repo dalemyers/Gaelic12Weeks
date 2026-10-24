@@ -124,7 +124,7 @@ final class OnboardingTests: XCTestCase {
         XCTAssertEqual(app.buttons["skipForward"].firstMatch.label, "Forward 5 seconds")
     }
 
-    /// The one-minute synthetic fixture keeps the same working player visible throughout navigation.
+    /// Library navigation keeps its player, while About omits controls without interrupting playback.
     @MainActor
     func testPlayerAcrossLibraryNavigation() throws {
         let app = XCUIApplication()
@@ -138,7 +138,9 @@ final class OnboardingTests: XCTestCase {
         app.buttons["aboutAudio"].tap()
         XCTAssertTrue(app.navigationBars["About & download"].waitForExistence(timeout: 5))
         XCTAssertTrue(app.buttons["replaceAudio"].exists)
-        XCTAssertTrue(app.otherElements.matching(identifier: "miniPlayer").allElementsBoundByIndex.last?.exists == true)
+        let aboutContent = app.otherElements["aboutContent"]
+        XCTAssertTrue(aboutContent.waitForExistence(timeout: 5))
+        XCTAssertFalse(aboutContent.descendants(matching: .any).matching(identifier: "miniPlayer").firstMatch.exists)
         app.buttons["Done"].tap()
         app.buttons["lesson-1"].tap()
         XCTAssertTrue(app.buttons["track-2"].waitForExistence(timeout: 5))
@@ -160,12 +162,17 @@ final class OnboardingTests: XCTestCase {
         XCTAssertEqual(app.sliders["playbackPosition"].value as? String, "0:05 of 1:00")
         app.buttons["skipBackward"].tap()
         XCTAssertEqual(app.sliders["playbackPosition"].value as? String, "0:00 of 1:00")
-        app.navigationBars.buttons.element(boundBy: 0).tap()
+        app.descendants(matching: .any).matching(identifier: "BackButton").firstMatch.tap()
         XCTAssertTrue(app.buttons["lesson-1"].waitForExistence(timeout: 5))
         XCTAssertTrue(toggle.isHittable)
         toggle.tap()
         expectation(for: playing, evaluatedWith: toggle)
         waitForExpectations(timeout: 5)
+        app.buttons["aboutAudio"].tap()
+        XCTAssertTrue(aboutContent.waitForExistence(timeout: 5))
+        XCTAssertFalse(aboutContent.buttons["togglePlayback"].exists)
+        app.descendants(matching: .any).matching(identifier: "Done").firstMatch.tap()
+        XCTAssertEqual(toggle.label, "Pause")
         toggle.tap()
     }
 

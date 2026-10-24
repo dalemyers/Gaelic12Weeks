@@ -66,7 +66,8 @@ Before the first successful import, onboarding shows the download instructions
 and its primary ZIP import action, without a player or import/info toolbar buttons.
 Import progress and cancellation remain available during extraction.
 Once audio is imported, the compact bottom player stays visible while browsing
-lessons and sections, during replacement imports, and in About & download.
+lessons and sections and during replacement imports. About & download does not
+show the player; opening it does not stop playback.
 Before a recording is selected it shows "Select a recording" with disabled controls.
 Navigation and the player/import footer occupy separate layout regions, so the
 last row can scroll fully above the player even when its height changes.
@@ -376,8 +377,9 @@ jq --arg generation "$GENERATION" \
   Companion/Resources/TrackMapping.json > "$LIBRARY/Current.json"
 ```
 
-These checks assert that each complete row is above the player's top edge, not
-just that XCTest reports the row as hittable.
+These checks measure complete rows within the visible content area: above the
+player in the library, or within the player-free About sheet. They do not rely
+only on XCTest reporting a row as hittable.
 
 When the local `Audio/` folder exists, an optional integration test builds a
 temporary ZIP of its 150 individual tracks and exercises the production importer
